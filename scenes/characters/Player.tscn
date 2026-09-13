@@ -121,4 +121,3 @@ limit_bottom = 300
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
-

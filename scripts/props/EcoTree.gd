@@ -1,12 +1,16 @@
+@tool
 extends StaticBody2D
 class_name EcoTree
 
 const TEX_OAK = preload("res://assets/environment/farmland/oak_tree_large.png")
 const TEX_PINE = preload("res://assets/environment/farmland/pine_tree_large.png")
 const TEX_BUSHY = preload("res://assets/environment/farmland/tree_bushy_large.png")
-const TEX_BUSH = preload("res://assets/environment/farmland/bush_large.png")
 
-@export_enum("oak", "pine", "bushy", "bush") var tree_type: String = "oak"
+@export_enum("oak", "pine", "bushy") var tree_type: String = "oak":
+	set(val):
+		tree_type = val
+		if is_node_ready():
+			_setup_variant()
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var shadow: Sprite2D = $GroundShadow
@@ -15,8 +19,9 @@ const TEX_BUSH = preload("res://assets/environment/farmland/bush_large.png")
 func _ready() -> void:
 	y_sort_enabled = true
 	_setup_variant()
-	GameManager.shift_started.connect(_on_shift_started)
-	_apply_shift_visuals(GameManager.current_shift, false)
+	if not Engine.is_editor_hint():
+		GameManager.shift_started.connect(_on_shift_started)
+		_apply_shift_visuals(GameManager.current_shift, false)
 
 func _setup_variant() -> void:
 	if not sprite:
@@ -36,13 +41,6 @@ func _setup_variant() -> void:
 				collision.position = Vector2(0, -4)
 			if shadow:
 				shadow.scale = Vector2(1.1, 0.6)
-		"bush":
-			sprite.texture = TEX_BUSH
-			sprite.position = Vector2(0, -26)
-			if collision:
-				collision.position = Vector2(0, -4)
-			if shadow:
-				shadow.scale = Vector2(1.3, 0.6)
 		_:
 			sprite.texture = TEX_OAK
 			sprite.position = Vector2(0, -64)
@@ -69,3 +67,4 @@ func _apply_shift_visuals(shift_num: int, animate: bool) -> void:
 		tween.tween_property(sprite, "modulate", target_color, 2.0)
 	else:
 		sprite.modulate = target_color
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=15 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="8_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="9_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="10_eco_tree"]
-[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="11_hud"]
+[ext_resource type="PackedScene" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -126,7 +127,6 @@ shape = SubResource("RectangleShape2D_div_wall")
 position = Vector2(-150, 140)
 shape = SubResource("RectangleShape2D_div_wall")
 
-
 [node name="YSortEntities" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -188,23 +188,27 @@ tree_type = "pine"
 [node name="EcoTree6" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
 position = Vector2(220, 150)
 
-[node name="EcoBush1" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
+[node name="EcoTree7" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
+position = Vector2(340, -150)
+tree_type = "pine"
+
+[node name="EcoTree8" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
+position = Vector2(340, 155)
+tree_type = "bushy"
+
+[node name="EcoBush1" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(250, -30)
-tree_type = "bush"
 
-[node name="EcoBush2" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
+[node name="EcoBush2" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(420, 30)
-tree_type = "bush"
 
-[node name="EcoBush3" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
+[node name="EcoBush3" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(336, -90)
-tree_type = "bush"
 
 [node name="Player" parent="YSortEntities" instance=ExtResource("9_player")]
 position = Vector2(0, 65)
 
-[node name="HUD" parent="." instance=ExtResource("11_hud")]
+[node name="HUD" parent="." instance=ExtResource("12_hud")]
+
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
-bus = &"Master"
-
