@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
 [ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="4_pipe_h"]
 [ext_resource type="Texture2D" uid="uid://wf8itsppejgn" path="res://assets/environment/farmland/fence_32x16.png" id="5_fence_tex"]
-[ext_resource type="PackedScene" path="res://scenes/props/WaterStation.tscn" id="6_water_station"]
+[ext_resource type="PackedScene" uid="uid://6fjxdg5fj5sp" path="res://scenes/props/WaterStation.tscn" id="6_water_station"]
 [ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="7_server_rack"]
-[ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="8_farm_plot"]
+[ext_resource type="PackedScene" uid="uid://di5r75jg84xgk" path="res://scenes/props/FarmPlot.tscn" id="8_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="9_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="10_eco_tree"]
 [ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
@@ -194,7 +194,7 @@ position = Vector2(340, -150)
 tree_type = "pine"
 
 [node name="EcoTree8" parent="YSortEntities" instance=ExtResource("10_eco_tree")]
-position = Vector2(340, 155)
+position = Vector2(338, 158)
 tree_type = "bushy"
 
 [node name="EcoBush1" parent="YSortEntities" instance=ExtResource("11_eco_bush")]

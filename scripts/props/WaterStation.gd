@@ -15,7 +15,6 @@ var is_targeted: bool = false
 var was_interacted_this_frame: bool = false
 
 func _ready() -> void:
-	y_sort_enabled = true
 	bubble_particles.emitting = false
 	prompt_label.visible = false
 	

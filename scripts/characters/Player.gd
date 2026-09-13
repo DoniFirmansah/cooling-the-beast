@@ -33,7 +33,6 @@ func remove_slow_effect() -> void:
 		speed_modifier = 1.0
 
 func _ready() -> void:
-	y_sort_enabled = true
 	water_particles.emitting = false
 	sprite.position.y = SPRITE_BASE_Y
 	

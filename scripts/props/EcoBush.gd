@@ -10,7 +10,6 @@ const TEX_BUSH = preload("res://assets/environment/farmland/bush_large.png")
 var rustle_tween: Tween
 
 func _ready() -> void:
-	y_sort_enabled = true
 	if not Engine.is_editor_hint():
 		body_entered.connect(_on_body_entered)
 		body_exited.connect(_on_body_exited)

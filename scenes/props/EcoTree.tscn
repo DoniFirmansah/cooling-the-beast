@@ -9,16 +9,14 @@ radius = 8.0
 height = 28.0
 
 [node name="EcoTree" type="StaticBody2D"]
-y_sort_enabled = true
 script = ExtResource("1_tree_script")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
-position = Vector2(0, 0)
-scale = Vector2(1.4, 0.8)
+position = Vector2(0, -68)
 texture = ExtResource("3_shadow_tex")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -64)
+position = Vector2(0, -68)
 texture = ExtResource("2_tree_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

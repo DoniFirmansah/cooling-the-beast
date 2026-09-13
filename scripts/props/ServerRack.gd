@@ -29,7 +29,6 @@ var led_timer: float = 0.0
 var pulse_timer: float = 0.0
 
 func _ready() -> void:
-	y_sort_enabled = true
 	steam_particles.emitting = false
 	smoke_particles.emitting = false
 	fire_particles.emitting = false

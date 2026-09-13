@@ -9,7 +9,6 @@ radius = 16.0
 height = 52.0
 
 [node name="EcoBush" type="Area2D"]
-y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_bush_script")
 

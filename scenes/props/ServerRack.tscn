@@ -56,7 +56,6 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="ServerRack" type="StaticBody2D"]
-y_sort_enabled = true
 script = ExtResource("1_rack_script")
 
 [node name="BasePad" type="Sprite2D" parent="."]

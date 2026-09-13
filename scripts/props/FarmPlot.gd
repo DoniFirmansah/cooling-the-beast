@@ -25,7 +25,6 @@ var zero_moisture_timer: float = 0.0
 const MAX_ZERO_TIME: float = 6.0
 
 func _ready() -> void:
-	y_sort_enabled = true
 	splash_particles.emitting = false
 	_update_visuals()
 
