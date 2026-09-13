@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="9_eco_tree"]
 [ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="10_eco_bush"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="11_hud"]
-[ext_resource type="PackedScene" uid="uid://c4q4y8d5r6t2s" path="res://scenes/props/ServerRoom.tscn" id="12_server_room"]
+[ext_resource type="PackedScene" path="res://scenes/props/ServerRoomV2.tscn" id="12_server_room"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
