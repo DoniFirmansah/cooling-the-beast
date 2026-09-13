@@ -114,7 +114,7 @@ func set_target_highlight(active: bool) -> void:
 	else:
 		basin_frame.modulate = Color.WHITE
 
-func interact_tick(delta: float, _player: Node) -> bool:
+func interact_tick(delta: float, player: Node) -> bool:
 	if GameManager.current_water >= GameManager.MAX_BACKPACK_WATER or GameManager.reservoir_water <= 0.0:
 		splash_particles.emitting = false
 		return false
@@ -123,6 +123,11 @@ func interact_tick(delta: float, _player: Node) -> bool:
 	var success: bool = GameManager.refill_water(refill_rate * delta)
 	if success:
 		splash_particles.emitting = true
+		if player != null and is_instance_valid(player) and player is Node2D:
+			var p_node: Node2D = player as Node2D
+			var dir_to_player: Vector2 = (p_node.global_position - global_position).normalized()
+			splash_particles.position = dir_to_player * 24.0
+			splash_particles.direction = dir_to_player
 		if refill_audio and not refill_audio.playing:
 			refill_audio.play()
 		return true
