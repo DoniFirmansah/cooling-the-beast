@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5ik0uh7jn03i"]
+
+[ext_resource type="Texture2D" uid="uid://cs7s6pprqpsi2" path="res://assets/pixel-cyberpunk-interior.png" id="1_ltcyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_left_post"]
+size = Vector2(12, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_right_post"]
+size = Vector2(12, 32)
+
+[node name="DoorStructure" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ltcyr")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 65)
+
+[node name="CollisionLeftPost" type="CollisionShape2D" parent="."]
+position = Vector2(-26, 16)
+shape = SubResource("RectangleShape2D_left_post")
+
+[node name="CollisionRightPost" type="CollisionShape2D" parent="."]
+position = Vector2(26, 16)
+shape = SubResource("RectangleShape2D_right_post")
+

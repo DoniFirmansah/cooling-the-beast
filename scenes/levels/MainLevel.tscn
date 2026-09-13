@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=20 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="10_eco_tree"]
 [ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
+[ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="13_door_structure"]
+[ext_resource type="PackedScene" uid="uid://ophfrnxv8dnw" path="res://assets/environment/server_room/wall_structure.tscn" id="14_wall_structure"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -19,8 +21,15 @@ size = Vector2(1240, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(24, 520)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_div_wall"]
-size = Vector2(16, 210)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_wall_h"]
+size = Vector2(440, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_wall_v"]
+size = Vector2(24, 380)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_south_seg"]
+size = Vector2(185, 24)
+
 
 [node name="MainLevel" type="Node2D"]
 position = Vector2(-4, 2)
@@ -49,8 +58,18 @@ color = Color(1, 0.45, 0.15, 0.75)
 [node name="MetalFloorServerBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.6, 0.65, 0.72, 1)
 texture_repeat = 2
-offset_left = -600.0
-offset_top = -240.0
+offset_left = -585.0
+offset_top = -225.0
+offset_right = -155.0
+offset_bottom = 145.0
+texture = ExtResource("2_floor_metal")
+stretch_mode = 1
+
+[node name="WalkwayBelowBuilding" type="TextureRect" parent="Floors"]
+modulate = Color(0.48, 0.52, 0.58, 1)
+texture_repeat = 2
+offset_left = -585.0
+offset_top = 145.0
 offset_right = -150.0
 offset_bottom = 240.0
 texture = ExtResource("2_floor_metal")
@@ -77,10 +96,10 @@ texture = ExtResource("3_floor_grass")
 stretch_mode = 1
 
 [node name="BuildingBorderTint" type="ColorRect" parent="Floors"]
-offset_left = -152.0
-offset_top = -240.0
-offset_right = -148.0
-offset_bottom = 240.0
+offset_left = -157.0
+offset_top = -225.0
+offset_right = -153.0
+offset_bottom = 145.0
 color = Color(0.2, 0.45, 0.7, 0.8)
 
 [node name="PipesBackground" type="Node2D" parent="Floors"]
@@ -100,7 +119,6 @@ offset_right = 320.0
 offset_bottom = 12.0
 texture = ExtResource("4_pipe_h")
 stretch_mode = 1
-
 
 [node name="GroundShadows" type="Node2D" parent="." groups=["ground_shadows"]]
 
@@ -123,33 +141,55 @@ shape = SubResource("RectangleShape2D_wall_v")
 position = Vector2(605, 0)
 shape = SubResource("RectangleShape2D_wall_v")
 
-[node name="FacilityDoorWallNorth" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-150, -140)
-shape = SubResource("RectangleShape2D_div_wall")
+[node name="BuildingNorthWall" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-370, -225)
+shape = SubResource("RectangleShape2D_bldg_wall_h")
 
-[node name="FacilityDoorWallSouth" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-150, 140)
-shape = SubResource("RectangleShape2D_div_wall")
+[node name="BuildingWestWall" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-585, -40)
+shape = SubResource("RectangleShape2D_bldg_wall_v")
+
+[node name="BuildingEastWall" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-155, -40)
+shape = SubResource("RectangleShape2D_bldg_wall_v")
+
+[node name="BuildingSouthWallLeft" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-492, 145)
+shape = SubResource("RectangleShape2D_bldg_south_seg")
+
+[node name="BuildingSouthWallRight" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-248, 145)
+shape = SubResource("RectangleShape2D_bldg_south_seg")
 
 [node name="YSortEntities" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="WallStructureLeft" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
+position = Vector2(-490, 110)
+
+[node name="WallStructureRight" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
+position = Vector2(-250, 110)
+
+[node name="DoorStructure" parent="YSortEntities" instance=ExtResource("13_door_structure")]
+position = Vector2(-370, 138)
 
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-430, -75)
+position = Vector2(-460, -75)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-270, -75)
+position = Vector2(-280, -75)
 rack_variant = "cluster_b"
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-430, 85)
+position = Vector2(-460, 65)
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-270, 85)
+position = Vector2(-280, 65)
 rack_variant = "cluster_b"
+
 
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
 position = Vector2(320, -16)
