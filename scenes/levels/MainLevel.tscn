@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=26 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -27,16 +27,19 @@ size = Vector2(1240, 24)
 size = Vector2(24, 520)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top_wall"]
-size = Vector2(436, 30)
+size = Vector2(436, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_wall"]
-size = Vector2(24, 270)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_left_wall"]
+size = Vector2(5, 270)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_right_wall"]
+size = Vector2(7.75, 270)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_left"]
-size = Vector2(192, 28)
+size = Vector2(198, 61)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_right"]
-size = Vector2(183, 28)
+size = Vector2(188.5, 60)
 
 [node name="MainLevel" type="Node2D"]
 position = Vector2(-4, 2)
@@ -73,7 +76,7 @@ texture = ExtResource("2_floor_metal")
 stretch_mode = 1
 
 [node name="BorderTintServerBuilding" type="ColorRect" parent="Floors"]
-offset_left = -134.0
+offset_left = -133.0
 offset_top = -180.0
 offset_right = -132.0
 offset_bottom = 140.0
@@ -183,7 +186,7 @@ scale = Vector2(0.973214, 1)
 texture = ExtResource("15_top_wall_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/TopWallColl"]
-position = Vector2(-4, -2)
+position = Vector2(-4, 7)
 shape = SubResource("RectangleShape2D_top_wall")
 
 [node name="LeftWallColl" type="StaticBody2D" parent="YSortEntities"]
@@ -196,8 +199,8 @@ scale = Vector2(1, 0.988281)
 texture = ExtResource("16_left_wall_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/LeftWallColl"]
-position = Vector2(-30, -5)
-shape = SubResource("RectangleShape2D_side_wall")
+position = Vector2(-20.5, -5)
+shape = SubResource("RectangleShape2D_left_wall")
 
 [node name="RightWallColl" type="StaticBody2D" parent="YSortEntities"]
 position = Vector2(-148, -20)
@@ -209,8 +212,8 @@ scale = Vector2(0.921875, 0.990625)
 texture = ExtResource("17_right_wall_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/RightWallColl"]
-position = Vector2(21.25, -5)
-shape = SubResource("RectangleShape2D_side_wall")
+position = Vector2(13.125, -5)
+shape = SubResource("RectangleShape2D_right_wall")
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("18_server_rack")]
 position = Vector2(-460, -45)
@@ -236,8 +239,14 @@ collision_mask = 0
 [node name="Sprite2D" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
 texture = ExtResource("19_bot_left_tex")
 
+[node name="LeftPillar" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
+position = Vector2(-100, 1)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(56, 0, 7, 65)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
-position = Vector2(0, 2)
+position = Vector2(-3, 1.5)
 shape = SubResource("RectangleShape2D_bot_left")
 
 [node name="DoorStructure" parent="YSortEntities/DownWallColl" instance=ExtResource("20_door_structure")]
@@ -251,21 +260,15 @@ position = Vector2(-4.5, 0)
 scale = Vector2(0.953125, 1)
 texture = ExtResource("21_bot_right_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/DownWallColl/BottomWallRight"]
-position = Vector2(-4.5, 2)
-shape = SubResource("RectangleShape2D_bot_right")
-
-[node name="RightPillar" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(-584, 109)
-texture = ExtResource("14_cyberpunk_tex")
-region_enabled = true
-region_rect = Rect2(56, 0, 7, 65)
-
-[node name="LeftPillar" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(-137, 108)
+[node name="Pixel-cyberpunk-interior2" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallRight"]
+position = Vector2(91, 0)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(0, 0, 8, 65)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/DownWallColl/BottomWallRight"]
+position = Vector2(-0.75, 2)
+shape = SubResource("RectangleShape2D_bot_right")
 
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)
