@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=30 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -18,10 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="20_door_structure"]
 [ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="21_bot_right_tex"]
 [ext_resource type="Texture2D" uid="uid://bmyenu33y86tu" path="res://assets/environment/farmland/stone_ground_32.png" id="22_stone_ground"]
-[ext_resource type="Texture2D" path="res://assets/environment/farmland/farmland_bed_wet.png" id="23_farmland_bed"]
 [ext_resource type="PackedScene" path="res://scenes/props/FarmEnclosure.tscn" id="24_farm_enclosure"]
 [ext_resource type="PackedScene" path="res://scenes/props/FarmBarn.tscn" id="25_farm_barn"]
-[ext_resource type="Texture2D" path="res://assets/environment/farmland/farm_pot.png" id="26_farm_pot"]
+[ext_resource type="Texture2D" uid="uid://dqjilfqx4rwc7" path="res://assets/environment/farmland/farm_pot.png" id="26_farm_pot"]
 [ext_resource type="PackedScene" path="res://scenes/props/FarmChicken.tscn" id="27_farm_chicken"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
@@ -128,14 +127,6 @@ offset_top = -240.0
 offset_right = 600.0
 offset_bottom = 240.0
 texture = ExtResource("3_floor_grass")
-stretch_mode = 1
-
-[node name="FarmlandBed" type="TextureRect" parent="Floors"]
-offset_left = 256.0
-offset_top = -48.0
-offset_right = 416.0
-offset_bottom = 48.0
-texture = ExtResource("23_farmland_bed")
 stretch_mode = 1
 
 [node name="GroundShadows" type="Node2D" parent="." groups=["ground_shadows"]]

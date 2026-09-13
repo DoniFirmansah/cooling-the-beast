@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://py7wwiyn2xn4" path="res://assets/environment/ground_shadow.png" id="3_shadow_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
-size = Vector2(28, 14)
+size = Vector2(36, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 30.0
+radius = 34.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.1, 0.12, 0.15, 0.85)
@@ -34,7 +34,7 @@ script = ExtResource("1_plot_script")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
 position = Vector2(0, 10)
-scale = Vector2(0.9, 0.7)
+scale = Vector2(1.1, 0.7)
 texture = ExtResource("3_shadow_tex")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

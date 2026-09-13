@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7farmchicken1"]
+[gd_scene load_steps=3 format=3 uid="uid://dr20uwh67iipw"]
 
 [ext_resource type="Script" path="res://scripts/props/FarmChicken.gd" id="1_chicken_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/chicken_spritesheet.png" id="2_chicken_tex"]
