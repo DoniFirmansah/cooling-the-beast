@@ -20,6 +20,7 @@ var is_spraying: bool = false
 var walk_timer: float = 0.0
 var speed_modifier: float = 1.0
 var active_slow_sources: int = 0
+var occluding_sources_count: int = 0
 
 const SPRITE_BASE_Y: float = -24.0
 
@@ -31,6 +32,21 @@ func remove_slow_effect() -> void:
 	active_slow_sources = max(0, active_slow_sources - 1)
 	if active_slow_sources == 0:
 		speed_modifier = 1.0
+
+func set_occluded(active: bool) -> void:
+	if active:
+		occluding_sources_count += 1
+	else:
+		occluding_sources_count = max(0, occluding_sources_count - 1)
+	_update_occlusion_shader()
+
+func _update_occlusion_shader() -> void:
+	if not sprite:
+		return
+	var mat: ShaderMaterial = sprite.material as ShaderMaterial
+	if mat:
+		mat.set_shader_parameter("is_occluded", occluding_sources_count > 0)
+
 
 func _ready() -> void:
 	water_particles.emitting = false

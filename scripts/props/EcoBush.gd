@@ -11,10 +11,22 @@ var rustle_tween: Tween
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
+		_setup_ground_shadow()
 		body_entered.connect(_on_body_entered)
 		body_exited.connect(_on_body_exited)
 		GameManager.shift_started.connect(_on_shift_started)
 		_apply_shift_visuals(GameManager.current_shift, false)
+
+func _setup_ground_shadow() -> void:
+	if not Engine.is_editor_hint():
+		var shadows_group: Node = get_tree().get_first_node_in_group("ground_shadows")
+		if shadows_group:
+			for sh in [shadow, get_node_or_null("GroundShadow2")]:
+				if sh:
+					var gp: Vector2 = sh.global_position
+					sh.get_parent().remove_child(sh)
+					shadows_group.add_child(sh)
+					sh.global_position = gp
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("add_slow_effect"):
