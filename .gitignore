@@ -1,5 +1,6 @@
 .godot/
 reference-skills/
+.agents/
 build/
 .venv/
 *.zip
