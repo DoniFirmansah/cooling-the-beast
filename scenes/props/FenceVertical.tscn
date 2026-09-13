@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7fencevertical1"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/fence_v_48.png" id="1_v48"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
+size = Vector2(8, 48)
+
+[node name="FenceVertical" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_v48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_foot")
