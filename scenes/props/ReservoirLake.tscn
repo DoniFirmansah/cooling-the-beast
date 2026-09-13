@@ -12,13 +12,11 @@
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/flower_yellow_01.png" id="10_flower1"]
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/flower_white_01.png" id="11_flower2"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_center_barrier"]
-radius = 20.0
-height = 68.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_water_barrier"]
+size = Vector2(128, 62)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_interaction"]
-radius = 62.0
-height = 190.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
+size = Vector2(156, 88)
 
 [sub_resource type="Curve" id="Curve_splash"]
 _data = [Vector2(0, 0.4), 0.0, 2.5, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
@@ -44,7 +42,7 @@ texture = ExtResource("4_mid_tex")
 texture = ExtResource("5_deep_tex")
 
 [node name="WoodenDock" type="Sprite2D" parent="."]
-position = Vector2(0, 36)
+position = Vector2(0, 32)
 texture = ExtResource("6_dock_tex")
 
 [node name="ShoreDecorations" type="Node2D" parent="."]
@@ -70,16 +68,15 @@ position = Vector2(40, 42)
 texture = ExtResource("11_flower2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_center_barrier")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_water_barrier")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_interaction")
+shape = SubResource("RectangleShape2D_interaction")
 
 [node name="SplashParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, -5)

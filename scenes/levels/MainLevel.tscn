@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="19_bot_left_tex"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="20_door_structure"]
 [ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="21_bot_right_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/farmland/stone_ground_32.png" id="22_stone_ground"]
+[ext_resource type="Texture2D" uid="uid://bmyenu33y86tu" path="res://assets/environment/farmland/stone_ground_32.png" id="22_stone_ground"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
