@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
 [ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="4_pipe_h"]
 [ext_resource type="PackedScene" path="res://scenes/props/WaterStation.tscn" id="5_water_station"]
-[ext_resource type="PackedScene" path="res://scenes/props/ServerRack.tscn" id="6_server_rack"]
+[ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="6_server_rack"]
 [ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="7_farm_plot"]
 [ext_resource type="PackedScene" path="res://scenes/characters/Player.tscn" id="8_player"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="9_hud"]

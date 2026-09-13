@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctb_server_rack_01"]
+[gd_scene load_steps=12 format=3 uid="uid://d0o7xldmvlsen"]
 
-[ext_resource type="Script" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_cluster_a.png" id="3_cabinet_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_leds.png" id="4_leds_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
+[ext_resource type="Script" uid="uid://bguknryxharfq" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
+[ext_resource type="Texture2D" uid="uid://brpaedroj80xb" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
+[ext_resource type="Texture2D" uid="uid://cn8ht2fcot2u7" path="res://assets/environment/server_room/server_cluster_a.png" id="3_cabinet_tex"]
+[ext_resource type="Texture2D" uid="uid://b20s8r0aefim5" path="res://assets/environment/server_room/server_monitor_complete.png" id="4_07oa7"]
+[ext_resource type="Texture2D" uid="uid://v674k7ftuurv" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
 size = Vector2(72, 16)
@@ -60,7 +60,7 @@ y_sort_enabled = true
 script = ExtResource("1_rack_script")
 
 [node name="BasePad" type="Sprite2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(0, 29)
 texture = ExtResource("2_base_pad")
 
 [node name="CabinetSprite" type="Sprite2D" parent="."]
@@ -69,7 +69,7 @@ texture = ExtResource("3_cabinet_tex")
 
 [node name="LedOverlay" type="Sprite2D" parent="."]
 position = Vector2(0, -10)
-texture = ExtResource("4_leds_tex")
+texture = ExtResource("4_07oa7")
 
 [node name="CoolingManifold" type="Sprite2D" parent="."]
 position = Vector2(0, -38)
@@ -180,5 +180,3 @@ theme_override_font_sizes/font_size = 11
 text = "❄️ [SPASI] DINGINKAN"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-

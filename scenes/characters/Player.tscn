@@ -8,7 +8,7 @@
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
-radius = 28.0
+radius = 34.0
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -16,29 +16,30 @@ collision_mask = 1
 script = ExtResource("1_player_script")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
-position = Vector2(0, 11)
-scale = Vector2(0.65, 0.55)
+position = Vector2(0, 0)
+scale = Vector2(0.75, 0.55)
 texture = ExtResource("3_shadow_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
-shape = SubResource("CircleShape2D_feet")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -26)
 texture = ExtResource("2_player_tex")
 hframes = 4
 vframes = 4
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_feet")
+
 [node name="InteractionDetector" type="Area2D" parent="."]
+position = Vector2(0, -10)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector"]
-position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_interact")
 
 [node name="WaterParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, -18)
 emitting = false
 amount = 32
 lifetime = 0.35
@@ -52,3 +53,4 @@ color = Color(0.25, 0.75, 1, 0.85)
 
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
 bus = &"Master"
+
