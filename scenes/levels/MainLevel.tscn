@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="8_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="9_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="10_eco_tree"]
-[ext_resource type="PackedScene" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
+[ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
@@ -23,6 +23,7 @@ size = Vector2(24, 520)
 size = Vector2(16, 210)
 
 [node name="MainLevel" type="Node2D"]
+position = Vector2(-4, 2)
 script = ExtResource("1_level_script")
 
 [node name="EnvModulate" type="CanvasModulate" parent="."]
@@ -198,12 +199,15 @@ tree_type = "bushy"
 
 [node name="EcoBush1" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(250, -30)
+collision_layer = 1
 
 [node name="EcoBush2" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(420, 30)
+collision_layer = 1
 
 [node name="EcoBush3" parent="YSortEntities" instance=ExtResource("11_eco_bush")]
 position = Vector2(336, -90)
+collision_layer = 1
 
 [node name="Player" parent="YSortEntities" instance=ExtResource("9_player")]
 position = Vector2(0, 65)

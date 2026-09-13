@@ -26,10 +26,12 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var end_stats: Label = %EndStats
 @onready var end_moral: Label = %EndMoral
 @onready var btn_restart: Button = %BtnRestart
+@onready var btn_end_menu: Button = %BtnEndMenu
 
 @onready var pause_screen: Control = %PauseScreen
 @onready var btn_resume: Button = %BtnResume
 @onready var btn_pause_restart: Button = %BtnPauseRestart
+@onready var btn_pause_menu: Button = %BtnPauseMenu
 
 var audio_player: AudioStreamPlayer
 
@@ -56,6 +58,10 @@ func _ready() -> void:
 	btn_restart.pressed.connect(_on_restart_pressed)
 	btn_resume.pressed.connect(_on_resume_pressed)
 	btn_pause_restart.pressed.connect(_on_restart_pressed)
+	if btn_end_menu:
+		btn_end_menu.pressed.connect(_on_menu_pressed)
+	if btn_pause_menu:
+		btn_pause_menu.pressed.connect(_on_menu_pressed)
 	if btn_next_shift:
 		btn_next_shift.pressed.connect(_on_next_shift_pressed)
 	
@@ -94,6 +100,11 @@ func _on_resume_pressed() -> void:
 func _on_restart_pressed() -> void:
 	_play_sfx(SFX_CLICK)
 	GameManager.restart_current_game()
+
+func _on_menu_pressed() -> void:
+	_play_sfx(SFX_CLICK)
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _on_next_shift_pressed() -> void:
 	_play_sfx(SFX_CLICK)

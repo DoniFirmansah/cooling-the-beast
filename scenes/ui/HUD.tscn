@@ -380,7 +380,7 @@ layout_mode = 2
 
 [node name="BtnRestart" type="Button" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 42)
+custom_minimum_size = Vector2(180, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -388,6 +388,17 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "MAIN LAGI (RESTART)"
+
+[node name="BtnEndMenu" type="Button" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "◀  MENU UTAMA"
 
 [node name="PauseScreen" type="Control" parent="."]
 unique_name_in_owner = true
@@ -417,13 +428,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PauseScreen/CenterContainer"]
-custom_minimum_size = Vector2(320, 240)
+custom_minimum_size = Vector2(320, 260)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 14
 alignment = 1
 
 [node name="Label" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
@@ -434,7 +445,7 @@ horizontal_alignment = 1
 
 [node name="BtnResume" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 36)
+custom_minimum_size = Vector2(160, 34)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
@@ -443,10 +454,20 @@ text = "LANJUTKAN"
 
 [node name="BtnPauseRestart" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 36)
+custom_minimum_size = Vector2(160, 34)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "MULAI ULANG"
+
+[node name="BtnPauseMenu" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "MENU UTAMA"
+
 

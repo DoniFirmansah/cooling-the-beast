@@ -41,7 +41,11 @@ const SHIFT_CONFIG: Dictionary = {
 	}
 }
 
+const SAVE_PATH: String = "user://aqua7_save.json"
+
 var current_shift: int = 1
+var saved_shift: int = 1
+var unlocked_endings: Dictionary = {}
 var current_water: float = 100.0
 var reservoir_water: float = 250.0
 var max_reservoir_shift: float = 250.0
@@ -54,7 +58,56 @@ var total_water_used_crops: float = 0.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	load_save_file()
 	start_new_game()
+
+func load_save_file() -> void:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file:
+		var text: String = file.get_as_text()
+		var data = JSON.parse_string(text)
+		if data is Dictionary:
+			if data.has("unlocked_endings") and data["unlocked_endings"] is Dictionary:
+				unlocked_endings = data["unlocked_endings"]
+			if data.has("saved_shift"):
+				saved_shift = int(data["saved_shift"])
+
+func save_game_data() -> void:
+	var data: Dictionary = {
+		"unlocked_endings": unlocked_endings,
+		"saved_shift": current_shift
+	}
+	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(data))
+
+func unlock_ending(code: String) -> void:
+	unlocked_endings[code] = true
+	save_game_data()
+
+func is_ending_unlocked(code: String) -> bool:
+	return unlocked_endings.get(code, false)
+
+func start_new_game_from_menu() -> void:
+	current_shift = 1
+	saved_shift = 1
+	food_security = 100.0
+	server_integrity = 100.0
+	total_water_used_servers = 0.0
+	total_water_used_crops = 0.0
+	save_game_data()
+	get_tree().change_scene_to_file("res://scenes/levels/MainLevel.tscn")
+
+func start_loaded_game() -> void:
+	load_save_file()
+	current_shift = saved_shift
+	food_security = 100.0
+	server_integrity = 100.0
+	total_water_used_servers = 0.0
+	total_water_used_crops = 0.0
+	get_tree().change_scene_to_file("res://scenes/levels/MainLevel.tscn")
 
 func start_new_game() -> void:
 	current_shift = 1
@@ -67,6 +120,7 @@ func start_new_game() -> void:
 
 func reset_state() -> void:
 	start_new_game()
+
 
 func _setup_shift(shift_num: int) -> void:
 	current_shift = shift_num
@@ -161,6 +215,7 @@ func _check_early_failure() -> void:
 func _trigger_early_defeat(reason: String) -> void:
 	is_game_active = false
 	get_tree().paused = true
+	unlock_ending("TOTAL_COLLAPSE")
 	game_finished.emit("TOTAL_COLLAPSE", "BENCANA EKOLOGI TOTAL", reason, _get_stats())
 
 func _evaluate_final_endings() -> void:
@@ -168,6 +223,7 @@ func _evaluate_final_endings() -> void:
 	get_tree().paused = true
 	var stats: Dictionary = _get_stats()
 	if food_security >= 35.0 and server_integrity >= 25.0:
+		unlock_ending("HARMONY")
 		game_finished.emit(
 			"HARMONY",
 			"ENDING 1/3: KESEIMBANGAN RAPUH (TRUE ENDING)",
@@ -175,6 +231,7 @@ func _evaluate_final_endings() -> void:
 			stats
 		)
 	elif food_security > server_integrity:
+		unlock_ending("ORGANIC")
 		game_finished.emit(
 			"ORGANIC",
 			"ENDING 2/3: NURANI ORGANIK (PANGAN DISELAMATKAN)",
@@ -182,12 +239,14 @@ func _evaluate_final_endings() -> void:
 			stats
 		)
 	else:
+		unlock_ending("SILICON")
 		game_finished.emit(
 			"SILICON",
 			"ENDING 3/3: GURUN SILIKON (SERVER DISELAMATKAN)",
 			"Unit AQUA-7 mematuhi direktif korporasi AI global. Mega server berhasil didinginkan, namun sawah warga mati menjadi debu tandus. AI tercerdas di dunia kini berpikir di atas bumi yang mati kelaparan.",
 			stats
 		)
+
 
 func _get_stats() -> Dictionary:
 	return {
