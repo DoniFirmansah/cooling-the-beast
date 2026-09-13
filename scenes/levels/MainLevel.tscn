@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=25 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -14,6 +14,11 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="13_door_structure"]
 [ext_resource type="PackedScene" uid="uid://ophfrnxv8dnw" path="res://assets/environment/server_room/wall_structure.tscn" id="14_wall_structure"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/building_top_wall_448.png" id="15_bldg_top_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/left_wall_col.png" id="16_bldg_left_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/right_wall_col.png" id="17_bldg_right_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/bottom_wall_left_192.png" id="18_bldg_bot_left"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/bottom_wall_right_192.png" id="19_bldg_bot_right"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -22,13 +27,13 @@ size = Vector2(1240, 24)
 size = Vector2(24, 520)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_wall_h"]
-size = Vector2(440, 24)
+size = Vector2(448, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_wall_v"]
-size = Vector2(24, 380)
+size = Vector2(24, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_south_seg"]
-size = Vector2(185, 24)
+size = Vector2(192, 28)
 
 
 [node name="MainLevel" type="Node2D"]
@@ -58,19 +63,19 @@ color = Color(1, 0.45, 0.15, 0.75)
 [node name="MetalFloorServerBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.6, 0.65, 0.72, 1)
 texture_repeat = 2
-offset_left = -585.0
-offset_top = -225.0
-offset_right = -155.0
-offset_bottom = 145.0
+offset_left = -580.0
+offset_top = -180.0
+offset_right = -132.0
+offset_bottom = 140.0
 texture = ExtResource("2_floor_metal")
 stretch_mode = 1
 
 [node name="WalkwayBelowBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.48, 0.52, 0.58, 1)
 texture_repeat = 2
-offset_left = -585.0
-offset_top = 145.0
-offset_right = -150.0
+offset_left = -600.0
+offset_top = 140.0
+offset_right = -132.0
 offset_bottom = 240.0
 texture = ExtResource("2_floor_metal")
 stretch_mode = 1
@@ -78,7 +83,7 @@ stretch_mode = 1
 [node name="CentralPlaza" type="TextureRect" parent="Floors"]
 modulate = Color(0.5, 0.55, 0.62, 1)
 texture_repeat = 2
-offset_left = -150.0
+offset_left = -132.0
 offset_top = -240.0
 offset_right = 150.0
 offset_bottom = 240.0
@@ -96,10 +101,10 @@ texture = ExtResource("3_floor_grass")
 stretch_mode = 1
 
 [node name="BuildingBorderTint" type="ColorRect" parent="Floors"]
-offset_left = -157.0
-offset_top = -225.0
-offset_right = -153.0
-offset_bottom = 145.0
+offset_left = -134.0
+offset_top = -180.0
+offset_right = -130.0
+offset_bottom = 140.0
 color = Color(0.2, 0.45, 0.7, 0.8)
 
 [node name="PipesBackground" type="Node2D" parent="Floors"]
@@ -142,52 +147,72 @@ position = Vector2(605, 0)
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="BuildingNorthWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-370, -225)
+position = Vector2(-356, -148)
 shape = SubResource("RectangleShape2D_bldg_wall_h")
 
 [node name="BuildingWestWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-585, -40)
+position = Vector2(-566, -20)
 shape = SubResource("RectangleShape2D_bldg_wall_v")
 
 [node name="BuildingEastWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-155, -40)
+position = Vector2(-146, -20)
 shape = SubResource("RectangleShape2D_bldg_wall_v")
 
 [node name="BuildingSouthWallLeft" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-492, 145)
+position = Vector2(-484, 110)
 shape = SubResource("RectangleShape2D_bldg_south_seg")
 
 [node name="BuildingSouthWallRight" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-248, 145)
+position = Vector2(-228, 110)
 shape = SubResource("RectangleShape2D_bldg_south_seg")
 
 [node name="YSortEntities" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="WallStructureLeft" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
-position = Vector2(-490, 110)
+[node name="BldgTopWall" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-356, -148)
+texture = ExtResource("15_bldg_top_wall")
 
-[node name="WallStructureRight" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
-position = Vector2(-250, 110)
+[node name="BldgLeftWall" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-564, -20)
+texture = ExtResource("16_bldg_left_wall")
+
+[node name="BldgRightWall" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-148, -20)
+texture = ExtResource("17_bldg_right_wall")
+
+[node name="BldgBottomLeft" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-484, 108)
+texture = ExtResource("18_bldg_bot_left")
 
 [node name="DoorStructure" parent="YSortEntities" instance=ExtResource("13_door_structure")]
-position = Vector2(-370, 138)
+position = Vector2(-356, 108)
+
+[node name="BldgBottomRight" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-228, 108)
+texture = ExtResource("19_bldg_bot_right")
+
+[node name="WallPillarLeft" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
+position = Vector2(-460, -140)
+
+[node name="WallPillarRight" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
+position = Vector2(-250, -140)
 
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-460, -75)
+position = Vector2(-460, -45)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-280, -75)
+position = Vector2(-250, -45)
 rack_variant = "cluster_b"
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-460, 65)
+position = Vector2(-460, 45)
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("7_server_rack")]
-position = Vector2(-280, 65)
+position = Vector2(-250, 45)
 rack_variant = "cluster_b"
 
 
