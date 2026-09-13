@@ -11,8 +11,16 @@ config_version=5
 [application]
 
 config/name="Cooling The Beast"
+run/main_scene="res://scenes/levels/MainLevel.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+
+[autoload]
+
+GlobalInput="*res://scripts/autoload/GlobalInput.gd"
+GameManager="*res://scripts/autoload/GameManager.gd"
+
 
 [display]
 

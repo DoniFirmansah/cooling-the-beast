@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctb_farm_plot_01"]
+
+[ext_resource type="Script" path="res://scripts/props/FarmPlot.gd" id="1_plot_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/plot_crop_mature.png" id="2_crop_mature"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
+size = Vector2(28, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
+radius = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="FarmPlot" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_plot_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_crop_mature")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_foot")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_zone")
+
+[node name="SplashParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 4)
+emitting = false
+amount = 16
+lifetime = 0.4
+direction = Vector2(0, -1)
+spread = 35.0
+gravity = Vector2(0, 40)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color = Color(0.2, 0.7, 1, 0.85)
+
+[node name="MoistureBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -22.0
+offset_right = 16.0
+offset_bottom = -18.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+show_percentage = false
+
+[node name="LabelStatus" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -36.0
+offset_right = 20.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 9
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctb_server_rack_01"]
+
+[ext_resource type="Script" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_single.png" id="2_rack_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
+size = Vector2(30, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
+radius = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ServerRack" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_rack_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("2_rack_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_foot")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, 12)
+shape = SubResource("CircleShape2D_zone")
+
+[node name="SteamParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -10)
+emitting = false
+amount = 20
+lifetime = 0.5
+direction = Vector2(0, -1)
+spread = 25.0
+gravity = Vector2(0, -30)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.9, 0.95, 1, 0.6)
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -12)
+emitting = false
+amount = 16
+lifetime = 0.7
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, -20)
+initial_velocity_min = 15.0
+initial_velocity_max = 35.0
+scale_amount_min = 2.5
+scale_amount_max = 5.0
+color = Color(0.2, 0.2, 0.2, 0.7)
+
+[node name="FireParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 0)
+emitting = false
+amount = 12
+lifetime = 0.3
+direction = Vector2(0, -1)
+spread = 45.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color = Color(1, 0.4, 0.1, 0.9)
+
+[node name="TempBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -42.0
+offset_right = 16.0
+offset_bottom = -38.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+show_percentage = false
+
+[node name="LabelTemp" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -56.0
+offset_right = 20.0
+offset_bottom = -42.0
+theme_override_font_sizes/font_size = 9
+text = "45°C"
+horizontal_alignment = 1
+vertical_alignment = 1

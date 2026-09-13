@@ -1,0 +1,340 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctb_hud_001"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_top"]
+bg_color = Color(0.08, 0.1, 0.14, 0.85)
+border_width_bottom = 2
+border_color = Color(0.2, 0.35, 0.5, 0.8)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.08, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.5, 0.7, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.18, 0.45, 0.75, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.25, 0.55, 0.9, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud_script")
+
+[node name="TopBar" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 56)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 40.0
+offset_right = -40.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_top")
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="ServerBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ServerBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "🖥️ SERVER AI (SIJORI)"
+
+[node name="ServerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "100%"
+
+[node name="ServerBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/ServerBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="WaterBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/WaterBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "💧 TANGKI AIR TEKNISI"
+
+[node name="WaterLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "100 / 100L"
+
+[node name="WaterBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/WaterBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="TimeBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "SISA SHIFT"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "01:30"
+horizontal_alignment = 1
+
+[node name="FoodBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
+
+[node name="BottomGuide" type="HBoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="GuideLabel" type="Label" parent="BottomGuide"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 13
+text = "◄ SEKTOR SERVER AI   |   [WASD] Gerak   [SHIFT] Dash   [SPASI / KLIK] Aksi Lapangan   |   SEKTOR SAWAH PANGAN ►"
+
+[node name="EndScreen" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="EndScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="EndScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="EndScreen/CenterContainer"]
+custom_minimum_size = Vector2(580, 420)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="EndScreen/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="EndTitle" type="Label" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "BERHASIL: KESEIMBANGAN TERJAGA!"
+horizontal_alignment = 1
+
+[node name="EndReason" type="Label" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "Shift Selesai. Semua sektor berhasil bertahan."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator1" type="HSeparator" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EndStats" type="Label" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 13
+text = "STATISTIK SUMBER DAYA AIR..."
+autowrap_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EndMoral" type="Label" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "Refleksi Isu Lingkungan..."
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="BtnRestart" type="Button" parent="EndScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "MAIN LAGI (RESTART)"
+
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "🌾 KETAHANAN PANGAN"
+
+[node name="FoodLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "100%"
+
+[node name="FoodBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="PauseScreen" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseScreen/CenterContainer"]
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "GAME DIJEDA"
+horizontal_alignment = 1
+
+[node name="BtnResume" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "LANJUTKAN"
+
+[node name="BtnPauseRestart" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "MULAI ULANG"
+

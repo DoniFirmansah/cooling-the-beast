@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctb_water_station_01"]
+
+[ext_resource type="Script" path="res://scripts/props/WaterStation.gd" id="1_station_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/pipes/water_station_32.png" id="2_station_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
+size = Vector2(28, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
+radius = 32.0
+
+[node name="WaterStation" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_station_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_station_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_foot")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_zone")
+
+[node name="BubbleParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 4)
+emitting = false
+amount = 18
+lifetime = 0.45
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, -35)
+initial_velocity_min = 20.0
+initial_velocity_max = 45.0
+scale_amount_min = 1.5
+scale_amount_max = 3.5
+color = Color(0.3, 0.85, 1, 0.8)
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -32.0
+offset_right = 50.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 9
+text = "TAHAN [SPASI] ISI AIR"
+horizontal_alignment = 1
+vertical_alignment = 1
