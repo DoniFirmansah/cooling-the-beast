@@ -6,3 +6,11 @@ build/
 *.zip
 *.html
 *.pdf
+*.eps
+*.ai
+*.unitypackage
+*.aseprite
+Thumbs.db
+__MACOSX/
+.DS_Store
+
