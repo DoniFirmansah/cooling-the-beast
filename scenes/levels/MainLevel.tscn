@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
-[ext_resource type="PackedScene" path="res://scenes/props/ReservoirLake.tscn" id="6_reservoir_lake"]
+[ext_resource type="PackedScene" uid="uid://bfilkntlcspy7" path="res://scenes/props/ReservoirLake.tscn" id="6_reservoir_lake"]
 [ext_resource type="PackedScene" uid="uid://di5r75jg84xgk" path="res://scenes/props/FarmPlot.tscn" id="7_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="8_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="9_eco_tree"]
@@ -69,6 +69,8 @@ scale_amount_max = 4.5
 color = Color(1, 0.45, 0.15, 0.75)
 
 [node name="Floors" type="Node2D" parent="."]
+z_index = -10
+z_as_relative = false
 
 [node name="MetalFloorServerBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.6, 0.65, 0.72, 1)
@@ -132,6 +134,8 @@ texture = ExtResource("3_floor_grass")
 stretch_mode = 1
 
 [node name="GroundShadows" type="Node2D" parent="." groups=["ground_shadows"]]
+z_index = -5
+z_as_relative = false
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0
