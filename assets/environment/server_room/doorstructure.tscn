@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5ik0uh7jn03i"]
 
-[ext_resource type="Texture2D" uid="uid://cs7s6pprqpsi2" path="res://assets/pixel-cyberpunk-interior.png" id="1_ltcyr"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/door_structure_combined.png" id="1_door_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_left_post"]
 size = Vector2(12, 32)
@@ -12,9 +12,7 @@ size = Vector2(12, 32)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ltcyr")
-region_enabled = true
-region_rect = Rect2(0, 0, 64, 65)
+texture = ExtResource("1_door_tex")
 
 [node name="CollisionLeftPost" type="CollisionShape2D" parent="."]
 position = Vector2(-26, 16)

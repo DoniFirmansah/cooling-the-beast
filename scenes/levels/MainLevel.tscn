@@ -14,11 +14,11 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="13_door_structure"]
 [ext_resource type="PackedScene" uid="uid://ophfrnxv8dnw" path="res://assets/environment/server_room/wall_structure.tscn" id="14_wall_structure"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/building_top_wall_448.png" id="15_bldg_top_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/left_wall_col.png" id="16_bldg_left_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/right_wall_col.png" id="17_bldg_right_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/bottom_wall_left_192.png" id="18_bldg_bot_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/bottom_wall_right_192.png" id="19_bldg_bot_right"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_top.png" id="15_bldg_top_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_left.png" id="16_bldg_left_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_right.png" id="17_bldg_right_wall"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="18_bldg_bot_left"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="19_bldg_bot_right"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -34,7 +34,6 @@ size = Vector2(24, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldg_south_seg"]
 size = Vector2(192, 28)
-
 
 [node name="MainLevel" type="Node2D"]
 position = Vector2(-4, 2)
@@ -192,12 +191,6 @@ position = Vector2(-356, 108)
 position = Vector2(-228, 108)
 texture = ExtResource("19_bldg_bot_right")
 
-[node name="WallPillarLeft" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
-position = Vector2(-460, -140)
-
-[node name="WallPillarRight" parent="YSortEntities" instance=ExtResource("14_wall_structure")]
-position = Vector2(-250, -140)
-
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)
 
@@ -214,7 +207,6 @@ position = Vector2(-460, 45)
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("7_server_rack")]
 position = Vector2(-250, 45)
 rack_variant = "cluster_b"
-
 
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
 position = Vector2(320, -16)
