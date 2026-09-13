@@ -96,14 +96,14 @@ position = Vector2(-165, -45)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("6_server_rack")]
 position = Vector2(-80, -45)
-rack_variant = "monitor"
+rack_variant = "cluster_b"
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("6_server_rack")]
 position = Vector2(-165, 55)
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("6_server_rack")]
 position = Vector2(-80, 55)
-rack_variant = "monitor"
+rack_variant = "cluster_b"
 
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
 position = Vector2(80, -45)

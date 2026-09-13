@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_rack_complete.png" id="3_cabinet_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_cluster_a.png" id="3_cabinet_tex"]
 [ext_resource type="Texture2D" path="res://assets/environment/server_room/server_leds.png" id="4_leds_tex"]
 [ext_resource type="Texture2D" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
 
