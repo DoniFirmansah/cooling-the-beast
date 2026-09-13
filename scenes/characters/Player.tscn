@@ -111,3 +111,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+limit_left = -640
+limit_top = -300
+limit_right = 640
+limit_bottom = 300
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
