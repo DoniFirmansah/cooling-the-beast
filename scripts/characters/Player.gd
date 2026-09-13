@@ -128,7 +128,7 @@ func _handle_interaction(delta: float) -> void:
 	if Input.is_action_pressed("interact") and current_interactable != null and is_instance_valid(current_interactable):
 		if current_interactable.has_method("interact_tick"):
 			var success: bool = current_interactable.interact_tick(delta, self)
-			if success and not (current_interactable is WaterStation):
+			if success and not (current_interactable is WaterStation or current_interactable is ReservoirLake or current_interactable.is_in_group("water_source")):
 				is_spraying = true
 	
 	if is_spraying:

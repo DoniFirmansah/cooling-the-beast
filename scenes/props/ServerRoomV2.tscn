@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bkhaly4supl64"]
+[gd_scene load_steps=15 format=3 uid="uid://bkhaly4supl64"]
 
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="1_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="7_door_structure"]
 [ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="8_server_rack"]
-[ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="9_pipe_h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
 size = Vector2(436, 48)
@@ -48,15 +47,6 @@ offset_top = -160.0
 offset_right = 224.0
 offset_bottom = 160.0
 color = Color(0.2, 0.45, 0.7, 0.8)
-
-[node name="CoolingPipe" type="TextureRect" parent="Floors"]
-texture_repeat = 2
-offset_left = -110.0
-offset_top = -8.0
-offset_right = 224.0
-offset_bottom = 8.0
-texture = ExtResource("9_pipe_h")
-stretch_mode = 1
 
 [node name="TopWallColl" type="StaticBody2D" parent="."]
 position = Vector2(0, -128)

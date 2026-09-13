@@ -142,13 +142,15 @@ func _on_reservoir_changed(current: float, max_amount: float) -> void:
 		reservoir_bar.max_value = max_amount
 		reservoir_bar.value = current
 	if reservoir_label:
-		reservoir_label.text = "%d / %dL" % [int(current), int(max_amount)]
+		var depth_m: float = (current / maxf(max_amount, 1.0)) * 3.5
 		if current <= 0.0:
-			reservoir_label.text = "HABIS! (0L)"
+			reservoir_label.text = "KERING (0L | 0.0m)"
 			reservoir_label.modulate = Color(1.0, 0.2, 0.2)
 		elif current < 50.0:
+			reservoir_label.text = "%dL (%.1fm)" % [int(current), depth_m]
 			reservoir_label.modulate = Color(1.0, 0.7, 0.2)
 		else:
+			reservoir_label.text = "%dL (%.1fm)" % [int(current), depth_m]
 			reservoir_label.modulate = Color(0.3, 0.85, 1.0)
 
 func _on_time_tick(seconds_left: int) -> void:
