@@ -99,7 +99,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
 theme_override_font_sizes/font_size = 11
-text = "🌊 DANAU SUMBER AIR"
+text = "💧 SUMBER AIR BERSIH"
 
 [node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
 unique_name_in_owner = true

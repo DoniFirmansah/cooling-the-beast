@@ -92,17 +92,17 @@ func _update_prompt() -> void:
 		var water_val: int = int(GameManager.reservoir_water)
 		
 		if GameManager.reservoir_water <= 0.0:
-			prompt_label.text = "⚠️ DANAU KERING TOTAL!\n(0L | Kedalaman: 0.0m)"
+			prompt_label.text = "⚠️ SUMBER AIR KERING TOTAL!\n(0L | Kedalaman: 0.0m)"
 			prompt_label.modulate = Color(1.0, 0.25, 0.25)
 		elif GameManager.current_water >= GameManager.MAX_BACKPACK_WATER:
-			prompt_label.text = "TANGKI PENUH\n(Danau: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
+			prompt_label.text = "TANGKI PENUH\n(Sumber Air: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
 			prompt_label.modulate = Color(0.4, 1.0, 0.4)
 		else:
 			if current_depth_meters < 1.0:
-				prompt_label.text = "[SPASI] TIMBA AIR (KRITIS)\n(Danau: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
+				prompt_label.text = "[SPASI] AMBIL AIR BERSIH (KRITIS)\n(Sisa: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
 				prompt_label.modulate = Color(1.0, 0.65, 0.2)
 			else:
-				prompt_label.text = "[SPASI] TIMBA AIR DANAU\n(Danau: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
+				prompt_label.text = "[SPASI] AMBIL AIR BERSIH\n(Sumber Air: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
 				prompt_label.modulate = Color(0.35, 0.9, 1.0)
 	else:
 		prompt_label.visible = false

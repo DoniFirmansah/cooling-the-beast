@@ -21,7 +21,7 @@ const SHIFT_CONFIG: Dictionary = {
 		"heat_mult": 1.0,
 		"dry_mult": 1.0,
 		"next_title": "LAPORAN SHIFT 1 SELESAI [AQUA-7]",
-		"next_desc": "Konsumsi terkendali. Laporan Satelit: Batch pelatihan model AI 2.0T parameter diaktifkan. Panas melonjak tajam untuk Shift 2. Kuota air waduk dipangkas ke 160L."
+		"next_desc": "Konsumsi terkendali. Laporan Satelit: Batch pelatihan model AI 2.0T parameter diaktifkan. Panas melonjak tajam untuk Shift 2. Cadangan sumber air bersih dipangkas ke 160L."
 	},
 	2: {
 		"title": "SHIFT 2: BEBAN KOMPUTASI MASIF",
@@ -29,7 +29,7 @@ const SHIFT_CONFIG: Dictionary = {
 		"heat_mult": 1.45,
 		"dry_mult": 1.35,
 		"next_title": "LAPORAN SHIFT 2 SELESAI [AQUA-7]",
-		"next_desc": "Krisis Ekstrem: Gelombang panas melanda. Waduk anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 90L! Air tidak cukup untuk semua sektor."
+		"next_desc": "Krisis Ekstrem: Gelombang panas melanda. Sumber air bersih anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 90L! Air tidak cukup untuk semua sektor."
 	},
 	3: {
 		"title": "SHIFT 3: DILEMA PENGORBANAN (ZERO-SUM)",
