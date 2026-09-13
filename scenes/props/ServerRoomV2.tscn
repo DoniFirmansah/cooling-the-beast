@@ -1,26 +1,30 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7w8r1k2m3v4x"]
+[gd_scene load_steps=16 format=3 uid="uid://bkhaly4supl64"]
 
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="1_floor_metal"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_left.png" id="3_wall_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_right.png" id="4_wall_right"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="5_wall_bot_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
+[ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
+[ext_resource type="Texture2D" uid="uid://iec7i5paej8i" path="res://pixel-cyberpunk-interior.png" id="3_yjp4i"]
+[ext_resource type="Texture2D" uid="uid://b30gsq80ssew" path="res://assets/environment/server_room/right_wall_col.png" id="5_fsjg6"]
+[ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="5_wall_bot_left"]
+[ext_resource type="Texture2D" uid="uid://b1t8mp1kcxv4x" path="res://assets/environment/server_room/left_wall_col.png" id="6_tesr5"]
+[ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="7_door_structure"]
 [ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="8_server_rack"]
 [ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="9_pipe_h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
-size = Vector2(448, 30)
+size = Vector2(436, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_left"]
-size = Vector2(24, 300)
+size = Vector2(24, 270)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_right"]
-size = Vector2(24, 300)
+size = Vector2(24, 270)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_down_seg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_down_left"]
 size = Vector2(192, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_down_right"]
+size = Vector2(183, 28)
 
 [node name="ServerRoomV2" type="Node2D"]
 y_sort_enabled = true
@@ -59,29 +63,38 @@ position = Vector2(0, -128)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="TopWallColl"]
+position = Vector2(-4, -2)
+scale = Vector2(0.973214, 1)
 texture = ExtResource("2_wall_top")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopWallColl"]
+position = Vector2(-4, -2)
 shape = SubResource("RectangleShape2D_top")
 
 [node name="LeftWallColl" type="StaticBody2D" parent="."]
 position = Vector2(-208, 0)
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="LeftWallColl"]
-texture = ExtResource("3_wall_left")
+[node name="LeftWallCol" type="Sprite2D" parent="LeftWallColl"]
+position = Vector2(-30, -36.875)
+scale = Vector2(1, 0.988281)
+texture = ExtResource("6_tesr5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallColl"]
+position = Vector2(-30, -5)
 shape = SubResource("RectangleShape2D_left")
 
 [node name="RightWallColl" type="StaticBody2D" parent="."]
 position = Vector2(208, 0)
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="RightWallColl"]
-texture = ExtResource("4_wall_right")
+[node name="RightWallCol" type="Sprite2D" parent="RightWallColl"]
+position = Vector2(21.25, -37.5)
+scale = Vector2(0.921875, 0.990625)
+texture = ExtResource("5_fsjg6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallColl"]
+position = Vector2(21.25, -5)
 shape = SubResource("RectangleShape2D_right")
 
 [node name="DownWallColl" type="Node2D" parent="."]
@@ -96,7 +109,7 @@ texture = ExtResource("5_wall_bot_left")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownWallColl/BottomWallLeft"]
 position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_down_seg")
+shape = SubResource("RectangleShape2D_down_left")
 
 [node name="DoorStructure" parent="DownWallColl" instance=ExtResource("7_door_structure")]
 
@@ -105,11 +118,13 @@ position = Vector2(128, 0)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="DownWallColl/BottomWallRight"]
+position = Vector2(-4.5, 0)
+scale = Vector2(0.953125, 1)
 texture = ExtResource("6_wall_bot_right")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownWallColl/BottomWallRight"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_down_seg")
+position = Vector2(-4.5, 2)
+shape = SubResource("RectangleShape2D_down_right")
 
 [node name="Racks" type="Node2D" parent="."]
 
@@ -126,3 +141,36 @@ position = Vector2(-104, 65)
 [node name="ServerRack4" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(106, 65)
 rack_variant = "cluster_b"
+
+[node name="Pixel-cyberpunk-interior" type="Sprite2D" parent="."]
+position = Vector2(-7, -168.148)
+scale = Vector2(13.0515, 1.22969)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(63, 150, 34, 10)
+
+[node name="RightPillar" type="Sprite2D" parent="."]
+position = Vector2(-228, 129)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(56, 0, 7, 65)
+
+[node name="Pixel-cyberpunk-interior2" type="Sprite2D" parent="."]
+position = Vector2(219, 128)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 65)
+
+[node name="Pixel-cyberpunk-interior4" type="Sprite2D" parent="."]
+position = Vector2(120, 93)
+scale = Vector2(5.9375, 1.125)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(64, 256, 32, 8)
+
+[node name="Pixel-cyberpunk-interior5" type="Sprite2D" parent="."]
+position = Vector2(-124, 93.75)
+scale = Vector2(6.1875, 1.1875)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(64, 256, 32, 8)
