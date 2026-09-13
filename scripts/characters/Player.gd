@@ -9,19 +9,29 @@ class_name Player
 @onready var interaction_detector: Area2D = $InteractionDetector
 @onready var sfx_player: AudioStreamPlayer2D = $SFXPlayer
 
+# Floating Water Indicator above Player
+@onready var water_bar: ProgressBar = $WaterIndicator/WaterBar
+@onready var water_label: Label = $WaterIndicator/WaterLabel
+
 var nearby_interactables: Array[Node] = []
 var current_interactable: Node = null
 var facing_direction: Vector2 = Vector2.DOWN
 var is_spraying: bool = false
-var anim_timer: float = 0.0
-var anim_frame: int = 0
+var walk_timer: float = 0.0
+
+const SPRITE_BASE_Y: float = -24.0
 
 func _ready() -> void:
 	y_sort_enabled = true
 	water_particles.emitting = false
+	sprite.position.y = SPRITE_BASE_Y
+	
 	if interaction_detector:
 		interaction_detector.area_entered.connect(_on_interaction_area_entered)
 		interaction_detector.area_exited.connect(_on_interaction_area_exited)
+	
+	GameManager.water_changed.connect(_on_water_changed)
+	_on_water_changed(GameManager.current_water, GameManager.MAX_WATER)
 
 func _physics_process(delta: float) -> void:
 	if not GameManager.is_game_active:
@@ -33,10 +43,9 @@ func _physics_process(delta: float) -> void:
 	_update_best_target()
 	_handle_movement(delta)
 	_handle_interaction(delta)
-	_update_animation(delta)
+	_update_animation_and_bobbing(delta)
 
 func _update_best_target() -> void:
-	# Clean up any freed or invalid nodes
 	nearby_interactables = nearby_interactables.filter(func(node: Node) -> bool:
 		return is_instance_valid(node)
 	)
@@ -93,11 +102,9 @@ func _handle_interaction(delta: float) -> void:
 	if Input.is_action_pressed("interact") and current_interactable != null and is_instance_valid(current_interactable):
 		if current_interactable.has_method("interact_tick"):
 			var success: bool = current_interactable.interact_tick(delta, self)
-			# Only emit water particles if spraying server or crop (not refilling water station)
 			if success and not (current_interactable is WaterStation):
 				is_spraying = true
 	
-	# Update water particles
 	if is_spraying:
 		if not water_particles.emitting:
 			water_particles.emitting = true
@@ -109,29 +116,47 @@ func _handle_interaction(delta: float) -> void:
 		if water_particles.emitting:
 			water_particles.emitting = false
 
-func _update_animation(delta: float) -> void:
-	var row: int = 0
+func _update_animation_and_bobbing(delta: float) -> void:
+	# Direction frames in player.png:
+	# Frame 0: Front (Down)
+	# Frame 1: Back (Up)
+	# Frame 2: Side Right
+	# Frame 3: Side Left
 	if abs(facing_direction.x) > abs(facing_direction.y):
 		if facing_direction.x < 0:
-			row = 1 # Left
+			sprite.frame = 3 # Left
 		else:
-			row = 2 # Right
+			sprite.frame = 2 # Right
 	else:
 		if facing_direction.y < 0:
-			row = 3 # Up
+			sprite.frame = 1 # Up (Back view)
 		else:
-			row = 0 # Down
+			sprite.frame = 0 # Down (Front view)
 	
+	# Walking bobbing & squash-and-stretch
 	if velocity.length_squared() > 10.0:
-		anim_timer += delta * 8.0
-		if anim_timer >= 1.0:
-			anim_timer = 0.0
-			anim_frame = (anim_frame + 1) % 4
+		walk_timer += delta * 14.0
+		var bob: float = sin(walk_timer) * 1.5
+		sprite.position.y = SPRITE_BASE_Y + bob
+		sprite.scale.x = 1.0 + sin(walk_timer * 2.0) * 0.05
+		sprite.scale.y = 1.0 - sin(walk_timer * 2.0) * 0.05
 	else:
-		anim_frame = 0
-		anim_timer = 0.0
-	
-	sprite.frame = (row * 4) + anim_frame
+		walk_timer = 0.0
+		sprite.position.y = SPRITE_BASE_Y
+		sprite.scale = Vector2.ONE
+
+func _on_water_changed(current: float, max_amount: float) -> void:
+	if water_bar:
+		water_bar.max_value = max_amount
+		water_bar.value = current
+		if current <= 20.0:
+			water_bar.modulate = Color(1.0, 0.2, 0.2)
+		elif current <= 50.0:
+			water_bar.modulate = Color(1.0, 0.8, 0.2)
+		else:
+			water_bar.modulate = Color(0.2, 0.8, 1.0)
+	if water_label:
+		water_label.text = "💧%dL" % int(current)
 
 func _on_interaction_area_entered(area: Area2D) -> void:
 	var parent_node: Node = area.get_parent()
@@ -152,4 +177,5 @@ func play_sfx(stream: AudioStream) -> void:
 	if sfx_player and stream:
 		sfx_player.stream = stream
 		sfx_player.play()
+
 

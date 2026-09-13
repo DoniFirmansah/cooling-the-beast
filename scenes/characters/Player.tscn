@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctb_player_001"]
+[gd_scene load_steps=9 format=3 uid="uid://cwnl57bl4tc2x"]
 
-[ext_resource type="Script" path="res://scripts/characters/Player.gd" id="1_player_script"]
-[ext_resource type="Texture2D" path="res://assets/characters/player.png" id="2_player_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/ground_shadow.png" id="3_shadow_tex"]
+[ext_resource type="Script" uid="uid://yp4cc5v8d43y" path="res://scripts/characters/Player.gd" id="1_player_script"]
+[ext_resource type="Texture2D" uid="uid://vefmqek4acmf" path="res://assets/characters/player.png" id="2_player_tex"]
+[ext_resource type="Texture2D" uid="uid://py7wwiyn2xn4" path="res://assets/environment/ground_shadow.png" id="3_shadow_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_feet"]
 radius = 6.0
@@ -10,21 +10,45 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
 radius = 34.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_water_bg"]
+bg_color = Color(0.08, 0.1, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.15, 0.45, 0.7, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.05, 0.05, 0.08, 0.8)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_water_fill"]
+bg_color = Color(0.2, 0.8, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
-collision_mask = 1
 script = ExtResource("1_player_script")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
-position = Vector2(0, 0)
-scale = Vector2(0.75, 0.55)
+position = Vector2(0, -1)
+scale = Vector2(0.85, 0.6)
 texture = ExtResource("3_shadow_tex")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -26)
+position = Vector2(0, -24)
 texture = ExtResource("2_player_tex")
 hframes = 4
-vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -39,7 +63,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_interact")
 
 [node name="WaterParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(0, -22)
 emitting = false
 amount = 32
 lifetime = 0.35
@@ -51,6 +75,40 @@ scale_amount_min = 2.0
 scale_amount_max = 3.5
 color = Color(0.25, 0.75, 1, 0.85)
 
+[node name="WaterIndicator" type="Node2D" parent="."]
+position = Vector2(0, -56)
+
+[node name="PanelBackdrop" type="Panel" parent="WaterIndicator"]
+offset_left = -20.0
+offset_top = -4.0
+offset_right = 20.0
+offset_bottom = 4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_water_bg")
+
+[node name="WaterBar" type="ProgressBar" parent="WaterIndicator"]
+offset_left = -18.0
+offset_top = -2.0
+offset_right = 18.0
+offset_bottom = 2.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_water_fill")
+value = 100.0
+show_percentage = false
+
+[node name="WaterLabel" type="Label" parent="WaterIndicator"]
+offset_left = -26.0
+offset_top = -18.0
+offset_right = 26.0
+offset_bottom = -3.0
+theme_override_colors/font_color = Color(0.35, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 9
+text = "💧100L"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SFXPlayer" type="AudioStreamPlayer2D" parent="."]
-bus = &"Master"
 
