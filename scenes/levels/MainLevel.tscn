@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=27 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -11,13 +11,32 @@
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="9_eco_tree"]
 [ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="10_eco_bush"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="11_hud"]
-[ext_resource type="PackedScene" uid="uid://bkhaly4supl64" path="res://scenes/props/ServerRoomV2.tscn" id="12_server_room"]
+[ext_resource type="Texture2D" uid="uid://iec7i5paej8i" path="res://pixel-cyberpunk-interior.png" id="14_cyberpunk_tex"]
+[ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="15_top_wall_tex"]
+[ext_resource type="Texture2D" uid="uid://b1t8mp1kcxv4x" path="res://assets/environment/server_room/left_wall_col.png" id="16_left_wall_tex"]
+[ext_resource type="Texture2D" uid="uid://b30gsq80ssew" path="res://assets/environment/server_room/right_wall_col.png" id="17_right_wall_tex"]
+[ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="18_server_rack"]
+[ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="19_bot_left_tex"]
+[ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="20_door_structure"]
+[ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="21_bot_right_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(24, 520)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_wall"]
+size = Vector2(436, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_side_wall"]
+size = Vector2(24, 270)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_left"]
+size = Vector2(192, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_right"]
+size = Vector2(183, 28)
 
 [node name="MainLevel" type="Node2D"]
 position = Vector2(-4, 2)
@@ -42,6 +61,46 @@ scale_amount_max = 4.5
 color = Color(1, 0.45, 0.15, 0.75)
 
 [node name="Floors" type="Node2D" parent="."]
+
+[node name="MetalFloorServerBuilding" type="TextureRect" parent="Floors"]
+modulate = Color(0.6, 0.65, 0.72, 1)
+texture_repeat = 2
+offset_left = -580.0
+offset_top = -180.0
+offset_right = -132.0
+offset_bottom = 140.0
+texture = ExtResource("2_floor_metal")
+stretch_mode = 1
+
+[node name="BorderTintServerBuilding" type="ColorRect" parent="Floors"]
+offset_left = -134.0
+offset_top = -180.0
+offset_right = -132.0
+offset_bottom = 140.0
+color = Color(0.2, 0.45, 0.7, 0.8)
+
+[node name="CoolingPipeServerBuilding" type="TextureRect" parent="Floors"]
+texture_repeat = 2
+offset_left = -466.0
+offset_top = -28.0
+offset_right = -132.0
+offset_bottom = -12.0
+texture = ExtResource("4_pipe_h")
+stretch_mode = 1
+
+[node name="HazardStripeRight" type="Sprite2D" parent="Floors"]
+position = Vector2(-236, 73)
+scale = Vector2(5.9375, 1.125)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(64, 256, 32, 8)
+
+[node name="HazardStripeLeft" type="Sprite2D" parent="Floors"]
+position = Vector2(-480, 73.75)
+scale = Vector2(6.1875, 1.1875)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(64, 256, 32, 8)
 
 [node name="WalkwayBelowBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.48, 0.52, 0.58, 1)
@@ -107,8 +166,106 @@ shape = SubResource("RectangleShape2D_wall_v")
 [node name="YSortEntities" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="ServerRoom" parent="YSortEntities" instance=ExtResource("12_server_room")]
-position = Vector2(-356, -20)
+[node name="RoofTrim" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-363, -188.148)
+scale = Vector2(13.0515, 1.22969)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(63, 150, 34, 10)
+
+[node name="TopWallColl" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-356, -148)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/TopWallColl"]
+position = Vector2(-4, -2)
+scale = Vector2(0.973214, 1)
+texture = ExtResource("15_top_wall_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/TopWallColl"]
+position = Vector2(-4, -2)
+shape = SubResource("RectangleShape2D_top_wall")
+
+[node name="LeftWallColl" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-564, -20)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/LeftWallColl"]
+position = Vector2(-30, -36.875)
+scale = Vector2(1, 0.988281)
+texture = ExtResource("16_left_wall_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/LeftWallColl"]
+position = Vector2(-30, -5)
+shape = SubResource("RectangleShape2D_side_wall")
+
+[node name="RightWallColl" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-148, -20)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/RightWallColl"]
+position = Vector2(21.25, -37.5)
+scale = Vector2(0.921875, 0.990625)
+texture = ExtResource("17_right_wall_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/RightWallColl"]
+position = Vector2(21.25, -5)
+shape = SubResource("RectangleShape2D_side_wall")
+
+[node name="ServerRack1" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-460, -45)
+
+[node name="ServerRack2" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-250, -45)
+rack_variant = "cluster_b"
+
+[node name="ServerRack3" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-460, 45)
+
+[node name="ServerRack4" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-250, 45)
+rack_variant = "cluster_b"
+
+[node name="DownWallColl" type="Node2D" parent="YSortEntities"]
+position = Vector2(-356, 108)
+
+[node name="BottomWallLeft" type="StaticBody2D" parent="YSortEntities/DownWallColl"]
+position = Vector2(-128, 0)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
+texture = ExtResource("19_bot_left_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_bot_left")
+
+[node name="DoorStructure" parent="YSortEntities/DownWallColl" instance=ExtResource("20_door_structure")]
+
+[node name="BottomWallRight" type="StaticBody2D" parent="YSortEntities/DownWallColl"]
+position = Vector2(128, 0)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallRight"]
+position = Vector2(-4.5, 0)
+scale = Vector2(0.953125, 1)
+texture = ExtResource("21_bot_right_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/DownWallColl/BottomWallRight"]
+position = Vector2(-4.5, 2)
+shape = SubResource("RectangleShape2D_bot_right")
+
+[node name="RightPillar" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-584, 109)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(56, 0, 7, 65)
+
+[node name="LeftPillar" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(-137, 108)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 65)
 
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)
