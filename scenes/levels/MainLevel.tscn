@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=24 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -13,12 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://chufgk28yyxb4" path="res://scenes/props/EcoBush.tscn" id="11_eco_bush"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="12_hud"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="13_door_structure"]
-[ext_resource type="PackedScene" uid="uid://ophfrnxv8dnw" path="res://assets/environment/server_room/wall_structure.tscn" id="14_wall_structure"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_top.png" id="15_bldg_top_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_left.png" id="16_bldg_left_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_right.png" id="17_bldg_right_wall"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="18_bldg_bot_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="19_bldg_bot_right"]
+[ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="15_bldg_top_wall"]
+[ext_resource type="Texture2D" uid="uid://dudkjg4lpkjap" path="res://assets/environment/server_room/wall_structure_left.png" id="16_bldg_left_wall"]
+[ext_resource type="Texture2D" uid="uid://ce1qtsjhkq8fb" path="res://assets/environment/server_room/wall_structure_right.png" id="17_bldg_right_wall"]
+[ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="18_bldg_bot_left"]
+[ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="19_bldg_bot_right"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -190,6 +189,7 @@ position = Vector2(-356, 108)
 [node name="BldgBottomRight" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-228, 108)
 texture = ExtResource("19_bldg_bot_right")
+
 
 [node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
 position = Vector2(0, 5)

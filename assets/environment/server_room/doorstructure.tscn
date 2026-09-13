@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5ik0uh7jn03i"]
 
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/door_structure_combined.png" id="1_door_tex"]
+[ext_resource type="Texture2D" uid="uid://c124koc0ywlg8" path="res://assets/environment/server_room/door_structure_combined.png" id="1_door_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_left_post"]
 size = Vector2(12, 32)
