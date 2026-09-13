@@ -1,67 +1,83 @@
-[gd_scene load_steps=12 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=14 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
 [ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="4_pipe_h"]
-[ext_resource type="PackedScene" path="res://scenes/props/WaterStation.tscn" id="5_water_station"]
-[ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="6_server_rack"]
-[ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="7_farm_plot"]
-[ext_resource type="PackedScene" path="res://scenes/characters/Player.tscn" id="8_player"]
-[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="9_hud"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/fence_32x16.png" id="5_fence_tex"]
+[ext_resource type="PackedScene" path="res://scenes/props/WaterStation.tscn" id="6_water_station"]
+[ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="7_server_rack"]
+[ext_resource type="PackedScene" path="res://scenes/props/FarmPlot.tscn" id="8_farm_plot"]
+[ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="9_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="10_hud"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_horiz"]
-size = Vector2(500, 24)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(760, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_vert"]
-size = Vector2(24, 250)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(24, 320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_div_wall"]
+size = Vector2(16, 120)
 
 [node name="MainLevel" type="Node2D"]
 script = ExtResource("1_level_script")
 
 [node name="Floors" type="Node2D" parent="."]
 
-[node name="MetalFloorLeft" type="TextureRect" parent="Floors"]
-modulate = Color(0.65, 0.68, 0.75, 1)
+[node name="MetalFloorServerBuilding" type="TextureRect" parent="Floors"]
+modulate = Color(0.6, 0.65, 0.72, 1)
 texture_repeat = 2
-offset_left = -300.0
-offset_top = -160.0
-offset_bottom = 160.0
+offset_left = -370.0
+offset_top = -150.0
+offset_right = -60.0
+offset_bottom = 150.0
 texture = ExtResource("2_floor_metal")
 stretch_mode = 1
 
-[node name="GrassFloorRight" type="TextureRect" parent="Floors"]
-modulate = Color(0.68, 0.74, 0.65, 1)
+[node name="CentralPlaza" type="TextureRect" parent="Floors"]
+modulate = Color(0.5, 0.55, 0.62, 1)
 texture_repeat = 2
-offset_top = -160.0
-offset_right = 300.0
-offset_bottom = 160.0
+offset_left = -60.0
+offset_top = -150.0
+offset_right = 90.0
+offset_bottom = 150.0
+texture = ExtResource("2_floor_metal")
+stretch_mode = 1
+
+[node name="GrassFloorAgriDome" type="TextureRect" parent="Floors"]
+modulate = Color(0.7, 0.78, 0.68, 1)
+texture_repeat = 2
+offset_left = 90.0
+offset_top = -150.0
+offset_right = 370.0
+offset_bottom = 150.0
 texture = ExtResource("3_floor_grass")
 stretch_mode = 1
 
-[node name="SectorDivider" type="ColorRect" parent="Floors"]
-offset_left = -3.0
-offset_top = -160.0
-offset_right = 3.0
-offset_bottom = 160.0
-color = Color(0.2, 0.45, 0.7, 0.5)
+[node name="BuildingBorderTint" type="ColorRect" parent="Floors"]
+offset_left = -62.0
+offset_top = -150.0
+offset_right = -58.0
+offset_bottom = 150.0
+color = Color(0.2, 0.4, 0.6, 0.8)
 
 [node name="PipesBackground" type="Node2D" parent="Floors"]
 
-[node name="PipeLeft" type="TextureRect" parent="Floors/PipesBackground"]
+[node name="PipeToServerRoom" type="TextureRect" parent="Floors/PipesBackground"]
 texture_repeat = 2
-offset_left = -210.0
+offset_left = -250.0
 offset_top = -3.0
-offset_right = -18.0
+offset_right = 15.0
 offset_bottom = 13.0
 texture = ExtResource("4_pipe_h")
 stretch_mode = 1
 
-[node name="PipeRight" type="TextureRect" parent="Floors/PipesBackground"]
+[node name="PipeToAgriDome" type="TextureRect" parent="Floors/PipesBackground"]
 texture_repeat = 2
-offset_left = 18.0
+offset_left = 15.0
 offset_top = -3.0
-offset_right = 210.0
+offset_right = 200.0
 offset_bottom = 13.0
 texture = ExtResource("4_pipe_h")
 stretch_mode = 1
@@ -70,60 +86,88 @@ stretch_mode = 1
 collision_mask = 0
 
 [node name="TopWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, -105)
-shape = SubResource("RectangleShape2D_wall_horiz")
+position = Vector2(0, -145)
+shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="BottomWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 115)
-shape = SubResource("RectangleShape2D_wall_horiz")
+position = Vector2(0, 145)
+shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="LeftWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-230, 5)
-shape = SubResource("RectangleShape2D_wall_vert")
+position = Vector2(-370, 0)
+shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="RightWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(230, 5)
-shape = SubResource("RectangleShape2D_wall_vert")
+position = Vector2(370, 0)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="FacilityDoorWallNorth" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-60, -85)
+shape = SubResource("RectangleShape2D_div_wall")
+
+[node name="FacilityDoorWallSouth" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-60, 85)
+shape = SubResource("RectangleShape2D_div_wall")
 
 [node name="YSortEntities" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="WaterStation" parent="YSortEntities" instance=ExtResource("5_water_station")]
-position = Vector2(0, 5)
+[node name="WaterStation" parent="YSortEntities" instance=ExtResource("6_water_station")]
+position = Vector2(15, 5)
 
-[node name="ServerRack1" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-165, -45)
+[node name="ServerRack1" parent="YSortEntities" instance=ExtResource("7_server_rack")]
+position = Vector2(-250, -45)
 
-[node name="ServerRack2" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-80, -45)
+[node name="ServerRack2" parent="YSortEntities" instance=ExtResource("7_server_rack")]
+position = Vector2(-150, -45)
 rack_variant = "cluster_b"
 
-[node name="ServerRack3" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-165, 55)
+[node name="ServerRack3" parent="YSortEntities" instance=ExtResource("7_server_rack")]
+position = Vector2(-250, 55)
 
-[node name="ServerRack4" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-80, 55)
+[node name="ServerRack4" parent="YSortEntities" instance=ExtResource("7_server_rack")]
+position = Vector2(-150, 55)
 rack_variant = "cluster_b"
 
-[node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(80, -45)
+[node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
+position = Vector2(200, -16)
 
-[node name="FarmPlot2" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(160, -45)
+[node name="FarmPlot2" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
+position = Vector2(232, -16)
 
-[node name="FarmPlot3" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(80, 55)
+[node name="FarmPlot3" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
+position = Vector2(200, 16)
 
-[node name="FarmPlot4" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(160, 55)
+[node name="FarmPlot4" parent="YSortEntities" instance=ExtResource("8_farm_plot")]
+position = Vector2(232, 16)
 
-[node name="Player" parent="YSortEntities" instance=ExtResource("8_player")]
-position = Vector2(0, 60)
+[node name="FenceNorth" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(216, -38)
+texture = ExtResource("5_fence_tex")
+
+[node name="FenceSouth" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(216, 38)
+texture = ExtResource("5_fence_tex")
+
+[node name="Player" parent="YSortEntities" instance=ExtResource("9_player")]
+position = Vector2(15, 55)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSortEntities/Player"]
+remote_path = NodePath("../../../Camera2D")
+update_rotation = false
+update_scale = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 5)
-zoom = Vector2(2.5, 2.5)
+position = Vector2(15, 55)
+zoom = Vector2(2, 2)
+limit_left = -380
+limit_top = -160
+limit_right = 380
+limit_bottom = 160
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
 
-[node name="HUD" parent="." instance=ExtResource("9_hud")]
+[node name="HUD" parent="." instance=ExtResource("10_hud")]
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]

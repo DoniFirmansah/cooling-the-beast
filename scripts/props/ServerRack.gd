@@ -59,7 +59,7 @@ func _process(delta: float) -> void:
 	was_interacted_this_frame = false
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
-	var current_heat_rate: float = base_heat_rate * (1.0 + shift_progress * 0.75)
+	var current_heat_rate: float = base_heat_rate * GameManager.get_heat_multiplier() * (1.0 + shift_progress * 0.75)
 	
 	temperature = min(100.0, temperature + current_heat_rate * delta)
 	_check_temperature_states()

@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	was_interacted_this_frame = false
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
-	var current_dry_rate: float = base_dry_rate * (1.0 + shift_progress * 0.7)
+	var current_dry_rate: float = base_dry_rate * GameManager.get_dry_multiplier() * (1.0 + shift_progress * 0.7)
 	
 	moisture = max(0.0, moisture - current_dry_rate * delta)
 	

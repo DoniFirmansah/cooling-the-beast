@@ -60,7 +60,7 @@ layout_mode = 2
 theme_override_constants/separation = 24
 
 [node name="ServerBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(220, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 
 [node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ServerBox"]
@@ -70,24 +70,53 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
-theme_override_font_sizes/font_size = 12
-text = "🖥️ SERVER AI (SIJORI)"
+theme_override_font_sizes/font_size = 11
+text = "🖥️ SERVER AI"
 
 [node name="ServerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 text = "100%"
 
 [node name="ServerBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/ServerBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 value = 100.0
 show_percentage = false
 
+[node name="ReservoirBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "🚰 WADUK DESALINASI"
+
+[node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "250 / 250L"
+
+[node name="ReservoirBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+value = 250.0
+max_value = 250.0
+show_percentage = false
+
 [node name="WaterBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -97,19 +126,19 @@ layout_mode = 2
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
-theme_override_font_sizes/font_size = 12
-text = "💧 TANGKI AIR TEKNISI"
+theme_override_colors/font_color = Color(0.4, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "💧 TANGKI AQUA-7"
 
 [node name="WaterLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 text = "100 / 100L"
 
 [node name="WaterBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/WaterBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 12)
+custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 value = 100.0
 show_percentage = false
@@ -119,29 +148,48 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
+[node name="ShiftLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 10
-text = "SISA SHIFT"
+theme_override_colors/font_color = Color(0.9, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 11
+text = "SHIFT 1/3"
 horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
-text = "01:30"
+theme_override_font_sizes/font_size = 16
+text = "01:00"
 horizontal_alignment = 1
 
 [node name="FoodBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(220, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 
 [node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
 layout_mode = 2
 
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "🌾 KETAHANAN PANGAN"
+
+[node name="FoodLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "100%"
+
+[node name="FoodBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+value = 100.0
+show_percentage = false
 
 [node name="BottomGuide" type="HBoxContainer" parent="."]
 anchors_preset = 12
@@ -161,6 +209,89 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 13
 text = "◄ SEKTOR SERVER AI   |   [WASD] Gerak   [SHIFT] Dash   [SPASI / KLIK] Aksi Lapangan   |   SEKTOR SAWAH PANGAN ►"
+
+[node name="IntermissionScreen" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="IntermissionScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.04, 0.08, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="IntermissionScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="IntermissionScreen/CenterContainer"]
+custom_minimum_size = Vector2(580, 320)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="IntermissionScreen/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderLabel" type="Label" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "ROBOT OPERATOR AQUA-7 // DIAGNOSTIC LOG REPORT"
+
+[node name="ShiftLogTitle" type="Label" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 18
+text = "LAPORAN SHIFT 1 SELESAI"
+
+[node name="HSeparator1" type="HSeparator" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShiftLogDesc" type="Label" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Konsumsi air terkendali..."
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BtnNextShift" type="Button" parent="IntermissionScreen/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 38)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "MULAI SHIFT 2 [SPASI]"
+
 
 [node name="EndScreen" type="Control" parent="."]
 unique_name_in_owner = true
@@ -257,25 +388,6 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "MAIN LAGI (RESTART)"
-
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
-theme_override_font_sizes/font_size = 12
-text = "🌾 KETAHANAN PANGAN"
-
-[node name="FoodLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "100%"
-
-[node name="FoodBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-value = 100.0
-show_percentage = false
 
 [node name="PauseScreen" type="Control" parent="."]
 unique_name_in_owner = true
