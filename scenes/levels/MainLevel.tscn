@@ -1,10 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=27 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
-[ext_resource type="PackedScene" uid="uid://c6lake7reservoir1" path="res://scenes/props/ReservoirLake.tscn" id="6_reservoir_lake"]
 [ext_resource type="Texture2D" uid="uid://wf8itsppejgn" path="res://assets/environment/farmland/fence_32x16.png" id="5_fence_tex"]
+[ext_resource type="PackedScene" path="res://scenes/props/ReservoirLake.tscn" id="6_reservoir_lake"]
 [ext_resource type="PackedScene" uid="uid://di5r75jg84xgk" path="res://scenes/props/FarmPlot.tscn" id="7_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="8_player"]
 [ext_resource type="PackedScene" path="res://scenes/props/EcoTree.tscn" id="9_eco_tree"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="19_bot_left_tex"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="20_door_structure"]
 [ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="21_bot_right_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/stone_ground_32.png" id="22_stone_ground"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -106,13 +107,13 @@ texture = ExtResource("2_floor_metal")
 stretch_mode = 1
 
 [node name="CentralPlaza" type="TextureRect" parent="Floors"]
-modulate = Color(0.5, 0.55, 0.62, 1)
+modulate = Color(0.92, 0.9, 0.88, 1)
 texture_repeat = 2
 offset_left = -132.0
 offset_top = -240.0
 offset_right = 150.0
 offset_bottom = 240.0
-texture = ExtResource("2_floor_metal")
+texture = ExtResource("22_stone_ground")
 stretch_mode = 1
 
 [node name="GrassFloorAgriDome" type="TextureRect" parent="Floors"]

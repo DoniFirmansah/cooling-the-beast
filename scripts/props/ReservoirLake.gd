@@ -6,12 +6,11 @@ const MAX_DEPTH_METERS: float = 3.5
 
 @export var refill_rate: float = 70.0
 
-@onready var lake_bed: Sprite2D = $LakeBed
+@onready var basin_frame: Sprite2D = $BasinFrame
 @onready var water_container: Node2D = $WaterContainer
-@onready var water_shallow: Sprite2D = $WaterContainer/ShallowWater
-@onready var water_mid: Sprite2D = $WaterContainer/MidWater
-@onready var water_deep: Sprite2D = $WaterContainer/DeepWater
-@onready var caustics: Sprite2D = $WaterContainer/Caustics
+@onready var water_surface: Sprite2D = $WaterContainer/WaterSurface
+@onready var water_mid: Sprite2D = $WaterContainer/WaterMid
+@onready var water_deep: Sprite2D = $WaterContainer/WaterDeep
 @onready var splash_particles: CPUParticles2D = $SplashParticles
 @onready var prompt_label: Label = $PromptLabel
 @onready var interaction_area: Area2D = $InteractionArea
@@ -52,45 +51,40 @@ func _update_water_depth(_animate: bool) -> void:
 	current_depth_meters = water_ratio * MAX_DEPTH_METERS
 	
 	if GameManager.reservoir_water <= 0.0:
-		# Danau kering total: hanya dasar retak yang terlihat
+		# Danau kering total: air surut seutuhnya, memperlihatkan dasar retak & tanda 0.0m
 		water_container.visible = false
-		lake_bed.modulate = Color(0.85, 0.70, 0.55) # Gersang kecoklatan
+		basin_frame.modulate = Color(0.9, 0.75, 0.65) # Kering kerontang
 	else:
 		water_container.visible = true
-		lake_bed.modulate = Color.WHITE
+		basin_frame.modulate = Color.WHITE
 		
-		# Efek gelombang air halus
-		var wave_pulse: float = 1.0 + 0.02 * sin(wave_time * 2.5)
+		# Gelombang air halus
+		var wave_pulse: float = 1.0 + 0.015 * sin(wave_time * 2.2)
 		
-		# Lapisan dangkal: menyusut jika air hampir habis
-		var shallow_scale: float = lerpf(0.35, 1.0, sqrt(water_ratio)) * wave_pulse
-		water_shallow.scale = Vector2(shallow_scale, shallow_scale)
-		water_shallow.modulate.a = clampf(water_ratio * 1.5, 0.3, 1.0)
+		# Permukaan air utama (menyusut bertahap mengikuti volume dan garis kedalaman)
+		var surf_scale: float = lerpf(0.38, 1.0, sqrt(water_ratio)) * wave_pulse
+		water_surface.scale = Vector2(surf_scale, surf_scale)
+		water_surface.modulate.a = clampf(water_ratio * 1.6, 0.35, 1.0)
 		
-		# Lapisan menengah: aktif jika kedalaman > 0.8m (water_ratio > 0.23)
-		if water_ratio > 0.23:
+		# Lapisan air menengah: aktif pada kedalaman > 0.8m
+		if water_ratio > 0.22:
 			water_mid.visible = true
-			var mid_ratio: float = clampf((water_ratio - 0.23) / 0.77, 0.0, 1.0)
-			var mid_scale: float = lerpf(0.2, 1.0, mid_ratio)
+			var mid_ratio: float = clampf((water_ratio - 0.22) / 0.78, 0.0, 1.0)
+			var mid_scale: float = lerpf(0.25, 1.0, mid_ratio)
 			water_mid.scale = Vector2(mid_scale, mid_scale)
-			water_mid.modulate.a = clampf(mid_ratio * 1.2, 0.0, 1.0)
+			water_mid.modulate.a = clampf(mid_ratio * 1.3, 0.0, 1.0)
 		else:
 			water_mid.visible = false
 		
-		# Lapisan palung dalam: aktif jika kedalaman > 2.0m (water_ratio > 0.57)
-		if water_ratio > 0.57:
+		# Lapisan palung dalam: aktif pada kedalaman > 2.0m (air melimpah)
+		if water_ratio > 0.55:
 			water_deep.visible = true
-			var deep_ratio: float = clampf((water_ratio - 0.57) / 0.43, 0.0, 1.0)
-			var deep_scale: float = lerpf(0.2, 1.0, deep_ratio)
+			var deep_ratio: float = clampf((water_ratio - 0.55) / 0.45, 0.0, 1.0)
+			var deep_scale: float = lerpf(0.25, 1.0, deep_ratio)
 			water_deep.scale = Vector2(deep_scale, deep_scale)
 			water_deep.modulate.a = clampf(deep_ratio * 1.5, 0.0, 1.0)
 		else:
 			water_deep.visible = false
-		
-		# Caustics shimmer
-		if caustics:
-			caustics.scale = Vector2(shallow_scale * 0.95, shallow_scale * 0.95)
-			caustics.modulate.a = 0.5 + 0.25 * sin(wave_time * 3.2)
 
 func _update_prompt() -> void:
 	if prompt_label.visible or is_targeted:
@@ -109,16 +103,16 @@ func _update_prompt() -> void:
 				prompt_label.modulate = Color(1.0, 0.65, 0.2)
 			else:
 				prompt_label.text = "[SPASI] TIMBA AIR DANAU\n(Danau: %dL | Kedalaman: %.1fm)" % [water_val, current_depth_meters]
-				prompt_label.modulate = Color(0.3, 0.88, 1.0)
+				prompt_label.modulate = Color(0.35, 0.9, 1.0)
 	else:
 		prompt_label.visible = false
 
 func set_target_highlight(active: bool) -> void:
 	is_targeted = active
 	if is_targeted:
-		lake_bed.modulate = Color(1.25, 1.25, 1.25)
+		basin_frame.modulate = Color(1.2, 1.2, 1.2)
 	else:
-		lake_bed.modulate = Color.WHITE
+		basin_frame.modulate = Color.WHITE
 
 func interact_tick(delta: float, _player: Node) -> bool:
 	if GameManager.current_water >= GameManager.MAX_BACKPACK_WATER or GameManager.reservoir_water <= 0.0:
@@ -144,3 +138,4 @@ func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		prompt_label.visible = false
 		splash_particles.emitting = false
+
