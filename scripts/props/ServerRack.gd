@@ -4,6 +4,8 @@ class_name ServerRack
 const SFX_ALERT = preload("res://assets/audio/sfx/bong_001.ogg")
 const TEX_CLUSTER_A = preload("res://assets/environment/server_room/server_cluster_a.png")
 const TEX_CLUSTER_B = preload("res://assets/environment/server_room/server_cluster_b.png")
+const TEX_LEDS_A = preload("res://assets/environment/server_room/server_cluster_a_leds.png")
+const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_b_leds.png")
 
 @export_enum("cluster_a", "cluster_b") var rack_variant: String = "cluster_a"
 @export var rack_id: int = 1
@@ -36,8 +38,12 @@ func _ready() -> void:
 	if cabinet_sprite:
 		if rack_variant == "cluster_b":
 			cabinet_sprite.texture = TEX_CLUSTER_B
+			if led_overlay:
+				led_overlay.texture = TEX_LEDS_B
 		else:
 			cabinet_sprite.texture = TEX_CLUSTER_A
+			if led_overlay:
+				led_overlay.texture = TEX_LEDS_A
 	
 	alert_audio = AudioStreamPlayer2D.new()
 	alert_audio.stream = SFX_ALERT

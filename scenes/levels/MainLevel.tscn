@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=35 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -41,11 +41,11 @@ size = Vector2(26, 290)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_right_wall"]
 size = Vector2(26, 290)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_console"]
-size = Vector2(54, 16)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coolant_tank"]
 size = Vector2(40, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_console"]
+size = Vector2(54, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_left"]
 size = Vector2(198, 61)
@@ -111,25 +111,25 @@ region_enabled = true
 region_rect = Rect2(64, 256, 32, 8)
 
 [node name="FloorCableLeft" type="Sprite2D" parent="Floors"]
-position = Vector2(-415, -110)
+position = Vector2(-415, -95)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(55, 150, 50, 10)
 
 [node name="FloorCableRight" type="Sprite2D" parent="Floors"]
-position = Vector2(-295, -110)
+position = Vector2(-295, -95)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(55, 150, 50, 10)
 
 [node name="FloorCableSpurLeft" type="Sprite2D" parent="Floors"]
-position = Vector2(-470, -15)
+position = Vector2(-470, -30)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(55, 150, 50, 10)
 
 [node name="FloorCableSpurRight" type="Sprite2D" parent="Floors"]
-position = Vector2(-242, -15)
+position = Vector2(-242, -30)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(55, 150, 50, 10)
@@ -293,17 +293,17 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_console")
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-470, -75)
+position = Vector2(-470, -55)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-242, -75)
+position = Vector2(-242, -55)
 rack_variant = "cluster_b"
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-470, 45)
+position = Vector2(-470, 65)
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-242, 45)
+position = Vector2(-242, 65)
 rack_variant = "cluster_b"
 
 [node name="WarningLightBar" type="Sprite2D" parent="YSortEntities"]

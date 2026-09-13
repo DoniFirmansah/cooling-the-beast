@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bguknryxharfq" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
 [ext_resource type="Texture2D" uid="uid://brpaedroj80xb" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
 [ext_resource type="Texture2D" uid="uid://cn8ht2fcot2u7" path="res://assets/environment/server_room/server_cluster_a.png" id="3_cabinet_tex"]
-[ext_resource type="Texture2D" uid="uid://b20s8r0aefim5" path="res://assets/environment/server_room/server_monitor_complete.png" id="4_07oa7"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_cluster_a_leds.png" id="4_07oa7"]
 [ext_resource type="Texture2D" uid="uid://v674k7ftuurv" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
-size = Vector2(72, 16)
+size = Vector2(76, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
 radius = 42.0
@@ -59,23 +59,22 @@ corner_radius_bottom_left = 4
 script = ExtResource("1_rack_script")
 
 [node name="BasePad" type="Sprite2D" parent="."]
-position = Vector2(0, 29)
 texture = ExtResource("2_base_pad")
 
 [node name="CabinetSprite" type="Sprite2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -28)
 texture = ExtResource("3_cabinet_tex")
 
 [node name="LedOverlay" type="Sprite2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -28)
 texture = ExtResource("4_07oa7")
 
 [node name="CoolingManifold" type="Sprite2D" parent="."]
-position = Vector2(0, -38)
+position = Vector2(0, -62)
 texture = ExtResource("5_manifold_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 18)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_foot")
 
 [node name="InteractionArea" type="Area2D" parent="."]
@@ -83,11 +82,11 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0, 12)
+position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_zone")
 
 [node name="SteamParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -38)
+position = Vector2(0, -64)
 emitting = false
 amount = 26
 lifetime = 0.55
@@ -101,7 +100,7 @@ scale_amount_max = 5.0
 color = Color(0.9, 0.95, 1, 0.75)
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -36)
+position = Vector2(0, -46)
 emitting = false
 amount = 20
 lifetime = 0.75
@@ -115,7 +114,7 @@ scale_amount_max = 5.5
 color = Color(0.18, 0.18, 0.2, 0.85)
 
 [node name="FireParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -18)
 emitting = false
 amount = 16
 lifetime = 0.35
@@ -129,7 +128,7 @@ scale_amount_max = 4.5
 color = Color(1, 0.45, 0.1, 0.95)
 
 [node name="ThermalDisplay" type="Node2D" parent="."]
-position = Vector2(0, -56)
+position = Vector2(0, -78)
 
 [node name="PanelBackdrop" type="Panel" parent="ThermalDisplay"]
 offset_left = -34.0
@@ -164,9 +163,9 @@ vertical_alignment = 1
 [node name="PromptBadge" type="PanelContainer" parent="."]
 visible = false
 offset_left = -58.0
-offset_top = -88.0
+offset_top = -108.0
 offset_right = 58.0
-offset_bottom = -66.0
+offset_bottom = -86.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_prompt")
 
 [node name="LabelPrompt" type="Label" parent="PromptBadge"]
