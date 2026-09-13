@@ -4,7 +4,7 @@ class_name ReservoirLake
 const SFX_REFILL = preload("res://assets/audio/sfx/switch_001.ogg")
 const MAX_DEPTH_METERS: float = 3.5
 
-@export var refill_rate: float = 70.0
+@export var refill_rate: float = 160.0
 
 @onready var basin_frame: Sprite2D = $BasinFrame
 @onready var water_container: Node2D = $WaterContainer

@@ -15,6 +15,13 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var food_bar: ProgressBar = %FoodBar
 @onready var food_label: Label = %FoodLabel
 
+@onready var objective_tracker: PanelContainer = %ObjectiveTracker
+@onready var objective_dir: Label = %ObjectiveDir
+@onready var objective_icon: Label = %ObjectiveIcon
+@onready var objective_title: Label = %ObjectiveTitle
+@onready var objective_subtext: Label = %ObjectiveSubtext
+@onready var objective_dist: Label = %ObjectiveDist
+
 @onready var intermission_screen: Control = %IntermissionScreen
 @onready var shift_log_title: Label = %ShiftLogTitle
 @onready var shift_log_desc: Label = %ShiftLogDesc
@@ -34,6 +41,41 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var btn_pause_menu: Button = %BtnPauseMenu
 
 var audio_player: AudioStreamPlayer
+
+var guide_connected: bool = false
+
+func _process(_delta: float) -> void:
+	if not guide_connected:
+		var guides: Array[Node] = get_tree().get_nodes_in_group("objective_guide")
+		if not guides.is_empty() and is_instance_valid(guides[0]):
+			var guide: Node = guides[0]
+			if guide.has_signal("objective_changed"):
+				guide.connect("objective_changed", Callable(self, "_on_objective_changed"))
+				guide_connected = true
+
+func _on_objective_changed(data: Dictionary) -> void:
+	if not objective_tracker:
+		return
+	if objective_title:
+		objective_title.text = data.get("title", "")
+		objective_title.modulate = data.get("color", Color.WHITE)
+	if objective_subtext:
+		objective_subtext.text = data.get("subtext", "")
+	if objective_icon:
+		objective_icon.text = data.get("icon", "💧")
+	if objective_dir:
+		objective_dir.text = data.get("dir_arrow", "►")
+		objective_dir.modulate = data.get("color", Color.WHITE)
+	if objective_dist:
+		var dist_px: float = data.get("distance", 0.0)
+		var dist_m: int = int(dist_px / 16.0)
+		if data.get("is_near", false):
+			objective_dist.text = "[TEKAN SPASI]"
+			objective_dist.modulate = Color(0.2, 1.0, 0.4)
+		else:
+			objective_dist.text = "%dm" % dist_m
+			objective_dist.modulate = data.get("color", Color.WHITE)
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

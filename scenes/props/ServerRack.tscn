@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://bguknryxharfq" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
 [ext_resource type="Texture2D" uid="uid://brpaedroj80xb" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
 [ext_resource type="Texture2D" uid="uid://cn8ht2fcot2u7" path="res://assets/environment/server_room/server_cluster_a.png" id="3_cabinet_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_cluster_a_leds.png" id="4_07oa7"]
+[ext_resource type="Texture2D" uid="uid://d01m4imyr6fex" path="res://assets/environment/server_room/server_cluster_a_leds.png" id="4_07oa7"]
 [ext_resource type="Texture2D" uid="uid://v674k7ftuurv" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
 size = Vector2(76, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 42.0
+radius = 48.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_bg"]
 bg_color = Color(0.08, 0.1, 0.14, 0.9)

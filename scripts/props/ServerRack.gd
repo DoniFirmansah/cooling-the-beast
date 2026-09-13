@@ -9,9 +9,9 @@ const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_
 
 @export_enum("cluster_a", "cluster_b") var rack_variant: String = "cluster_a"
 @export var rack_id: int = 1
-@export var base_heat_rate: float = 4.0
-@export var cool_rate: float = 34.0
-@export var water_cost_per_sec: float = 14.0
+@export var base_heat_rate: float = 2.2
+@export var cool_rate: float = 75.0
+@export var water_cost_per_sec: float = 10.0
 
 @onready var cabinet_sprite: Sprite2D = $CabinetSprite
 @onready var led_overlay: Sprite2D = $LedOverlay
@@ -22,7 +22,7 @@ const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_
 @onready var label_temp: Label = $ThermalDisplay/LabelTemp
 @onready var prompt_badge: Control = $PromptBadge
 
-var temperature: float = 45.0
+var temperature: float = 35.0
 var is_broken: bool = false
 var is_targeted: bool = false
 var was_interacted_this_frame: bool = false
@@ -31,6 +31,7 @@ var led_timer: float = 0.0
 var pulse_timer: float = 0.0
 
 func _ready() -> void:
+	add_to_group("server_racks")
 	steam_particles.emitting = false
 	smoke_particles.emitting = false
 	fire_particles.emitting = false

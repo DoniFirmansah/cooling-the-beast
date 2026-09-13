@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctb_hud_001"]
+[gd_scene load_steps=7 format=3 uid="uid://ctb_hud_001"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
 
@@ -34,6 +34,18 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tracker"]
+bg_color = Color(0.04, 0.07, 0.12, 0.9)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.75, 1, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
@@ -191,6 +203,73 @@ layout_mode = 2
 value = 100.0
 show_percentage = false
 
+[node name="ObjectiveTracker" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(490, 42)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -245.0
+offset_top = 62.0
+offset_right = 245.0
+offset_bottom = 104.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tracker")
+
+[node name="Margin" type="MarginContainer" parent="ObjectiveTracker"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 3
+
+[node name="HBox" type="HBoxContainer" parent="ObjectiveTracker/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ObjectiveDir" type="Label" parent="ObjectiveTracker/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "◄"
+vertical_alignment = 1
+
+[node name="ObjectiveIcon" type="Label" parent="ObjectiveTracker/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "💧"
+vertical_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="ObjectiveTracker/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ObjectiveTitle" type="Label" parent="ObjectiveTracker/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "OBJEKTIF: AMBIL AIR BERSIH [SPASI]"
+
+[node name="ObjectiveSubtext" type="Label" parent="ObjectiveTracker/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 10
+text = "Danau Tengah • Tahan [SHIFT] untuk lari cepat"
+
+[node name="ObjectiveDist" type="Label" parent="ObjectiveTracker/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "24m"
+vertical_alignment = 1
+
+
 [node name="BottomGuide" type="HBoxContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
@@ -208,7 +287,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 13
-text = "◄ SEKTOR SERVER AI   |   [WASD] Gerak   [SHIFT] Dash   [SPASI / KLIK] Aksi Lapangan   |   SEKTOR SAWAH PANGAN ►"
+text = "◄ SEKTOR SERVER AI   |   [WASD] Gerak   •   Tahan [SHIFT] Lari Cepat   •   [SPASI] Siram / Ambil Air   |   SEKTOR SAWAH PANGAN ►"
 
 [node name="IntermissionScreen" type="Control" parent="."]
 unique_name_in_owner = true

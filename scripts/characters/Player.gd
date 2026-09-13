@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
-@export var move_speed: float = 145.0
-@export var dash_speed_multiplier: float = 1.55
+@export var move_speed: float = 190.0
+@export var dash_speed_multiplier: float = 1.65
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var water_particles: CPUParticles2D = $WaterParticles
@@ -12,6 +12,7 @@ class_name Player
 # Floating Water Indicator above Player
 @onready var water_bar: ProgressBar = $WaterIndicator/WaterBar
 @onready var water_label: Label = $WaterIndicator/WaterLabel
+@onready var objective_guide: Node2D = get_node_or_null("ObjectiveGuide")
 
 var nearby_interactables: Array[Node] = []
 var current_interactable: Node = null
@@ -125,10 +126,29 @@ func _handle_movement(_delta: float) -> void:
 func _handle_interaction(delta: float) -> void:
 	is_spraying = false
 	
-	if Input.is_action_pressed("interact") and current_interactable != null and is_instance_valid(current_interactable):
-		if current_interactable.has_method("interact_tick"):
-			var success: bool = current_interactable.interact_tick(delta, self)
-			if success and not (current_interactable is WaterStation or current_interactable is ReservoirLake or current_interactable.is_in_group("water_source")):
+	if Input.is_action_pressed("interact"):
+		nearby_interactables = nearby_interactables.filter(func(node: Node) -> bool:
+			return is_instance_valid(node)
+		)
+		
+		# 1. Prioritaskan isi air jika berada di dekat danau / water source
+		var at_water_source: bool = false
+		for target in nearby_interactables:
+			if target is ReservoirLake or target.is_in_group("water_source") or target is WaterStation:
+				at_water_source = true
+				if target.has_method("interact_tick"):
+					target.interact_tick(delta, self)
+				break
+		
+		# 2. Jika bukan di sumber air, siram semua target valid (multi-target spraying)
+		if not at_water_source:
+			var sprayed_any: bool = false
+			for target in nearby_interactables:
+				if not target.is_in_group("water_source") and target.has_method("interact_tick"):
+					if target.interact_tick(delta, self):
+						sprayed_any = true
+			
+			if sprayed_any:
 				is_spraying = true
 	
 	if is_spraying:

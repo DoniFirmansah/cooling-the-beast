@@ -11,31 +11,31 @@ signal shift_intermission(shift_completed: int, log_title: String, log_desc: Str
 signal game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary)
 
 const SHIFT_DURATION: float = 60.0
-const MAX_BACKPACK_WATER: float = 100.0
+const MAX_BACKPACK_WATER: float = 120.0
 const MAX_WATER: float = MAX_BACKPACK_WATER
 
 const SHIFT_CONFIG: Dictionary = {
 	1: {
 		"title": "SHIFT 1: PROTOKOL STANDAR (2049)",
-		"reservoir": 250.0,
-		"heat_mult": 1.0,
-		"dry_mult": 1.0,
+		"reservoir": 280.0,
+		"heat_mult": 0.85,
+		"dry_mult": 0.85,
 		"next_title": "LAPORAN SHIFT 1 SELESAI [AQUA-7]",
-		"next_desc": "Konsumsi terkendali. Laporan Satelit: Batch pelatihan model AI 2.0T parameter diaktifkan. Panas melonjak tajam untuk Shift 2. Cadangan sumber air bersih dipangkas ke 160L."
+		"next_desc": "Konsumsi terkendali. Laporan Satelit: Batch pelatihan model AI 2.0T parameter diaktifkan. Panas meningkat untuk Shift 2. Cadangan sumber air bersih dipangkas ke 190L."
 	},
 	2: {
 		"title": "SHIFT 2: BEBAN KOMPUTASI MASIF",
-		"reservoir": 160.0,
-		"heat_mult": 1.45,
-		"dry_mult": 1.35,
+		"reservoir": 190.0,
+		"heat_mult": 1.15,
+		"dry_mult": 1.10,
 		"next_title": "LAPORAN SHIFT 2 SELESAI [AQUA-7]",
-		"next_desc": "Krisis Ekstrem: Gelombang panas melanda. Sumber air bersih anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 90L! Air tidak cukup untuk semua sektor."
+		"next_desc": "Krisis Ekstrem: Gelombang panas melanda. Sumber air bersih anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 110L! Air sangat terbatas untuk kedua sektor."
 	},
 	3: {
 		"title": "SHIFT 3: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 90.0,
-		"heat_mult": 1.85,
-		"dry_mult": 1.65,
+		"reservoir": 110.0,
+		"heat_mult": 1.45,
+		"dry_mult": 1.35,
 		"next_title": "",
 		"next_desc": ""
 	}
@@ -46,9 +46,9 @@ const SAVE_PATH: String = "user://aqua7_save.json"
 var current_shift: int = 1
 var saved_shift: int = 1
 var unlocked_endings: Dictionary = {}
-var current_water: float = 100.0
-var reservoir_water: float = 250.0
-var max_reservoir_shift: float = 250.0
+var current_water: float = 120.0
+var reservoir_water: float = 280.0
+var max_reservoir_shift: float = 280.0
 var food_security: float = 100.0
 var server_integrity: float = 100.0
 var time_left: float = SHIFT_DURATION

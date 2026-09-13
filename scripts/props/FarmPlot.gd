@@ -2,9 +2,9 @@ extends StaticBody2D
 class_name FarmPlot
 
 @export var plot_id: int = 1
-@export var base_dry_rate: float = 3.2
-@export var irrigate_rate: float = 38.0
-@export var water_cost_per_sec: float = 12.0
+@export var base_dry_rate: float = 1.8
+@export var irrigate_rate: float = 80.0
+@export var water_cost_per_sec: float = 10.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var splash_particles: CPUParticles2D = $SplashParticles
@@ -22,9 +22,10 @@ var is_dead: bool = false
 var is_targeted: bool = false
 var was_interacted_this_frame: bool = false
 var zero_moisture_timer: float = 0.0
-const MAX_ZERO_TIME: float = 6.0
+const MAX_ZERO_TIME: float = 12.0
 
 func _ready() -> void:
+	add_to_group("farm_plots")
 	splash_particles.emitting = false
 	_update_visuals()
 
