@@ -2,8 +2,8 @@ extends StaticBody2D
 class_name FarmPlot
 
 @export var plot_id: int = 1
-@export var base_dry_rate: float = 3.5
-@export var irrigate_rate: float = 35.0
+@export var base_dry_rate: float = 3.2
+@export var irrigate_rate: float = 38.0
 @export var water_cost_per_sec: float = 12.0
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -18,6 +18,8 @@ const TEX_DEAD = preload("res://assets/environment/farmland/plot_dry_32.png")
 
 var moisture: float = 100.0
 var is_dead: bool = false
+var is_targeted: bool = false
+var was_interacted_this_frame: bool = false
 var zero_moisture_timer: float = 0.0
 const MAX_ZERO_TIME: float = 6.0
 
@@ -28,7 +30,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not GameManager.is_game_active or is_dead:
+		splash_particles.emitting = false
 		return
+	
+	# Stop splash if not actively irrigated this frame
+	if not was_interacted_this_frame:
+		splash_particles.emitting = false
+	was_interacted_this_frame = false
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
 	var current_dry_rate: float = base_dry_rate * (1.0 + shift_progress * 0.7)
@@ -60,22 +68,22 @@ func _update_visuals() -> void:
 			label_status.modulate = Color(0.8, 0.2, 0.2)
 	elif moisture >= 60.0:
 		sprite.texture = TEX_MATURE
-		sprite.modulate = Color.WHITE
-		moisture_bar.modulate = Color(0.2, 0.9, 0.3) # Fresh Green
+		sprite.modulate = Color(1.25, 1.25, 1.25) if is_targeted else Color.WHITE
+		moisture_bar.modulate = Color(0.2, 0.9, 0.3)
 		if label_status:
 			label_status.text = "%d%%" % int(moisture)
 			label_status.modulate = Color.WHITE
 	elif moisture >= 25.0:
 		sprite.texture = TEX_SPROUT
-		sprite.modulate = Color(0.95, 0.9, 0.8)
-		moisture_bar.modulate = Color(0.9, 0.8, 0.2) # Yellow warning
+		sprite.modulate = Color(1.25, 1.2, 1.1) if is_targeted else Color(0.95, 0.9, 0.8)
+		moisture_bar.modulate = Color(0.9, 0.8, 0.2)
 		if label_status:
 			label_status.text = "%d%%" % int(moisture)
 			label_status.modulate = Color(1.0, 0.9, 0.4)
 	else:
 		sprite.texture = TEX_WILTED
-		sprite.modulate = Color(0.85, 0.7, 0.5)
-		moisture_bar.modulate = Color(1.0, 0.3, 0.1) # Danger Red
+		sprite.modulate = Color(1.2, 1.0, 0.8) if is_targeted else Color(0.85, 0.7, 0.5)
+		moisture_bar.modulate = Color(1.0, 0.3, 0.1)
 		if label_status:
 			var countdown: int = int(ceil(MAX_ZERO_TIME - zero_moisture_timer))
 			if moisture <= 0.0:
@@ -84,8 +92,13 @@ func _update_visuals() -> void:
 				label_status.text = "%d%%" % int(moisture)
 			label_status.modulate = Color(1.0, 0.2, 0.2)
 
+func set_target_highlight(active: bool) -> void:
+	is_targeted = active
+	_update_visuals()
+
 func interact_tick(delta: float, _player: Node) -> bool:
 	if is_dead:
+		splash_particles.emitting = false
 		return false
 	
 	if moisture >= 98.0:
@@ -98,6 +111,7 @@ func interact_tick(delta: float, _player: Node) -> bool:
 		splash_particles.emitting = false
 		return false
 	
+	was_interacted_this_frame = true
 	moisture = min(100.0, moisture + irrigate_rate * delta)
 	zero_moisture_timer = 0.0
 	splash_particles.emitting = true
@@ -110,3 +124,4 @@ func _trigger_crop_death() -> void:
 	splash_particles.emitting = false
 	_update_visuals()
 	GameManager.damage_food_security(25.0)
+

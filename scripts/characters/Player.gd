@@ -1,14 +1,15 @@
 extends CharacterBody2D
 class_name Player
 
-@export var move_speed: float = 140.0
-@export var dash_speed_multiplier: float = 1.5
+@export var move_speed: float = 145.0
+@export var dash_speed_multiplier: float = 1.55
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var water_particles: CPUParticles2D = $WaterParticles
 @onready var interaction_detector: Area2D = $InteractionDetector
 @onready var sfx_player: AudioStreamPlayer2D = $SFXPlayer
 
+var nearby_interactables: Array[Node] = []
 var current_interactable: Node = null
 var facing_direction: Vector2 = Vector2.DOWN
 var is_spraying: bool = false
@@ -26,11 +27,48 @@ func _physics_process(delta: float) -> void:
 	if not GameManager.is_game_active:
 		velocity = Vector2.ZERO
 		move_and_slide()
+		_clear_target()
 		return
 	
+	_update_best_target()
 	_handle_movement(delta)
 	_handle_interaction(delta)
 	_update_animation(delta)
+
+func _update_best_target() -> void:
+	# Clean up any freed or invalid nodes
+	nearby_interactables = nearby_interactables.filter(func(node: Node) -> bool:
+		return is_instance_valid(node)
+	)
+	
+	var best_node: Node = null
+	var min_distance: float = 999999.0
+	
+	for target in nearby_interactables:
+		var dist: float = global_position.distance_to(target.global_position)
+		if dist < min_distance:
+			min_distance = dist
+			best_node = target
+	
+	if current_interactable != best_node:
+		if current_interactable != null and is_instance_valid(current_interactable):
+			if current_interactable.has_method("set_target_highlight"):
+				current_interactable.set_target_highlight(false)
+		
+		current_interactable = best_node
+		
+		if current_interactable != null and is_instance_valid(current_interactable):
+			if current_interactable.has_method("set_target_highlight"):
+				current_interactable.set_target_highlight(true)
+
+func _clear_target() -> void:
+	if current_interactable != null and is_instance_valid(current_interactable):
+		if current_interactable.has_method("set_target_highlight"):
+			current_interactable.set_target_highlight(false)
+	current_interactable = null
+	nearby_interactables.clear()
+	is_spraying = false
+	water_particles.emitting = false
 
 func _handle_movement(_delta: float) -> void:
 	var input_dir: Vector2 = Vector2(
@@ -52,17 +90,17 @@ func _handle_movement(_delta: float) -> void:
 func _handle_interaction(delta: float) -> void:
 	is_spraying = false
 	
-	if Input.is_action_pressed("interact") and current_interactable != null:
+	if Input.is_action_pressed("interact") and current_interactable != null and is_instance_valid(current_interactable):
 		if current_interactable.has_method("interact_tick"):
 			var success: bool = current_interactable.interact_tick(delta, self)
-			if success:
+			# Only emit water particles if spraying server or crop (not refilling water station)
+			if success and not (current_interactable is WaterStation):
 				is_spraying = true
 	
 	# Update water particles
 	if is_spraying:
 		if not water_particles.emitting:
 			water_particles.emitting = true
-		# Direct particle spray towards interactable or facing direction
 		var spray_dir: Vector2 = facing_direction
 		if current_interactable != null and is_instance_valid(current_interactable):
 			spray_dir = (current_interactable.global_position - global_position).normalized()
@@ -97,12 +135,15 @@ func _update_animation(delta: float) -> void:
 
 func _on_interaction_area_entered(area: Area2D) -> void:
 	var parent_node: Node = area.get_parent()
-	if parent_node.has_method("interact_tick"):
-		current_interactable = parent_node
+	if parent_node.has_method("interact_tick") and parent_node not in nearby_interactables:
+		nearby_interactables.append(parent_node)
 
 func _on_interaction_area_exited(area: Area2D) -> void:
 	var parent_node: Node = area.get_parent()
+	nearby_interactables.erase(parent_node)
 	if current_interactable == parent_node:
+		if current_interactable.has_method("set_target_highlight"):
+			current_interactable.set_target_highlight(false)
 		current_interactable = null
 		is_spraying = false
 		water_particles.emitting = false
@@ -111,3 +152,4 @@ func play_sfx(stream: AudioStream) -> void:
 	if sfx_player and stream:
 		sfx_player.stream = stream
 		sfx_player.play()
+
