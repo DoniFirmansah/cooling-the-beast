@@ -10,6 +10,7 @@ class_name FarmPlot
 @onready var splash_particles: CPUParticles2D = $SplashParticles
 @onready var moisture_bar: ProgressBar = $MoistureBar
 @onready var label_status: Label = $LabelStatus
+@onready var prompt_label: Label = $PromptLabel
 
 const TEX_MATURE = preload("res://assets/environment/farmland/plot_crop_mature.png")
 const TEX_SPROUT = preload("res://assets/environment/farmland/plot_crop_sprout.png")
@@ -54,8 +55,8 @@ func _process(delta: float) -> void:
 	_update_visuals()
 
 func _update_visuals() -> void:
-	if not moisture_bar:
-		return
+	if prompt_label:
+		prompt_label.visible = is_targeted and not is_dead
 	
 	moisture_bar.value = moisture
 	

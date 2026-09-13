@@ -14,6 +14,7 @@ const SFX_ALERT = preload("res://assets/audio/sfx/bong_001.ogg")
 @onready var fire_particles: CPUParticles2D = $FireParticles
 @onready var temp_bar: ProgressBar = $TempBar
 @onready var label_temp: Label = $LabelTemp
+@onready var prompt_label: Label = $PromptLabel
 
 var temperature: float = 45.0
 var is_broken: bool = false
@@ -102,9 +103,16 @@ func _update_ui() -> void:
 	
 	# Visual highlight when targeted by player
 	if is_targeted and not is_broken:
-		sprite.modulate = Color(1.3, 1.3, 1.3)
+		sprite.modulate = Color(1.35, 1.35, 1.35)
+		if prompt_label:
+			prompt_label.visible = true
 	elif not is_broken:
 		sprite.modulate = Color.WHITE
+		if prompt_label:
+			prompt_label.visible = false
+	else:
+		if prompt_label:
+			prompt_label.visible = false
 
 func set_target_highlight(active: bool) -> void:
 	is_targeted = active

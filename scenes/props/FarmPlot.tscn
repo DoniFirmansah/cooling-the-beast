@@ -1,13 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctb_farm_plot_01"]
+[gd_scene load_steps=8 format=3 uid="uid://ctb_farm_plot_01"]
 
 [ext_resource type="Script" path="res://scripts/props/FarmPlot.gd" id="1_plot_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/plot_crop_mature.png" id="2_crop_mature"]
+[ext_resource type="Texture2D" path="res://assets/environment/ground_shadow.png" id="3_shadow_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
 size = Vector2(28, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 28.0
+radius = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.1, 0.12, 0.15, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
 bg_color = Color(1, 1, 1, 1)
@@ -19,6 +32,11 @@ corner_radius_bottom_left = 2
 [node name="FarmPlot" type="StaticBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_plot_script")
+
+[node name="GroundShadow" type="Sprite2D" parent="."]
+position = Vector2(0, 10)
+scale = Vector2(0.9, 0.7)
+texture = ExtResource("3_shadow_tex")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_crop_mature")
@@ -38,7 +56,7 @@ shape = SubResource("CircleShape2D_zone")
 [node name="SplashParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, 4)
 emitting = false
-amount = 16
+amount = 18
 lifetime = 0.4
 direction = Vector2(0, -1)
 spread = 35.0
@@ -50,19 +68,41 @@ scale_amount_max = 3.0
 color = Color(0.2, 0.7, 1, 0.85)
 
 [node name="MoistureBar" type="ProgressBar" parent="."]
-offset_left = -16.0
-offset_top = -22.0
-offset_right = 16.0
-offset_bottom = -18.0
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 20.0
+offset_bottom = -17.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
 show_percentage = false
 
 [node name="LabelStatus" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -36.0
-offset_right = 20.0
-offset_bottom = -22.0
-theme_override_font_sizes/font_size = 9
+offset_left = -30.0
+offset_top = -39.0
+offset_right = 30.0
+offset_bottom = -23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="."]
+visible = false
+offset_left = -50.0
+offset_top = -54.0
+offset_right = 50.0
+offset_bottom = -38.0
+theme_override_colors/font_color = Color(0.4, 1.0, 0.5, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
+text = "[SPASI] SIRAM"
+horizontal_alignment = 1
+vertical_alignment = 1
+

@@ -1,13 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctb_server_rack_01"]
+[gd_scene load_steps=8 format=3 uid="uid://ctb_server_rack_01"]
 
 [ext_resource type="Script" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/server_room/server_single.png" id="2_rack_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/ground_shadow_wide.png" id="3_shadow_wide"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
 size = Vector2(30, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 28.0
+radius = 32.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.1, 0.12, 0.15, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0.8)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
 bg_color = Color(1, 1, 1, 1)
@@ -19,6 +32,11 @@ corner_radius_bottom_left = 2
 [node name="ServerRack" type="StaticBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_rack_script")
+
+[node name="GroundShadow" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
+scale = Vector2(0.65, 0.5)
+texture = ExtResource("3_shadow_wide")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
@@ -39,21 +57,21 @@ shape = SubResource("CircleShape2D_zone")
 [node name="SteamParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, -10)
 emitting = false
-amount = 20
+amount = 22
 lifetime = 0.5
 direction = Vector2(0, -1)
 spread = 25.0
 gravity = Vector2(0, -30)
-initial_velocity_min = 20.0
-initial_velocity_max = 40.0
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
 scale_amount_min = 2.0
-scale_amount_max = 4.0
-color = Color(0.9, 0.95, 1, 0.6)
+scale_amount_max = 4.5
+color = Color(0.9, 0.95, 1, 0.7)
 
 [node name="SmokeParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, -12)
 emitting = false
-amount = 16
+amount = 18
 lifetime = 0.7
 direction = Vector2(0, -1)
 spread = 30.0
@@ -62,36 +80,58 @@ initial_velocity_min = 15.0
 initial_velocity_max = 35.0
 scale_amount_min = 2.5
 scale_amount_max = 5.0
-color = Color(0.2, 0.2, 0.2, 0.7)
+color = Color(0.2, 0.2, 0.2, 0.8)
 
 [node name="FireParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, 0)
 emitting = false
-amount = 12
+amount = 14
 lifetime = 0.3
 direction = Vector2(0, -1)
 spread = 45.0
 gravity = Vector2(0, -50)
 initial_velocity_min = 30.0
 initial_velocity_max = 60.0
-scale_amount_min = 1.5
-scale_amount_max = 3.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
 color = Color(1, 0.4, 0.1, 0.9)
 
 [node name="TempBar" type="ProgressBar" parent="."]
-offset_left = -16.0
-offset_top = -42.0
-offset_right = 16.0
-offset_bottom = -38.0
+offset_left = -22.0
+offset_top = -43.0
+offset_right = 22.0
+offset_bottom = -36.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
 show_percentage = false
 
 [node name="LabelTemp" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -56.0
-offset_right = 20.0
+offset_left = -30.0
+offset_top = -58.0
+offset_right = 30.0
 offset_bottom = -42.0
-theme_override_font_sizes/font_size = 9
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
 text = "45°C"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="."]
+visible = false
+offset_left = -50.0
+offset_top = -74.0
+offset_right = 50.0
+offset_bottom = -58.0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 11
+text = "[SPASI] DINGINKAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
