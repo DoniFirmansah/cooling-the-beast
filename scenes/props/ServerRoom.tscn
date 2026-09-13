@@ -1,0 +1,122 @@
+[gd_scene load_steps=15 format=3 uid="uid://c4q4y8d5r6t2s"]
+
+[ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="1_floor_metal"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_left.png" id="3_wall_left"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_right.png" id="4_wall_right"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="5_wall_bot_left"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
+[ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="7_door_structure"]
+[ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="8_server_rack"]
+[ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="9_pipe_h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_north"]
+size = Vector2(448, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_west"]
+size = Vector2(24, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_east"]
+size = Vector2(24, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south_left"]
+size = Vector2(192, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_south_right"]
+size = Vector2(192, 28)
+
+[node name="ServerRoom" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Floors" type="Node2D" parent="."]
+z_index = -1
+
+[node name="MetalFloor" type="TextureRect" parent="Floors"]
+modulate = Color(0.6, 0.65, 0.72, 1)
+texture_repeat = 2
+offset_left = -224.0
+offset_top = -160.0
+offset_right = 224.0
+offset_bottom = 160.0
+texture = ExtResource("1_floor_metal")
+stretch_mode = 1
+
+[node name="BorderTint" type="ColorRect" parent="Floors"]
+offset_left = 222.0
+offset_top = -160.0
+offset_right = 224.0
+offset_bottom = 160.0
+color = Color(0.2, 0.45, 0.7, 0.8)
+
+[node name="CoolingPipe" type="TextureRect" parent="Floors"]
+texture_repeat = 2
+offset_left = -110.0
+offset_top = -8.0
+offset_right = 224.0
+offset_bottom = 8.0
+texture = ExtResource("9_pipe_h")
+stretch_mode = 1
+
+[node name="Colliders" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="NorthWallCollider" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(0, -128)
+shape = SubResource("RectangleShape2D_north")
+
+[node name="WestWallCollider" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(-210, 0)
+shape = SubResource("RectangleShape2D_west")
+
+[node name="EastWallCollider" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(210, 0)
+shape = SubResource("RectangleShape2D_east")
+
+[node name="SouthWallLeftCollider" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(-128, 130)
+shape = SubResource("RectangleShape2D_south_left")
+
+[node name="SouthWallRightCollider" type="CollisionShape2D" parent="Colliders"]
+position = Vector2(128, 130)
+shape = SubResource("RectangleShape2D_south_right")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="TopWall" type="Sprite2D" parent="Walls"]
+position = Vector2(0, -128)
+texture = ExtResource("2_wall_top")
+
+[node name="LeftWall" type="Sprite2D" parent="Walls"]
+position = Vector2(-208, 0)
+texture = ExtResource("3_wall_left")
+
+[node name="RightWall" type="Sprite2D" parent="Walls"]
+position = Vector2(208, 0)
+texture = ExtResource("4_wall_right")
+
+[node name="BottomWallLeft" type="Sprite2D" parent="Walls"]
+position = Vector2(-128, 128)
+texture = ExtResource("5_wall_bot_left")
+
+[node name="DoorStructure" parent="Walls" instance=ExtResource("7_door_structure")]
+position = Vector2(0, 128)
+
+[node name="BottomWallRight" type="Sprite2D" parent="Walls"]
+position = Vector2(128, 128)
+texture = ExtResource("6_wall_bot_right")
+
+[node name="Racks" type="Node2D" parent="."]
+
+[node name="ServerRack1" parent="Racks" instance=ExtResource("8_server_rack")]
+position = Vector2(-104, -25)
+
+[node name="ServerRack2" parent="Racks" instance=ExtResource("8_server_rack")]
+position = Vector2(106, -25)
+rack_variant = "cluster_b"
+
+[node name="ServerRack3" parent="Racks" instance=ExtResource("8_server_rack")]
+position = Vector2(-104, 65)
+
+[node name="ServerRack4" parent="Racks" instance=ExtResource("8_server_rack")]
+position = Vector2(106, 65)
+rack_variant = "cluster_b"
