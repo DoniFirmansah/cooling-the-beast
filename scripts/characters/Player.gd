@@ -18,8 +18,19 @@ var current_interactable: Node = null
 var facing_direction: Vector2 = Vector2.DOWN
 var is_spraying: bool = false
 var walk_timer: float = 0.0
+var speed_modifier: float = 1.0
+var active_slow_sources: int = 0
 
 const SPRITE_BASE_Y: float = -24.0
+
+func add_slow_effect(factor: float = 0.55) -> void:
+	active_slow_sources += 1
+	speed_modifier = factor
+
+func remove_slow_effect() -> void:
+	active_slow_sources = max(0, active_slow_sources - 1)
+	if active_slow_sources == 0:
+		speed_modifier = 1.0
 
 func _ready() -> void:
 	y_sort_enabled = true
@@ -89,7 +100,7 @@ func _handle_movement(_delta: float) -> void:
 		input_dir = input_dir.normalized()
 		facing_direction = input_dir
 	
-	var current_speed: float = move_speed
+	var current_speed: float = move_speed * speed_modifier
 	if Input.is_action_pressed("dash"):
 		current_speed *= dash_speed_multiplier
 	

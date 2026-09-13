@@ -1,18 +1,42 @@
 @tool
-extends StaticBody2D
+extends Area2D
 class_name EcoBush
 
 const TEX_BUSH = preload("res://assets/environment/farmland/bush_large.png")
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var shadow: Sprite2D = $GroundShadow
-@onready var collision: CollisionShape2D = $CollisionShape2D
+
+var rustle_tween: Tween
 
 func _ready() -> void:
 	y_sort_enabled = true
 	if not Engine.is_editor_hint():
+		body_entered.connect(_on_body_entered)
+		body_exited.connect(_on_body_exited)
 		GameManager.shift_started.connect(_on_shift_started)
 		_apply_shift_visuals(GameManager.current_shift, false)
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.has_method("add_slow_effect"):
+		body.add_slow_effect(0.55)
+		_play_rustle()
+
+func _on_body_exited(body: Node2D) -> void:
+	if body.has_method("remove_slow_effect"):
+		body.remove_slow_effect()
+
+func _play_rustle() -> void:
+	if not sprite:
+		return
+	if rustle_tween and rustle_tween.is_valid():
+		rustle_tween.kill()
+	
+	rustle_tween = create_tween()
+	rustle_tween.tween_property(sprite, "rotation", 0.08, 0.08)
+	rustle_tween.tween_property(sprite, "rotation", -0.08, 0.08)
+	rustle_tween.tween_property(sprite, "rotation", 0.04, 0.06)
+	rustle_tween.tween_property(sprite, "rotation", 0.0, 0.06)
 
 func _on_shift_started(shift_num: int, _title: String) -> void:
 	_apply_shift_visuals(shift_num, true)
@@ -32,3 +56,4 @@ func _apply_shift_visuals(shift_num: int, animate: bool) -> void:
 		tween.tween_property(sprite, "modulate", target_color, 2.0)
 	else:
 		sprite.modulate = target_color
+

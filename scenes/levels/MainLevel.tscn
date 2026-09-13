@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=16 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -209,6 +209,5 @@ position = Vector2(336, -90)
 position = Vector2(0, 65)
 
 [node name="HUD" parent="." instance=ExtResource("12_hud")]
-
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
