@@ -92,16 +92,18 @@ y_sort_enabled = true
 position = Vector2(0, 5)
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-160, -45)
+position = Vector2(-165, -45)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("6_server_rack")]
 position = Vector2(-80, -45)
+rack_variant = "monitor"
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("6_server_rack")]
-position = Vector2(-160, 55)
+position = Vector2(-165, 55)
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("6_server_rack")]
 position = Vector2(-80, 55)
+rack_variant = "monitor"
 
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
 position = Vector2(80, -45)

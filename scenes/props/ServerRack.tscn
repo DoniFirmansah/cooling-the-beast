@@ -1,22 +1,36 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctb_server_rack_01"]
+[gd_scene load_steps=12 format=3 uid="uid://ctb_server_rack_01"]
 
 [ext_resource type="Script" path="res://scripts/props/ServerRack.gd" id="1_rack_script"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_single.png" id="2_rack_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/ground_shadow_wide.png" id="3_shadow_wide"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_base_pad.png" id="2_base_pad"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_rack_complete.png" id="3_cabinet_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/server_leds.png" id="4_leds_tex"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/cooling_manifold.png" id="5_manifold_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
-size = Vector2(30, 14)
+size = Vector2(72, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 32.0
+radius = 42.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
-bg_color = Color(0.1, 0.12, 0.15, 0.85)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_bg"]
+bg_color = Color(0.08, 0.1, 0.14, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0, 0, 0.8)
+border_color = Color(0.25, 0.35, 0.45, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.05, 0.05, 0.08, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0.9)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -29,18 +43,37 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
+bg_color = Color(0.06, 0.15, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.8, 1, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="ServerRack" type="StaticBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_rack_script")
 
-[node name="GroundShadow" type="Sprite2D" parent="."]
-position = Vector2(0, 18)
-scale = Vector2(0.65, 0.5)
-texture = ExtResource("3_shadow_wide")
+[node name="BasePad" type="Sprite2D" parent="."]
+position = Vector2(0, 16)
+texture = ExtResource("2_base_pad")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -6)
-texture = ExtResource("2_rack_tex")
+[node name="CabinetSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("3_cabinet_tex")
+
+[node name="LedOverlay" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("4_leds_tex")
+
+[node name="CoolingManifold" type="Sprite2D" parent="."]
+position = Vector2(0, -38)
+texture = ExtResource("5_manifold_tex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 18)
@@ -55,83 +88,97 @@ position = Vector2(0, 12)
 shape = SubResource("CircleShape2D_zone")
 
 [node name="SteamParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -38)
 emitting = false
-amount = 22
-lifetime = 0.5
-direction = Vector2(0, -1)
-spread = 25.0
-gravity = Vector2(0, -30)
-initial_velocity_min = 25.0
-initial_velocity_max = 50.0
-scale_amount_min = 2.0
-scale_amount_max = 4.5
-color = Color(0.9, 0.95, 1, 0.7)
-
-[node name="SmokeParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -12)
-emitting = false
-amount = 18
-lifetime = 0.7
+amount = 26
+lifetime = 0.55
 direction = Vector2(0, -1)
 spread = 30.0
-gravity = Vector2(0, -20)
-initial_velocity_min = 15.0
-initial_velocity_max = 35.0
-scale_amount_min = 2.5
-scale_amount_max = 5.0
-color = Color(0.2, 0.2, 0.2, 0.8)
-
-[node name="FireParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, 0)
-emitting = false
-amount = 14
-lifetime = 0.3
-direction = Vector2(0, -1)
-spread = 45.0
-gravity = Vector2(0, -50)
+gravity = Vector2(0, -35)
 initial_velocity_min = 30.0
 initial_velocity_max = 60.0
 scale_amount_min = 2.0
-scale_amount_max = 4.0
-color = Color(1, 0.4, 0.1, 0.9)
+scale_amount_max = 5.0
+color = Color(0.9, 0.95, 1, 0.75)
 
-[node name="TempBar" type="ProgressBar" parent="."]
-offset_left = -22.0
-offset_top = -43.0
-offset_right = 22.0
-offset_bottom = -36.0
-theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+[node name="SmokeParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -36)
+emitting = false
+amount = 20
+lifetime = 0.75
+direction = Vector2(0, -1)
+spread = 35.0
+gravity = Vector2(0, -25)
+initial_velocity_min = 18.0
+initial_velocity_max = 40.0
+scale_amount_min = 2.5
+scale_amount_max = 5.5
+color = Color(0.18, 0.18, 0.2, 0.85)
+
+[node name="FireParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -8)
+emitting = false
+amount = 16
+lifetime = 0.35
+direction = Vector2(0, -1)
+spread = 50.0
+gravity = Vector2(0, -60)
+initial_velocity_min = 35.0
+initial_velocity_max = 70.0
+scale_amount_min = 2.0
+scale_amount_max = 4.5
+color = Color(1, 0.45, 0.1, 0.95)
+
+[node name="ThermalDisplay" type="Node2D" parent="."]
+position = Vector2(0, -56)
+
+[node name="PanelBackdrop" type="Panel" parent="ThermalDisplay"]
+offset_left = -34.0
+offset_top = -14.0
+offset_right = 34.0
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_bg")
+
+[node name="TempBar" type="ProgressBar" parent="ThermalDisplay"]
+offset_left = -28.0
+offset_top = 1.0
+offset_right = 28.0
+offset_bottom = 8.0
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
 show_percentage = false
 
-[node name="LabelTemp" type="Label" parent="."]
-offset_left = -30.0
-offset_top = -58.0
-offset_right = 30.0
-offset_bottom = -42.0
+[node name="LabelTemp" type="Label" parent="ThermalDisplay"]
+offset_left = -32.0
+offset_top = -13.0
+offset_right = 32.0
+offset_bottom = 1.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 11
-text = "45°C"
+theme_override_font_sizes/font_size = 10
+text = "45°C SEJUK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PromptLabel" type="Label" parent="."]
+[node name="PromptBadge" type="PanelContainer" parent="."]
 visible = false
-offset_left = -50.0
-offset_top = -74.0
-offset_right = 50.0
-offset_bottom = -58.0
+offset_left = -58.0
+offset_top = -88.0
+offset_right = 58.0
+offset_bottom = -66.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_prompt")
+
+[node name="LabelPrompt" type="Label" parent="PromptBadge"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 11
-text = "[SPASI] DINGINKAN"
+text = "❄️ [SPASI] DINGINKAN"
 horizontal_alignment = 1
 vertical_alignment = 1
+
 

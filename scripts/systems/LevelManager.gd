@@ -11,3 +11,5 @@ func _ready() -> void:
 func _setup_audio() -> void:
 	if bgm_player and bgm_player.stream:
 		bgm_player.play()
+
+
