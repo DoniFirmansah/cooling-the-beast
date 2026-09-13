@@ -1,9 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=31 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_floor_grass"]
-[ext_resource type="Texture2D" uid="uid://wf8itsppejgn" path="res://assets/environment/farmland/fence_32x16.png" id="5_fence_tex"]
 [ext_resource type="PackedScene" path="res://scenes/props/ReservoirLake.tscn" id="6_reservoir_lake"]
 [ext_resource type="PackedScene" uid="uid://di5r75jg84xgk" path="res://scenes/props/FarmPlot.tscn" id="7_farm_plot"]
 [ext_resource type="PackedScene" uid="uid://cwnl57bl4tc2x" path="res://scenes/characters/Player.tscn" id="8_player"]
@@ -19,6 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="20_door_structure"]
 [ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="21_bot_right_tex"]
 [ext_resource type="Texture2D" uid="uid://bmyenu33y86tu" path="res://assets/environment/farmland/stone_ground_32.png" id="22_stone_ground"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/farmland_bed_wet.png" id="23_farmland_bed"]
+[ext_resource type="PackedScene" path="res://scenes/props/FarmEnclosure.tscn" id="24_farm_enclosure"]
+[ext_resource type="PackedScene" path="res://scenes/props/FarmBarn.tscn" id="25_farm_barn"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/farm_pot.png" id="26_farm_pot"]
+[ext_resource type="PackedScene" path="res://scenes/props/FarmChicken.tscn" id="27_farm_chicken"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -124,6 +128,14 @@ offset_top = -240.0
 offset_right = 600.0
 offset_bottom = 240.0
 texture = ExtResource("3_floor_grass")
+stretch_mode = 1
+
+[node name="FarmlandBed" type="TextureRect" parent="Floors"]
+offset_left = 256.0
+offset_top = -48.0
+offset_right = 416.0
+offset_bottom = 48.0
+texture = ExtResource("23_farmland_bed")
 stretch_mode = 1
 
 [node name="GroundShadows" type="Node2D" parent="." groups=["ground_shadows"]]
@@ -254,25 +266,40 @@ shape = SubResource("RectangleShape2D_bot_right")
 [node name="ReservoirLake" parent="YSortEntities" instance=ExtResource("6_reservoir_lake")]
 position = Vector2(0, 15)
 
+[node name="FarmEnclosure" parent="YSortEntities" instance=ExtResource("24_farm_enclosure")]
+position = Vector2(336, 0)
+
+[node name="FarmBarn" parent="YSortEntities" instance=ExtResource("25_farm_barn")]
+position = Vector2(416, -85)
+
+[node name="FarmPot1" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(380, -75)
+texture = ExtResource("26_farm_pot")
+
+[node name="FarmPot2" type="Sprite2D" parent="YSortEntities"]
+position = Vector2(446, -75)
+texture = ExtResource("26_farm_pot")
+
+[node name="FarmChicken1" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
+position = Vector2(275, -24)
+
+[node name="FarmChicken2" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
+position = Vector2(385, 24)
+
+[node name="FarmChicken3" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
+position = Vector2(360, -70)
+
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(320, -16)
+position = Vector2(295, -18)
 
 [node name="FarmPlot2" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(352, -16)
+position = Vector2(375, -18)
 
 [node name="FarmPlot3" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(320, 16)
+position = Vector2(295, 20)
 
 [node name="FarmPlot4" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(352, 16)
-
-[node name="FenceNorth" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(336, -38)
-texture = ExtResource("5_fence_tex")
-
-[node name="FenceSouth" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(336, 38)
-texture = ExtResource("5_fence_tex")
+position = Vector2(375, 20)
 
 [node name="EcoTree1" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
 position = Vector2(220, -140)

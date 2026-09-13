@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7farmenclosure1"]
+
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/fence_rail_64.png" id="1_rail64"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/fence_v_48.png" id="2_v48"]
+[ext_resource type="Texture2D" path="res://assets/environment/farmland/farm_sign.png" id="3_sign"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h"]
+size = Vector2(192, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v"]
+size = Vector2(12, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate_post"]
+size = Vector2(12, 36)
+
+[node name="FarmEnclosure" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="FenceNorth1" type="Sprite2D" parent="."]
+position = Vector2(-64, -52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceNorth2" type="Sprite2D" parent="."]
+position = Vector2(0, -52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceNorth3" type="Sprite2D" parent="."]
+position = Vector2(64, -52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceSouth1" type="Sprite2D" parent="."]
+position = Vector2(-64, 52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceSouth2" type="Sprite2D" parent="."]
+position = Vector2(0, 52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceSouth3" type="Sprite2D" parent="."]
+position = Vector2(64, 52)
+texture = ExtResource("1_rail64")
+
+[node name="FenceEast1" type="Sprite2D" parent="."]
+position = Vector2(96, -26)
+texture = ExtResource("2_v48")
+
+[node name="FenceEast2" type="Sprite2D" parent="."]
+position = Vector2(96, 22)
+texture = ExtResource("2_v48")
+
+[node name="FenceWestNorth" type="Sprite2D" parent="."]
+position = Vector2(-96, -34)
+scale = Vector2(1, 0.75)
+texture = ExtResource("2_v48")
+
+[node name="FenceWestSouth" type="Sprite2D" parent="."]
+position = Vector2(-96, 34)
+scale = Vector2(1, 0.75)
+texture = ExtResource("2_v48")
+
+[node name="FarmSign" type="Sprite2D" parent="."]
+position = Vector2(-96, -18)
+texture = ExtResource("3_sign")
+
+[node name="CollNorth" type="CollisionShape2D" parent="."]
+position = Vector2(0, -52)
+shape = SubResource("RectangleShape2D_h")
+
+[node name="CollSouth" type="CollisionShape2D" parent="."]
+position = Vector2(0, 52)
+shape = SubResource("RectangleShape2D_h")
+
+[node name="CollEast" type="CollisionShape2D" parent="."]
+position = Vector2(96, 0)
+shape = SubResource("RectangleShape2D_v")
+
+[node name="CollWestNorth" type="CollisionShape2D" parent="."]
+position = Vector2(-96, -34)
+shape = SubResource("RectangleShape2D_gate_post")
+
+[node name="CollWestSouth" type="CollisionShape2D" parent="."]
+position = Vector2(-96, 34)
+shape = SubResource("RectangleShape2D_gate_post")
