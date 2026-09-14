@@ -3,11 +3,15 @@ extends Area2D
 class_name EcoBush
 
 const TEX_BUSH = preload("res://assets/environment/farmland/bush_large.png")
+const SFX_RUSTLING: AudioStream = preload("res://assets/audio/sfx/sfx_bush_rustling.mp3")
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var shadow: Sprite2D = $GroundShadow
 
 var rustle_tween: Tween
+var rustle_sfx: AudioStreamPlayer2D
+var _bodies_inside: int = 0
+var _rustle_repeat_timer: float = 0.0
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -16,6 +20,35 @@ func _ready() -> void:
 		body_exited.connect(_on_body_exited)
 		GameManager.shift_started.connect(_on_shift_started)
 		_apply_shift_visuals(GameManager.current_shift, false)
+
+		# SFX rustling saat player menabrak / melewati bush
+		rustle_sfx = AudioStreamPlayer2D.new()
+		rustle_sfx.stream = SFX_RUSTLING
+		rustle_sfx.bus = &"Master"
+		rustle_sfx.volume_db = -6.0
+		rustle_sfx.max_distance = 500.0
+		add_child(rustle_sfx)
+
+func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	# Re-trigger rustle + SFX secara berkala selama masih ada yang bergerak di dalam bush
+	if _bodies_inside > 0:
+		_rustle_repeat_timer -= delta
+		if _rustle_repeat_timer <= 0.0:
+			var mover: Node2D = _get_moving_body()
+			if mover != null:
+				_rustle_repeat_timer = 0.65
+				_play_rustle()
+				_play_rustle_sfx(mover.global_position)
+	else:
+		_rustle_repeat_timer = 0.0
+
+func _get_moving_body() -> Node2D:
+	for b in get_overlapping_bodies():
+		if b is Node2D and b.velocity.length_squared() > 25.0:
+			return b
+	return null
 
 func _setup_ground_shadow() -> void:
 	if not Engine.is_editor_hint():
@@ -31,11 +64,21 @@ func _setup_ground_shadow() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("add_slow_effect"):
 		body.add_slow_effect(0.55)
+		_bodies_inside += 1
 		_play_rustle()
+		_play_rustle_sfx(body.global_position)
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.has_method("remove_slow_effect"):
 		body.remove_slow_effect()
+		_bodies_inside = max(0, _bodies_inside - 1)
+
+func _play_rustle_sfx(at_pos: Vector2) -> void:
+	if rustle_sfx:
+		rustle_sfx.global_position = at_pos
+		rustle_sfx.pitch_scale = randf_range(0.9, 1.1)
+		if not rustle_sfx.playing:
+			rustle_sfx.play()
 
 func _play_rustle() -> void:
 	if not sprite:

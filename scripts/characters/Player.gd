@@ -47,7 +47,7 @@ var sfx_water_pour: AudioStreamPlayer2D  # one-shot saat menyemprot / irigasi
 var sfx_footstep: AudioStreamPlayer2D    # saat karakter berjalan
 
 # Footstep timing
-const FOOTSTEP_INTERVAL: float = 0.38   # jarak antar langkah (detik)
+const FOOTSTEP_INTERVAL: float = 0.42   # jarak antar langkah (detik), sinkron siklus bobbing ~0.45s
 var _footstep_timer: float = 0.0
 var _is_filling: bool = false            # sedang ambil air dari reservoir
 var _pour_cooldown: float = 0.0          # cooldown one-shot pour agar tidak spam
@@ -104,11 +104,11 @@ func _ready() -> void:
 	sfx_water_pour.max_distance = 600.0
 	add_child(sfx_water_pour)
 
-	# --- SFX Footstep (dipicu per interval saat berjalan) ---
+	# --- SFX Footstep (dipicu per interval saat WASD ditekan) ---
 	sfx_footstep = AudioStreamPlayer2D.new()
 	sfx_footstep.stream = SFX_FOOTSTEP_STREAM
 	sfx_footstep.bus = &"Master"
-	sfx_footstep.volume_db = -14.0
+	sfx_footstep.volume_db = -4.0
 	sfx_footstep.max_distance = 400.0
 	add_child(sfx_footstep)
 
@@ -323,8 +323,10 @@ func _update_sfx(delta: float) -> void:
 		if sfx_water_pour.playing:
 			sfx_water_pour.stop()
 
-	# --- SFX Footstep: dipicu per FOOTSTEP_INTERVAL saat bergerak ---
-	var is_moving: bool = velocity.length_squared() > 10.0
+	# --- SFX Footstep: dipicu per langkah berdasarkan input WASD aktif ---
+	var input_x: float = Input.get_axis("move_left", "move_right")
+	var input_y: float = Input.get_axis("move_up", "move_down")
+	var is_moving: bool = can_move and (input_x * input_x + input_y * input_y) > 0.0
 	if is_moving:
 		_footstep_timer += delta
 		if _footstep_timer >= FOOTSTEP_INTERVAL:

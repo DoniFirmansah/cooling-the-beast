@@ -17,7 +17,7 @@ class_name LevelManager
 const BGM_CUTSCENE_PROLOG: AudioStream = preload("res://assets/audio/bgm/forested.ogg")
 const BGM_SHIFT_1: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
 const BGM_SHIFT_2: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
-# BGM_SHIFT_3: null (silence / kosong disengaja untuk dramatisasi Shift 3)
+const BGM_SHIFT_3: AudioStream = preload("res://assets/audio/bgm/daydream-of-a-deity.ogg")
 const BGM_ENDING_HARMONY: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
 const BGM_ENDING_ORGANIC: AudioStream = preload("res://assets/audio/bgm/forested.ogg")
 # BGM_ENDING_COLLAPSE / SILICON / SERVER_MELTDOWN / CROP_FAMINE: null (silence)
@@ -120,7 +120,7 @@ func _play_shift_bgm(shift_num: int) -> void:
 		2:
 			_play_bgm(BGM_SHIFT_2)
 		3:
-			_play_bgm(null) # Shift 3 = silence yang menegangkan
+			_play_bgm(BGM_SHIFT_3, -20.0) # Shift 3 = daydream of a deity (melankolis, volume rendah untuk tensi)
 		_:
 			_play_bgm(null)
 
