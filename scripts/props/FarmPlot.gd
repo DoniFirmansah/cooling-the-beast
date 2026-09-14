@@ -10,11 +10,15 @@ class_name FarmPlot
 @onready var moisture_bar: ProgressBar = $MoistureBar
 @onready var label_status: Label = $LabelStatus
 @onready var prompt_label: Label = $PromptLabel
+@onready var soil_bed: Sprite2D = $SoilBed if has_node("SoilBed") else null
 
 const TEX_MATURE = preload("res://assets/environment/farmland/plot_crop_mature.png")
 const TEX_SPROUT = preload("res://assets/environment/farmland/plot_crop_sprout.png")
 const TEX_WILTED = preload("res://assets/environment/farmland/plot_crop_wilted.png")
-const TEX_DEAD = preload("res://assets/environment/farmland/plot_dry_32.png")
+const TEX_DEAD = preload("res://assets/environment/farmland/plot_crop_dead.png")
+
+const TEX_BED_WET = preload("res://assets/environment/farmland/furrow_bed_wet.png")
+const TEX_BED_DRY = preload("res://assets/environment/farmland/furrow_bed_dry.png")
 
 var moisture: float = 100.0
 var is_dead: bool = false
@@ -30,7 +34,7 @@ func _ready() -> void:
 	
 	# Detect all crop sprites in this row
 	for child in get_children():
-		if child is Sprite2D and child.name != "GroundShadow":
+		if child is Sprite2D and child.name.begins_with("Crop"):
 			crop_sprites.append(child)
 	
 	splash_particles.emitting = false
@@ -72,12 +76,15 @@ func _update_visuals() -> void:
 	
 	if is_dead:
 		target_tex = TEX_DEAD
-		target_mod = Color(0.5, 0.45, 0.4)
+		target_mod = Color(0.55, 0.5, 0.45)
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.3, 0.3, 0.3)
 		if label_status:
 			label_status.text = "ROW #%d: MATI" % plot_id
 			label_status.modulate = Color(0.8, 0.2, 0.2)
+		if soil_bed:
+			soil_bed.texture = TEX_BED_DRY
+			soil_bed.modulate = Color(0.65, 0.6, 0.55)
 	elif moisture >= 60.0:
 		target_tex = TEX_MATURE
 		target_mod = Color(1.25, 1.25, 1.25) if is_targeted else Color.WHITE
@@ -86,6 +93,9 @@ func _update_visuals() -> void:
 		if label_status:
 			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color.WHITE
+		if soil_bed:
+			soil_bed.texture = TEX_BED_WET
+			soil_bed.modulate = Color.WHITE
 	elif moisture >= 25.0:
 		target_tex = TEX_SPROUT
 		target_mod = Color(1.25, 1.2, 1.1) if is_targeted else Color(0.95, 0.9, 0.8)
@@ -94,6 +104,9 @@ func _update_visuals() -> void:
 		if label_status:
 			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color(1.0, 0.9, 0.4)
+		if soil_bed:
+			soil_bed.texture = TEX_BED_DRY
+			soil_bed.modulate = Color(1.05, 1.0, 0.95)
 	else:
 		target_tex = TEX_WILTED
 		target_mod = Color(1.2, 1.0, 0.8) if is_targeted else Color(0.85, 0.7, 0.5)
@@ -106,6 +119,9 @@ func _update_visuals() -> void:
 			else:
 				label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color(1.0, 0.2, 0.2)
+		if soil_bed:
+			soil_bed.texture = TEX_BED_DRY
+			soil_bed.modulate = Color(1.1, 0.95, 0.85)
 
 	for s in crop_sprites:
 		if is_instance_valid(s):
@@ -151,3 +167,4 @@ func _trigger_crop_death() -> void:
 	var count = max(1, plots.size())
 	var dmg: float = 100.0 / float(count)
 	GameManager.damage_food_security(dmg)
+

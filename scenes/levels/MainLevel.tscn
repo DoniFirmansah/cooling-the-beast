@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=40 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://87tabsg220gl" path="res://assets/environment/farmland/leaf_particle.png" id="31_leaf_tex"]
 [ext_resource type="Texture2D" uid="uid://vxupqra3v77x" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="32_skyline_tex"]
 [ext_resource type="PackedScene" uid="uid://bx53fwsorbvrs" path="res://scenes/props/GrassTuft.tscn" id="33_grass_tuft"]
+[ext_resource type="Texture2D" uid="uid://cqe7qf3tbfoih" path="res://assets/environment/farmland/furrow_bed_dry.png" id="34_furrow_bed_dry"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1460, 24)
@@ -212,6 +213,22 @@ offset_right = 820.0
 offset_bottom = 265.0
 texture = ExtResource("3_floor_grass")
 stretch_mode = 1
+
+[node name="FurrowGroundBed1" type="Sprite2D" parent="Floors"]
+position = Vector2(460, -95)
+texture = ExtResource("34_furrow_bed_dry")
+
+[node name="FurrowGroundBed2" type="Sprite2D" parent="Floors"]
+position = Vector2(460, -30)
+texture = ExtResource("34_furrow_bed_dry")
+
+[node name="FurrowGroundBed3" type="Sprite2D" parent="Floors"]
+position = Vector2(460, 35)
+texture = ExtResource("34_furrow_bed_dry")
+
+[node name="FurrowGroundBed4" type="Sprite2D" parent="Floors"]
+position = Vector2(460, 100)
+texture = ExtResource("34_furrow_bed_dry")
 
 [node name="GroundShadows" type="Node2D" parent="." groups=["ground_shadows"]]
 z_index = -5

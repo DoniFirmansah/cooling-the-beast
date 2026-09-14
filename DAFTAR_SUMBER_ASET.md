@@ -49,10 +49,13 @@ Sesuai dengan ketentuan integritas dan etika pengembangan game:
 | `assets/environment/farmland/farm_sign.png` | `_decorations_spritesheet.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/fence_rail_64.png` | `fence_tiled_16x16.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/fence_v_48.png` | `fence_tiled_16x16.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
+| `assets/environment/farmland/furrow_bed_dry.png` | `farmland_dry.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
+| `assets/environment/farmland/furrow_bed_wet.png` | `farmland_wet.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/plot_dry_32.png` | `farmland_bed_dry.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/plot_crop_sprout.png` | `_crop_carrot_spritesheet.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/plot_crop_mature.png` | `_crop_carrot_spritesheet.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/plot_crop_wilted.png` | `_crop_carrot_spritesheet.png` | Kenney.nl (Palet disesuaikan) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
+| `assets/environment/farmland/plot_crop_dead.png` | `_crop_carrot_spritesheet.png` | Kenney.nl (Palet disesuaikan) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/grass_01.png` | `_props_spritesheet_16x16.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/grass_02.png` | `_props_spritesheet_16x16.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/farmland/grass_03.png` | `_props_spritesheet_16x16.png` | Kenney.nl | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
