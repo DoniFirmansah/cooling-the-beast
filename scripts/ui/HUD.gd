@@ -1219,6 +1219,9 @@ func _on_synopsis_advance_pressed() -> void:
 		if is_instance_valid(prologue_synopsis_screen):
 			prologue_synopsis_screen.visible = false
 	
+	# Letterbox sinematik langsung tampil saat fase robot berjalan (sebelum dialog)
+	_show_letterbox_only()
+	
 	# Cutscene: Robot berjalan dari plaza selatan ke tepi dermaga danau sebelum dialog prolog diputar
 	cutscene_walk_player.emit(Vector2(0, 58), 2.0)
 	await get_tree().create_timer(2.05).timeout
@@ -1252,6 +1255,20 @@ func _on_synopsis_skip_pressed() -> void:
 
 
 
+## Tampilkan letterbox sinematik saja (tanpa panel dialog & tombol skip)
+## Dipakai saat fase robot berjalan menuju danau, sebelum dialog prolog dimulai
+func _show_letterbox_only() -> void:
+	if dialogue_panel:
+		dialogue_panel.visible = false
+	if btn_skip_cutscene:
+		btn_skip_cutscene.visible = false
+	if cinematic_overlay:
+		cinematic_overlay.visible = true
+		cinematic_overlay.modulate = Color(1.0, 1.0, 1.0, 0.0)
+		var tw: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+		tw.tween_property(cinematic_overlay, "modulate", Color.WHITE, 0.5)
+
+
 func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
 	if beats.is_empty():
 		if on_complete.is_valid():
@@ -1266,8 +1283,12 @@ func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(),
 	
 	if cinematic_overlay:
 		cinematic_overlay.visible = true
+		cinematic_overlay.modulate = Color.WHITE
 	if btn_skip_cutscene:
 		btn_skip_cutscene.text = skip_text
+		btn_skip_cutscene.visible = true
+	if dialogue_panel:
+		dialogue_panel.visible = true
 	if top_bar:
 		top_bar.visible = false
 	if objective_tracker:
@@ -1349,6 +1370,7 @@ func _finish_active_cutscene(was_skipped: bool = false) -> void:
 		cutscene_snap_player.emit(Vector2(0, 58))
 	if cinematic_overlay:
 		cinematic_overlay.visible = false
+		cinematic_overlay.modulate = Color.WHITE
 
 	if top_bar:
 		top_bar.visible = true
