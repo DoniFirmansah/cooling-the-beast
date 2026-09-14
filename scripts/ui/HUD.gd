@@ -116,10 +116,10 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 	},
 	{
 		"camera_target": Vector2(0, 65), # Karakter AQUA-7
-		"speaker_badge": "⚡ ⚙️ STATUS OPERASIONAL // HARI KE-1",
+		"speaker_badge": "⚡ ⚙️ SISTEM AKTIF // HARI KE-1",
 		"speaker_color": Color(0.85, 0.78, 0.62),
 		"raw_text": "[color=#ffe066][b][KONTROL]:[/b] [b][WASD][/b] Gerak • Tahan [b][SHIFT][/b] Lari Cepat • [b][SPASI][/b] Siram / Ambil Air.[/color]\nAir melimpah 280L. Waktu 06:00 dimulai. Selamat bertugas, Unit AQUA-7!",
-		"prompt": "[SPASI] Mulai Operasi 🚀"
+		"prompt": "[SPASI] Start Game 🚀"
 	}
 ]
 
@@ -147,7 +147,7 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 	},
 	{
 		"camera_target": Vector2(0, 65), # Robot AQUA-7
-		"speaker_badge": "⚡ ⚙️ OPERASI HARI KE-15 // BEBAN MASIF",
+		"speaker_badge": "⚡ ⚙️ HARI KE-15 // BEBAN MASIF",
 		"speaker_color": Color(0.85, 0.78, 0.62),
 		"raw_text": "Pemanasan server naik 1.15x dan pengeringan sawah naik 1.10x. Cadangan danau dipangkas ke 190L. Persiapkan nosel pendingin dan pompa sirammu!",
 		"prompt": "[SPASI] Masuk Hari ke-15 🚀"

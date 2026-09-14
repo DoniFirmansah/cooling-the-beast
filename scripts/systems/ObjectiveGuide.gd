@@ -127,7 +127,7 @@ func _evaluate_objective() -> void:
 		else:
 			current_target = hottest_server if hottest_server != null else water_source
 			current_icon = "✨"
-			current_title = "OPERASIONAL SEIMBANG"
+			current_title = "KONDISI STABIL"
 			current_subtext = "Kedua sektor dalam parameter normal."
 			current_color = Color(0.4, 0.9, 0.7)
 			urgency_level = 0

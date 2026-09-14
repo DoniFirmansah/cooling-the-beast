@@ -218,7 +218,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "▶  MULAI OPERASI (HARI KE-1)"
+text = "▶  NEW GAME"
 
 [node name="BtnLoad" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
@@ -228,7 +228,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "💾  LANJUTKAN OPERASI (LOAD)"
+text = "💾  CONTINUE"
 
 [node name="BtnCollection" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
@@ -238,7 +238,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🏆  ARSIP LORE & ENDING (4 CABANG)"
+text = "🏆  KOLEKSI ENDING"
 
 [node name="BtnGuide" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
@@ -248,7 +248,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "📖  PANDUAN KONTROL & MISI"
+text = "📖  CARA BERMAIN"
 
 [node name="BtnExit" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
@@ -258,7 +258,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "✖  KELUAR PERMAINAN"
+text = "✖  KELUAR"
 
 [node name="CollectionModal" type="Control" parent="."]
 unique_name_in_owner = true
@@ -548,7 +548,7 @@ theme_override_constants/separation = 12
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.94, 0.98, 1)
 theme_override_font_sizes/font_size = 17
-text = "📖 PANDUAN KONTROL & STRATEGI OPERASIONAL"
+text = "📖 PANDUAN KONTROL & CARA MAIN"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]

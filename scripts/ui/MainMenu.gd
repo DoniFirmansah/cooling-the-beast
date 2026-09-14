@@ -59,10 +59,10 @@ func _update_load_button() -> void:
 	GameManager.load_save_file()
 	if GameManager.saved_shift > 1:
 		btn_load.disabled = false
-		btn_load.text = "💾  LANJUTKAN OPERASI (SHIFT %d)" % GameManager.saved_shift
+		btn_load.text = "💾  CONTINUE (SHIFT %d)" % GameManager.saved_shift
 	else:
 		btn_load.disabled = false
-		btn_load.text = "💾  LANJUTKAN OPERASI (SHIFT 1)"
+		btn_load.text = "💾  CONTINUE"
 
 func _play_sfx(stream: AudioStream) -> void:
 	if audio_player and stream:
