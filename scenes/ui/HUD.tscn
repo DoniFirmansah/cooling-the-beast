@@ -854,14 +854,14 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.60, 0.68, 0.85)
 theme_override_font_sizes/font_size = 11
-text = "TAHUN 2049 // LEMBAH PERBATASAN"
+text = "TAHUN 2049 // CEKUNGAN MATA AIR LEMBAH"
 horizontal_alignment = 1
 
 [node name="SynopsisTitle" type="Label" parent="PrologueSynopsisScreen/CenterContainer/VBox/HeaderBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.96, 0.98, 1)
 theme_override_font_sizes/font_size = 22
-text = "OASIS TERAKHIR & DILEMA DUA DUNIA"
+text = "MATA AIR ALAMI & DILEMA DUA SEKTOR"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="PrologueSynopsisScreen/CenterContainer/VBox"]
@@ -876,23 +876,23 @@ theme_override_font_sizes/bold_font_size = 13
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
-text = "[center]Gelombang panas ekstrem telah mengeringkan hampir seluruh cadangan air regional.
-Di lembah perbatasan, dua peradaban saling bergantung pada satu sumber air yang tersisa:
-sebuah danau penampungan kecil berkapasitas [b]280 Liter[/b].
+text = "[center]Di sebuah lembah pedalaman, terdapat sebuah [b]cekungan mata air alami[/b] yang jernih dan dingin.
+Selama beberapa generasi, air tanah alami ini menjadi urat nadi kehidupan:
+mengairi hamparan sawah hijau di kawasan [color=#81c995][b]AGRI-DOME[/b][/color] tumpuan hidup warga petani.
 
-[color=#8ab4f8][b]SEKTOR BARAT:[/b][/color] Fasilitas superkomputer [b]DEEPBEAST 2.0T[/b].
-Pelatihan model kecerdasan buatan global menuntut pendinginan air konstan tanpa henti
-agar inti prosesor silikon tidak terbakar dan meleleh permanen.
+Namun kemajuan pesat teknologi membawa perubahan besar.
+Fasilitas superkomputer [color=#8ab4f8][b]DEEPBEAST 2.0T[/b][/color] didirikan di sektor barat, memanfaatkan
+air dingin alami lembah untuk mendinginkan ribuan inti prosesor kecerdasan buatan.
 
-[color=#81c995][b]SEKTOR TIMUR:[/b][/color] Kawasan pertanian [b]AGRI-DOME[/b].
-Ratusan keluarga petani menggantungkan hidup pada petak sawah padi terakhir
-yang kian mengering dan layu di bawah sengatan terik matahari.
+Kini, musim kemarau panjang tiba bersamaan dengan lonjakan beban komputasi AI global.
+Laju pendinginan mesin yang masif dan terik cuaca membuat cekungan mata air
+menyusut drastis — hanya tersisa [b]280 Liter[/b] di penampungan utama.
 
-Demi menjaga stabilitas operasional, korporasi mengaktifkan unitmu:
-[color=#e2e8f0][b]UNIT OTOMASI HIDROLOGIS // AQUA-7[/b][/color]
+Untuk menjaga keseimbangan rapuh ini, robot otomasi hidrologis diaktifkan:
+[color=#e2e8f0][b]UNIT AQUA-7[/b][/color]
 
-Air yang ada tidak cukup untuk menyelamatkan segalanya.
-Setiap tetes yang kau putuskan... akan menentukan masa depan bumi.[/center]"
+Air alami yang tersisa tak lagi mampu mencukupi kedua belah pihak.
+Setiap tetes yang kau putuskan... akan menentukan siapa yang bertahan hidup.[/center]"
 
 [node name="PromptBox" type="HBoxContainer" parent="PrologueSynopsisScreen/CenterContainer/VBox"]
 layout_mode = 2
