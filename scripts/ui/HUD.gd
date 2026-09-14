@@ -30,6 +30,11 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var objective_subtext: Label = %ObjectiveSubtext
 @onready var objective_dist: Label = %ObjectiveDist
 
+# Prologue Lore Synopsis Screen (black screen with lore text before Shift 1 dialog)
+@onready var prologue_synopsis_screen: Control = %PrologueSynopsisScreen
+@onready var btn_start_operation: Button = %BtnStartOperation
+@onready var btn_skip_synopsis: Button = %BtnSkipSynopsis
+
 # Shift Transition Screen (full black screen with day title)
 @onready var shift_transition_screen: Control = %ShiftTransitionScreen
 @onready var transition_time_skip_label: Label = %TimeSkipLabel
@@ -79,6 +84,7 @@ var ending_shown: bool = false  # Guard against ending loop bug
 
 # Cutscene Controller State
 var is_cutscene_running: bool = false
+var is_synopsis_running: bool = false
 var current_beat_index: int = 0
 var is_typewriting: bool = false
 var typewriter_tween: Tween
@@ -227,8 +233,14 @@ func _ready() -> void:
 		cinematic_overlay.visible = false
 	if shift_transition_screen:
 		shift_transition_screen.visible = false
+	if prologue_synopsis_screen:
+		prologue_synopsis_screen.visible = false
 	if btn_skip_cutscene:
 		btn_skip_cutscene.pressed.connect(skip_prologue_cutscene)
+	if btn_start_operation:
+		btn_start_operation.pressed.connect(_on_synopsis_advance_pressed)
+	if btn_skip_synopsis:
+		btn_skip_synopsis.pressed.connect(_on_synopsis_skip_pressed)
 	
 	audio_player = AudioStreamPlayer.new()
 	audio_player.bus = &"Master"
@@ -281,6 +293,21 @@ func _play_sfx(stream: AudioStream) -> void:
 		audio_player.play()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_synopsis_running:
+		if event.is_action_pressed("pause") or (event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE):
+			_on_synopsis_skip_pressed()
+			get_viewport().set_input_as_handled()
+			return
+		elif event.is_action_pressed("interact") or (event is InputEventKey and event.pressed and (event.keycode == KEY_SPACE or event.keycode == KEY_ENTER)):
+			_on_synopsis_advance_pressed()
+			get_viewport().set_input_as_handled()
+			return
+		elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			_on_synopsis_advance_pressed()
+			get_viewport().set_input_as_handled()
+			return
+		return
+
 	if is_cutscene_running:
 		if event.is_action_pressed("pause") or (event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE):
 			skip_prologue_cutscene()
@@ -318,7 +345,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_F6:
 				_on_jump_shift_pressed(3)
 			KEY_F7:
-				if not is_cutscene_running:
+				if not is_cutscene_running and not is_synopsis_running:
 					get_tree().paused = false
 					pause_screen.visible = false
 					start_prologue_cutscene()
@@ -685,7 +712,69 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 # ==============================================================================
 
 func start_prologue_cutscene() -> void:
+	if top_bar:
+		top_bar.visible = false
+	if objective_tracker:
+		objective_tracker.visible = false
+	if bottom_guide:
+		bottom_guide.visible = false
+	if intermission_screen:
+		intermission_screen.visible = false
+	if cinematic_overlay:
+		cinematic_overlay.visible = false
+	
+	if prologue_synopsis_screen:
+		is_synopsis_running = true
+		var vbox: Node = prologue_synopsis_screen.get_node_or_null("CenterContainer/VBox")
+		if vbox:
+			vbox.modulate = Color(1, 1, 1, 0)
+		prologue_synopsis_screen.visible = true
+		
+		# Fade in teks sinopsis secara sinematik
+		await get_tree().create_timer(0.3).timeout
+		if is_instance_valid(prologue_synopsis_screen) and vbox:
+			var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(vbox, "modulate", Color.WHITE, 0.8)
+	else:
+		play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
+
+func _on_synopsis_advance_pressed() -> void:
+	if not is_synopsis_running:
+		return
+	is_synopsis_running = false
+	_play_sfx(SFX_CLICK)
+	
+	if prologue_synopsis_screen:
+		var vbox: Node = prologue_synopsis_screen.get_node_or_null("CenterContainer/VBox")
+		if vbox:
+			var tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(vbox, "modulate", Color(1, 1, 1, 0), 0.45)
+			await tween.finished
+		if is_instance_valid(prologue_synopsis_screen):
+			prologue_synopsis_screen.visible = false
+	
+	# Putar cutscene dialog prolog
 	play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
+
+func _on_synopsis_skip_pressed() -> void:
+	if not is_synopsis_running:
+		return
+	is_synopsis_running = false
+	_play_sfx(SFX_CLICK)
+	
+	if prologue_synopsis_screen:
+		prologue_synopsis_screen.visible = false
+	
+	# Lewati sinopsis dan cutscene langsung ke gameplay
+	GameManager.prologue_seen = true
+	GameManager.is_game_active = true
+	if top_bar:
+		top_bar.visible = true
+	if objective_tracker:
+		objective_tracker.visible = true
+	if bottom_guide:
+		bottom_guide.visible = true
+	cutscene_ended.emit()
 
 func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
 	if beats.is_empty():

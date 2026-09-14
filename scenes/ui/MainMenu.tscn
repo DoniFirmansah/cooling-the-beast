@@ -179,14 +179,7 @@ alignment = 1
 
 [node name="TitleBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="BadgeTheme" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.60, 0.66, 0.74, 0.95)
-theme_override_font_sizes/font_size = 11
-text = "🌱 ISU LINGKUNGAN: SAVE THE EARTH ⚙️"
-horizontal_alignment = 1
+theme_override_constants/separation = 6
 
 [node name="GameTitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
@@ -194,7 +187,7 @@ theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.75)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 46
 text = "AQUA-7"
 horizontal_alignment = 1
 
@@ -206,13 +199,6 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 15
 text = "MACHINE AND EARTH"
-horizontal_alignment = 1
-
-[node name="Tagline" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.64, 0.68, 0.75, 0.85)
-theme_override_font_sizes/font_size = 12
-text = "\"Dilema Air 2049: Pendinginan Superkomputer AI vs Ketahanan Pangan Bumi\""
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
