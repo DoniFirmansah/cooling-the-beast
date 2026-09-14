@@ -16,6 +16,7 @@ var strobe_warning_bar: bool = false
 var strobe_color: Color = Color.WHITE
 var strobe_speed: float = 4.0
 var strobe_timer: float = 0.0
+var camera_tween: Tween = null
 
 func _ready() -> void:
 	GameManager.reset_state()
@@ -49,6 +50,14 @@ func _process(delta: float) -> void:
 		warning_light_bar.modulate = strobe_color.lerp(Color(0.2, 0.2, 0.25), flash * 0.75)
 	
 	_update_dynamic_diurnal_lighting(delta)
+	
+	# Failsafe: Pastikan kamera selalu terkunci dan mengikuti player saat gameplay aktif
+	if GameManager.is_game_active and player and is_instance_valid(player):
+		var cam: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+		if cam and cam.top_level and (camera_tween == null or not camera_tween.is_valid()):
+			cam.top_level = false
+			cam.position = Vector2.ZERO
+			cam.reset_smoothing()
 
 func _on_shift_started(shift_num: int, _title: String) -> void:
 	_apply_shift_environment(shift_num, true)
@@ -79,7 +88,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			if warning_light_bar:
 				warning_light_bar.modulate = Color(0.35, 0.85, 1.0)
 			emit_embers = false
-			leaf_amount = 25
+			leaf_amount = 60
 			leaf_color = Color(0.45, 0.88, 0.38, 0.85)
 			leaf_gravity = Vector2(20, 25)
 			leaf_vel_min = 20.0
@@ -95,7 +104,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			emit_embers = true
 			ember_amount = 25
 			ember_color = Color(1.0, 0.75, 0.35, 0.45)
-			leaf_amount = 55
+			leaf_amount = 90
 			leaf_color = Color(0.92, 0.68, 0.24, 0.88)
 			leaf_gravity = Vector2(55, 38)
 			leaf_vel_min = 35.0
@@ -111,7 +120,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			emit_embers = true
 			ember_amount = 80
 			ember_color = Color(1.0, 0.35, 0.1, 0.9)
-			leaf_amount = 85
+			leaf_amount = 130
 			leaf_color = Color(0.32, 0.20, 0.16, 0.95)
 			leaf_gravity = Vector2(100, 50)
 			leaf_vel_min = 60.0
@@ -298,27 +307,56 @@ func pan_camera_to(target_pos: Vector2, duration: float = 1.4) -> void:
 	var cam: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
 	if not cam:
 		return
-	cam.top_level = true
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(cam, "global_position", target_pos, duration)
+	
+	if camera_tween and camera_tween.is_valid():
+		camera_tween.kill()
 
-func return_camera_to_player(duration: float = 1.0) -> void:
+	# Clamp target_pos agar viewport kamera tidak pernah keluar dari batas tile
+	var zoom_scale: Vector2 = cam.zoom if cam.zoom != Vector2.ZERO else Vector2(2.0, 2.0)
+	var half_w: float = (1280.0 / 2.0) / zoom_scale.x
+	var half_h: float = (720.0 / 2.0) / zoom_scale.y
+	var clamped_target = Vector2(
+		clampf(target_pos.x, float(cam.limit_left) + half_w, float(cam.limit_right) - half_w),
+		clampf(target_pos.y, float(cam.limit_top) + half_h, float(cam.limit_bottom) - half_h)
+	)
+
+	cam.top_level = true
+	camera_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	camera_tween.tween_property(cam, "global_position", clamped_target, duration)
+
+func return_camera_to_player(duration: float = 0.4) -> void:
 	if not player:
 		return
 	var cam: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
 	if not cam:
 		return
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(cam, "global_position", player.global_position, duration)
-	await tween.finished
+	
+	if camera_tween and camera_tween.is_valid():
+		camera_tween.kill()
+	
+	if not cam.top_level:
+		cam.position = Vector2.ZERO
+		return
+
+	if duration <= 0.05:
+		cam.top_level = false
+		cam.position = Vector2.ZERO
+		cam.reset_smoothing()
+		return
+
+	camera_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	camera_tween.tween_property(cam, "global_position", player.global_position, duration)
+	await camera_tween.finished
 	if is_instance_valid(cam):
 		cam.top_level = false
 		cam.position = Vector2.ZERO
+		cam.reset_smoothing()
 
 func _on_cutscene_ended() -> void:
 	GameManager.prologue_seen = true
+	# Kembalikan kamera secara mulus ke posisi player terlebih dahulu, baru aktifkan kontrol gerak
+	await return_camera_to_player(0.4)
 	GameManager.is_game_active = true
-	return_camera_to_player(0.8)
 
 
 

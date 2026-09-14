@@ -834,13 +834,13 @@ func _on_synopsis_skip_pressed() -> void:
 	
 	# Lewati sinopsis dan cutscene langsung ke gameplay
 	GameManager.prologue_seen = true
-	GameManager.is_game_active = true
 	if top_bar:
 		top_bar.visible = true
 	if objective_tracker:
 		objective_tracker.visible = true
 	if bottom_guide:
 		bottom_guide.visible = true
+	cutscene_camera_return.emit(0.0)
 	cutscene_ended.emit()
 
 func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
@@ -932,9 +932,9 @@ func skip_current_cutscene() -> void:
 	if typewriter_tween and typewriter_tween.is_valid():
 		typewriter_tween.kill()
 	_play_sfx(SFX_CLICK)
-	_finish_active_cutscene()
+	_finish_active_cutscene(true)
 
-func _finish_active_cutscene() -> void:
+func _finish_active_cutscene(was_skipped: bool = false) -> void:
 	is_cutscene_running = false
 	if cinematic_overlay:
 		cinematic_overlay.visible = false
@@ -945,7 +945,8 @@ func _finish_active_cutscene() -> void:
 	if bottom_guide:
 		bottom_guide.visible = true
 	
-	cutscene_camera_return.emit(0.8)
+	var return_dur: float = 0.0 if was_skipped else 0.4
+	cutscene_camera_return.emit(return_dur)
 	cutscene_ended.emit()
 	
 	var cb: Callable = on_cutscene_complete_callable
