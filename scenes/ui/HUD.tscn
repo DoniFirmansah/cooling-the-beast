@@ -192,7 +192,7 @@ value = 100.0
 show_percentage = false
 
 [node name="TimeBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(130, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 alignment = 1
 

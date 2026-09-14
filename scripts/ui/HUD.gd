@@ -238,12 +238,12 @@ func _on_next_shift_pressed() -> void:
 
 func _on_shift_started(shift_num: int, _shift_title: String) -> void:
 	if shift_label:
-		shift_label.text = "SHIFT %d/3" % shift_num
+		shift_label.text = "%s (SHIFT %d/3)" % [GameManager.get_current_day_label(), shift_num]
 	if timer_label:
 		timer_label.text = "01:00"
 	if clock_label:
 		var clock_info: Dictionary = GameManager.get_clock_info()
-		clock_label.text = "• " + clock_info.get("display", "06:00 PAGI")
+		clock_label.text = "🕒 " + clock_info.get("time_str", "06:00") + " (" + clock_info.get("period", "PAGI") + ")"
 
 func _on_shift_intermission(shift_completed: int, log_title: String, log_desc: String) -> void:
 	_play_sfx(SFX_WIN)
@@ -254,7 +254,8 @@ func _on_shift_intermission(shift_completed: int, log_title: String, log_desc: S
 	if shift_log_desc:
 		shift_log_desc.text = log_desc
 	if btn_next_shift:
-		btn_next_shift.text = "MULAI SHIFT %d [SPASI]" % (shift_completed + 1)
+		var next_day_info: Dictionary = GameManager.get_day_info(shift_completed + 1)
+		btn_next_shift.text = "MULAI %s [SPASI]" % next_day_info.get("day_label", "SHIFT %d" % (shift_completed + 1))
 
 func _on_water_changed(current: float, max_amount: float) -> void:
 	if water_bar:
@@ -289,7 +290,7 @@ func _on_time_tick(seconds_left: int) -> void:
 	
 	if clock_label:
 		var clock_info: Dictionary = GameManager.get_clock_info()
-		clock_label.text = "• " + clock_info.get("display", "06:00 PAGI")
+		clock_label.text = "🕒 " + clock_info.get("time_str", "06:00") + " (" + clock_info.get("period", "PAGI") + ")"
 		match GameManager.current_shift:
 			1:
 				clock_label.modulate = Color(1.0, 0.90, 0.45)

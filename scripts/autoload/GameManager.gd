@@ -14,25 +14,45 @@ const SHIFT_DURATION: float = 60.0
 const MAX_BACKPACK_WATER: float = 120.0
 const MAX_WATER: float = MAX_BACKPACK_WATER
 
+const TIMELINE_MODE: String = "monthly" # "monthly" (Hari 1, 15, 30), "consecutive" (Hari 1, 2, 3), "seasonal" (Hari 1, 45, 90)
+
+const TIMELINES: Dictionary = {
+	"monthly": {
+		1: {"day": 1, "day_label": "HARI KE-1", "date": "1 AGUSTUS 2049", "time_jump": "FASE AWAL: PROTOKOL STANDAR"},
+		2: {"day": 15, "day_label": "HARI KE-15", "date": "15 AGUSTUS 2049", "time_jump": "+14 HARI BERLALU (2 MINGGU KEMUDIAN)"},
+		3: {"day": 30, "day_label": "HARI KE-30", "date": "30 AGUSTUS 2049", "time_jump": "+15 HARI BERLALU (TOTAL 1 BULAN SEJAK AWAL)"}
+	},
+	"consecutive": {
+		1: {"day": 1, "day_label": "HARI KE-1", "date": "SENIN, 1 AGUSTUS 2049", "time_jump": "FASE AWAL: PROTOKOL STANDAR"},
+		2: {"day": 2, "day_label": "HARI KE-2", "date": "SELASA, 2 AGUSTUS 2049", "time_jump": "+24 JAM BERLALU (KEESOKAN HARINYA)"},
+		3: {"day": 3, "day_label": "HARI KE-3", "date": "RABU, 3 AGUSTUS 2049", "time_jump": "+24 JAM BERLALU (PUNCAK DARURAT HARI KE-3)"}
+	},
+	"seasonal": {
+		1: {"day": 1, "day_label": "HARI KE-1", "date": "BULAN KE-1 (FASE TANAM)", "time_jump": "FASE AWAL: PROTOKOL STANDAR"},
+		2: {"day": 45, "day_label": "HARI KE-45", "date": "BULAN KE-2 (FASE PERTUMBUHAN)", "time_jump": "+44 HARI BERLALU (1.5 BULAN KEMUDIAN)"},
+		3: {"day": 90, "day_label": "HARI KE-90", "date": "BULAN KE-3 (FASE PANEN RAYA)", "time_jump": "+45 HARI BERLALU (PUNCAK 3 BULAN PENUH)"}
+	}
+}
+
 const SHIFT_CONFIG: Dictionary = {
 	1: {
-		"title": "SHIFT 1: PROTOKOL STANDAR (2049)",
+		"title": "HARI 1: PROTOKOL STANDAR (2049)",
 		"reservoir": 280.0,
 		"heat_mult": 0.85,
 		"dry_mult": 0.85,
-		"next_title": "LAPORAN SHIFT 1 SELESAI [AQUA-7]",
-		"next_desc": "Konsumsi terkendali. Laporan Satelit: Batch pelatihan model AI 2.0T parameter diaktifkan. Panas meningkat untuk Shift 2. Cadangan sumber air bersih dipangkas ke 190L."
+		"next_title": "LAPORAN AKHIR HARI KE-1 [AQUA-7]",
+		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 190L!"
 	},
 	2: {
-		"title": "SHIFT 2: BEBAN KOMPUTASI MASIF",
+		"title": "HARI 15: BEBAN KOMPUTASI MASIF",
 		"reservoir": 190.0,
 		"heat_mult": 1.15,
 		"dry_mult": 1.10,
-		"next_title": "LAPORAN SHIFT 2 SELESAI [AQUA-7]",
-		"next_desc": "Krisis Ekstrem: Gelombang panas melanda. Sumber air bersih anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 110L! Air sangat terbatas untuk kedua sektor."
+		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
+		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 110L untuk kedua sektor."
 	},
 	3: {
-		"title": "SHIFT 3: DILEMA PENGORBANAN (ZERO-SUM)",
+		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
 		"reservoir": 110.0,
 		"heat_mult": 1.45,
 		"dry_mult": 1.35,
@@ -208,36 +228,47 @@ func cheat_finish_shift_instantly() -> void:
 	time_left = 0.2
 	time_tick.emit(0)
 
+func get_day_info(shift_num: int = -1) -> Dictionary:
+	var s: int = current_shift if shift_num <= 0 else shift_num
+	var tl: Dictionary = TIMELINES.get(TIMELINE_MODE, TIMELINES["monthly"])
+	return tl.get(s, {"day": s, "day_label": "HARI KE-%d" % s, "date": "2049", "time_jump": ""})
+
+func get_current_day_label() -> String:
+	return get_day_info().get("day_label", "HARI KE-1")
+
+func get_current_date_str() -> String:
+	return get_day_info().get("date", "2049")
+
 func get_clock_info() -> Dictionary:
 	var progress: float = clampf(1.0 - (time_left / SHIFT_DURATION), 0.0, 1.0)
+	# Setiap shift dihitung 1 hari penuh dari Pagi (06:00) sampai Malam (21:00)
 	var start_hour: float = 6.0
-	var end_hour: float = 11.0
-	var period: String = "PAGI"
-	
-	match current_shift:
-		1:
-			start_hour = 6.0
-			end_hour = 11.0
-			period = "PAGI" if progress < 0.75 else "SIANG"
-		2:
-			start_hour = 11.0
-			end_hour = 16.0
-			period = "SIANG" if progress < 0.6 else "SORE"
-		3:
-			start_hour = 16.0
-			end_hour = 21.0
-			period = "SENJA" if progress < 0.5 else "MALAM"
-	
+	var end_hour: float = 21.0
 	var cur_hour: float = lerpf(start_hour, end_hour, progress)
+	
+	var period: String = "PAGI"
+	if cur_hour >= 18.5:
+		period = "MALAM"
+	elif cur_hour >= 15.5:
+		period = "SENJA"
+	elif cur_hour >= 11.0:
+		period = "SIANG"
+	else:
+		period = "PAGI"
+	
 	var h: int = int(cur_hour)
 	var m: int = int((cur_hour - float(h)) * 60.0)
 	var time_str: String = "%02d:%02d" % [h, m]
-	var display_str: String = "%s %s" % [time_str, period]
+	var day_label: String = get_current_day_label()
+	var display_str: String = "%s • %s %s" % [day_label, time_str, period]
+	
 	return {
 		"time_str": time_str,
 		"period": period,
 		"display": display_str,
-		"progress": progress
+		"progress": progress,
+		"hour": cur_hour,
+		"day_label": day_label
 	}
 
 func jump_to_shift(shift_num: int) -> void:

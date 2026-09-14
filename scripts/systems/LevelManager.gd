@@ -131,49 +131,98 @@ func _update_dynamic_diurnal_lighting(delta: float) -> void:
 	var progress: float = clock.get("progress", 0.0)
 	var shift: int = GameManager.current_shift
 	
-	var target_sky: Color = Color.WHITE
-	var target_bg: Color = Color.WHITE
-	var target_grass: Color = Color(0.80, 0.95, 0.78)
+	# Setiap shift berjalan 1 hari penuh dari Pagi (06:00) s/d Malam (21:00).
+	# Keyframe: 0.0 (Dawn/Pagi), 0.35 (Noon/Siang), 0.70 (Sunset/Senja), 1.0 (Night/Malam)
+	var c_dawn_sky: Color
+	var c_dawn_bg: Color
+	var c_dawn_grass: Color
+	
+	var c_noon_sky: Color
+	var c_noon_bg: Color
+	var c_noon_grass: Color
+	
+	var c_dusk_sky: Color
+	var c_dusk_bg: Color
+	var c_dusk_grass: Color
+	
+	var c_night_sky: Color
+	var c_night_bg: Color
+	var c_night_grass: Color
 	
 	match shift:
 		1:
-			var dawn_sky: Color = Color(1.06, 0.96, 0.88)
-			var dawn_bg: Color = Color(1.12, 0.96, 0.90)
-			var dawn_grass: Color = Color(0.82, 0.98, 0.80)
+			# Hari 1: Lingkungan Alami, Sehat & Sejuk
+			c_dawn_sky = Color(1.06, 0.98, 0.90)
+			c_dawn_bg = Color(1.10, 0.98, 0.92)
+			c_dawn_grass = Color(0.84, 0.98, 0.82)
 			
-			var noon_sky: Color = Color(1.0, 1.0, 1.0)
-			var noon_bg: Color = Color(1.0, 1.0, 1.0)
-			var noon_grass: Color = Color(0.78, 0.94, 0.75)
+			c_noon_sky = Color(1.0, 1.0, 1.0)
+			c_noon_bg = Color(1.0, 1.0, 1.0)
+			c_noon_grass = Color(0.80, 0.96, 0.78)
 			
-			target_sky = dawn_sky.lerp(noon_sky, progress)
-			target_bg = dawn_bg.lerp(noon_bg, progress)
-			target_grass = dawn_grass.lerp(noon_grass, progress)
+			c_dusk_sky = Color(1.08, 0.84, 0.65)
+			c_dusk_bg = Color(1.10, 0.82, 0.62)
+			c_dusk_grass = Color(0.86, 0.82, 0.60)
+			
+			c_night_sky = Color(0.55, 0.62, 0.82)
+			c_night_bg = Color(0.52, 0.58, 0.78)
+			c_night_grass = Color(0.42, 0.52, 0.55)
 			
 		2:
-			var noon_sky: Color = Color(1.04, 0.98, 0.86)
-			var noon_bg: Color = Color(1.05, 0.96, 0.88)
-			var noon_grass: Color = Color(0.85, 0.86, 0.65)
+			# Hari 15: Gelombang Panas Melanda, Kering & Berdebu
+			c_dawn_sky = Color(1.06, 0.94, 0.78)
+			c_dawn_bg = Color(1.08, 0.92, 0.74)
+			c_dawn_grass = Color(0.86, 0.85, 0.62)
 			
-			var afternoon_sky: Color = Color(1.10, 0.92, 0.72)
-			var afternoon_bg: Color = Color(1.14, 0.90, 0.66)
-			var afternoon_grass: Color = Color(0.85, 0.74, 0.44)
+			c_noon_sky = Color(1.12, 0.95, 0.70)
+			c_noon_bg = Color(1.14, 0.92, 0.66)
+			c_noon_grass = Color(0.85, 0.74, 0.44)
 			
-			target_sky = noon_sky.lerp(afternoon_sky, progress)
-			target_bg = noon_bg.lerp(afternoon_bg, progress)
-			target_grass = noon_grass.lerp(afternoon_grass, progress)
+			c_dusk_sky = Color(1.14, 0.72, 0.48)
+			c_dusk_bg = Color(1.16, 0.68, 0.42)
+			c_dusk_grass = Color(0.72, 0.55, 0.35)
+			
+			c_night_sky = Color(0.62, 0.45, 0.42)
+			c_night_bg = Color(0.60, 0.40, 0.38)
+			c_night_grass = Color(0.45, 0.36, 0.28)
 			
 		3:
-			var dusk_sky: Color = Color(0.98, 0.58, 0.42)
-			var dusk_bg: Color = Color(1.04, 0.54, 0.38)
-			var dusk_grass: Color = Color(0.55, 0.38, 0.28)
+			# Hari 30: Puncak Krisis Iklim & Panas Ekstrem (Zero-Sum)
+			c_dawn_sky = Color(1.05, 0.65, 0.50)
+			c_dawn_bg = Color(1.08, 0.60, 0.45)
+			c_dawn_grass = Color(0.58, 0.42, 0.32)
 			
-			var night_sky: Color = Color(0.88, 0.42, 0.30)
-			var night_bg: Color = Color(0.94, 0.36, 0.26)
-			var night_grass: Color = Color(0.38, 0.26, 0.18)
+			c_noon_sky = Color(1.18, 0.60, 0.36)
+			c_noon_bg = Color(1.20, 0.52, 0.30)
+			c_noon_grass = Color(0.48, 0.32, 0.22)
 			
-			target_sky = dusk_sky.lerp(night_sky, progress)
-			target_bg = dusk_bg.lerp(night_bg, progress)
-			target_grass = dusk_grass.lerp(night_grass, progress)
+			c_dusk_sky = Color(0.96, 0.42, 0.28)
+			c_dusk_bg = Color(0.98, 0.36, 0.24)
+			c_dusk_grass = Color(0.40, 0.26, 0.18)
+			
+			c_night_sky = Color(0.44, 0.22, 0.20)
+			c_night_bg = Color(0.42, 0.18, 0.16)
+			c_night_grass = Color(0.28, 0.18, 0.14)
+	
+	var target_sky: Color
+	var target_bg: Color
+	var target_grass: Color
+	
+	if progress <= 0.35:
+		var t: float = progress / 0.35
+		target_sky = c_dawn_sky.lerp(c_noon_sky, t)
+		target_bg = c_dawn_bg.lerp(c_noon_bg, t)
+		target_grass = c_dawn_grass.lerp(c_noon_grass, t)
+	elif progress <= 0.70:
+		var t: float = (progress - 0.35) / 0.35
+		target_sky = c_noon_sky.lerp(c_dusk_sky, t)
+		target_bg = c_noon_bg.lerp(c_dusk_bg, t)
+		target_grass = c_noon_grass.lerp(c_dusk_grass, t)
+	else:
+		var t: float = (progress - 0.70) / 0.30
+		target_sky = c_dusk_sky.lerp(c_night_sky, t)
+		target_bg = c_dusk_bg.lerp(c_night_bg, t)
+		target_grass = c_dusk_grass.lerp(c_night_grass, t)
 	
 	if env_modulate:
 		env_modulate.color = env_modulate.color.lerp(target_sky, delta * 3.0)

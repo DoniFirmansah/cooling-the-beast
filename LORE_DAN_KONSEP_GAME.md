@@ -118,27 +118,37 @@ Agar pemain pemula maupun dewan juri langsung memahami apa yang harus dilakukan 
 
 ---
 
-## 5. STRUKTUR 3 SHIFT: ESKALASI KRISIS & PARADOKS ZERO-SUM
+## 5. STRUKTUR WAKTU & 3 SHIFT: SIKLUS HARIAN (PAGI KE MALAM) DAN ESKALASI KRISIS
 
-Permainan terbagi ke dalam 3 babak kerja (*shift*) berturut-turut yang menggambarkan degradasi lingkungan secara progresif:
+### 5.1 Siklus Harian per Shift (Pagi ke Malam: 06:00 – 21:00)
+Setiap shift dihitung sebagai **1 hari kerja operasional penuh** dari terbit fajar hingga malam hari (~60 detik durasi gameplay):
+* **06:00 – 10:59 (PAGI):** Matahari fajar terbit, pencahayaan lembut keemasan, suhu awal masih sejuk.
+* **11:00 – 15:29 (SIANG):** Matahari mencapai zenit di atas kepala, suhu meningkat, beban pendinginan mulai intensif.
+* **15:30 – 18:29 (SENJA):** Senja jingga/oranye keemasan, bayangan memanjang, persiapan penutupan ronde harian.
+* **18:30 – 21:00 (MALAM):** Lampu kota dan spotlight fasilitas menyala, langit menggelap redup, shift harian berakhir.
 
-### Shift 1: Protokol Standar (Tahun 2049)
-* **Status Lingkungan:** Langit cerah, rumput hijau segar, udara sejuk.
-* **Cadangan Danau:** Melimpah (**280 Liter**).
-* **Kondisi Beban:** AI beroperasi pada beban dasar (*idle training*).
-* **Fungsi Desain:** Fase tutorial bagi pemain untuk membiasakan diri dengan siklus mengambil air, berlari melintasi jembatan, dan menyiram tanaman serta server.
+---
 
-### Shift 2: Beban Komputasi Masif (Global Heat Wave)
-* **Status Lingkungan:** Langit mulai menguning hangat, rumput sawah mengering kecokelatan.
-* **Cadangan Danau:** Terpangkas ke **190 Liter**.
-* **Kondisi Beban:** Pelatihan model AI 2.0T parameter diaktifkan secara global. Pemanasan server melonjak 1.15x dan pengeringan sawah naik 1.10x.
-* **Laporan Satelit Intermission:** *"Krisis Ekstrem: Gelombang panas melanda. Sumber air bersih anjlok ke level merah! Kuota Shift 3 dipangkas darurat HANYA 110L! Air sangat terbatas untuk kedua sektor."*
+### 5.2 Waktu yang Berlalu Antar Shift (Lore Timeline Analysis)
+Terdapat 3 alternatif kronologi waktu yang diselaraskan dengan realitas ekologis & pelatihan AI:
 
-### Shift 3: Dilema Pengorbanan (Zero-Sum Survival)
-* **Status Lingkungan:** Langit memerah membara, partikel bara api dan abu berterbangan di udara, tanah gambut retak.
-* **Cadangan Danau:** Krisis kritis (**110 Liter**).
-* **Kondisi Beban:** Pemanasan server naik 1.45x, pengeringan sawah 1.35x.
-* **Fungsi Desain:** **Zero-Sum Game murni.** Air 110 Liter tidak lagi cukup untuk mempertahankan kedua sektor secara sempurna. Pemain dipaksa menghitung setiap tetes air atau mengambil keputusan moral: sektor mana yang harus dikorbankan?
+* **Opsi 1: Siklus Bulanan / Training Run AI (Hari 1 → Hari 15 → Hari 30) — [Rekomendasi Utama & Default]**
+  * **Shift 1: Hari ke-1 (1 Agustus 2049)** — Fase inisiasi beban standar. Cadangan danau **280 Liter**.
+  * **Jeda Antar Shift: +14 Hari (2 Minggu kemudian)** — Pelatihan AI Epoch 1 berskala 2.0T parameter berjalan terus-menerus. Sistem pendingin evaporatif menyedot jutaan liter air dari akuifer tanah, menyebabkan danau menyusut drastis ke **190 Liter**.
+  * **Shift 2: Hari ke-15 (15 Agustus 2049)** — Puncak gelombang panas musiman melanda. Tanaman mulai mengering.
+  * **Jeda Antar Shift: +15 Hari (Total 30 Hari / 1 Bulan sejak awal)** — Puncak musim kemarau ekstrem tiba bertepatan dengan *final epoch training*. Pipa suplai regional terputus!
+  * **Shift 3: Hari ke-30 (30 Agustus 2049)** — Krisis Zero-Sum puncak. Cadangan danau darurat tersisa **110 Liter**. Keputusan moral menentukan masa depan.
+  * *Nilai Filosofis:* Menunjukkan bagaimana teknologi komputasi skala besar menguras biosfer bumi secara kumulatif hari demi hari.
+
+* **Opsi 2: Siklus Tanggap Darurat Bencana (Hari 1 → Hari 2 → Hari 3 / 3 Hari Berurutan)**
+  * **Shift 1: Hari ke-1 (Senin)** — Operasi standar harian. AQUA-7 recharge baterai 9 jam di malam hari.
+  * **Shift 2: Hari ke-2 (Selasa / +24 Jam)** — Gelombang panas ekstrem menghantam tanpa peringatan dini.
+  * **Shift 3: Hari ke-3 (Rabu / +48 Jam)** — Krisis puncak darurat pasca kebakaran hutan regional.
+
+* **Opsi 3: Siklus Musiman Penuh Agrikultur (Hari 1 → Hari 45 → Hari 90 / Siklus 3 Bulan)**
+  * **Shift 1: Hari ke-1 (Bulan 1)** — Fase semai bibit pangan padi.
+  * **Shift 2: Hari ke-45 (Bulan 2 / +1.5 Bulan)** — Fase vegetatif/bunga saat kemarau panjang memuncak.
+  * **Shift 3: Hari ke-90 (Bulan 3 / +3 Bulan)** — Masa menjelang panen raya padi atau puso total.
 
 ---
 
