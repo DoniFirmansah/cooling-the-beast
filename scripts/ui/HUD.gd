@@ -233,8 +233,21 @@ func _ready() -> void:
 		cinematic_overlay.visible = false
 	if shift_transition_screen:
 		shift_transition_screen.visible = false
-	if prologue_synopsis_screen:
-		prologue_synopsis_screen.visible = false
+	
+	# Cegah glitch visual: Frame 0 langsung tutup layar dengan hitam jika baru mulai Shift 1
+	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
+		if top_bar:
+			top_bar.visible = false
+		if objective_tracker:
+			objective_tracker.visible = false
+		if bottom_guide:
+			bottom_guide.visible = false
+		if prologue_synopsis_screen:
+			prologue_synopsis_screen.visible = true
+	else:
+		if prologue_synopsis_screen:
+			prologue_synopsis_screen.visible = false
+	
 	if btn_skip_cutscene:
 		btn_skip_cutscene.pressed.connect(skip_prologue_cutscene)
 	if btn_start_operation:

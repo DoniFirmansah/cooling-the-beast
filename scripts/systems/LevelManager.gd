@@ -34,9 +34,7 @@ func _ready() -> void:
 	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
 		GameManager.is_game_active = false
 		if hud and hud.has_method("start_prologue_cutscene"):
-			get_tree().create_timer(0.2).timeout.connect(func():
-				hud.call("start_prologue_cutscene")
-			)
+			hud.start_prologue_cutscene()
 	else:
 		GameManager.is_game_active = true
 

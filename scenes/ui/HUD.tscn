@@ -814,7 +814,6 @@ text = "▶ Shift 3 (Krisis Air)"
 
 [node name="PrologueSynopsisScreen" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 92
 layout_mode = 3
 anchors_preset = 15
@@ -841,6 +840,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="PrologueSynopsisScreen/CenterContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_constants/separation = 18
