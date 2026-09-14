@@ -32,8 +32,8 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 
 # Prologue Lore Synopsis Screen (black screen with lore text before Shift 1 dialog)
 @onready var prologue_synopsis_screen: Control = %PrologueSynopsisScreen
-@onready var btn_start_operation: Button = %BtnStartOperation
-@onready var btn_skip_synopsis: Button = %BtnSkipSynopsis
+@onready var synopsis_prompt: Label = %SynopsisPrompt
+@onready var synopsis_skip_hint: Label = %SynopsisSkipHint
 
 # Shift Transition Screen (full black screen with day title)
 @onready var shift_transition_screen: Control = %ShiftTransitionScreen
@@ -186,6 +186,10 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 ]
 
 func _process(delta: float) -> void:
+	if is_synopsis_running and synopsis_prompt:
+		prompt_blink_timer += delta * 3.5
+		synopsis_prompt.modulate.a = 0.55 + 0.45 * ((sin(prompt_blink_timer) + 1.0) * 0.5)
+
 	if is_cutscene_running and advance_prompt and advance_prompt.visible:
 		prompt_blink_timer += delta * 4.0
 		advance_prompt.modulate.a = 0.45 + 0.55 * ((sin(prompt_blink_timer) + 1.0) * 0.5)
@@ -250,10 +254,8 @@ func _ready() -> void:
 	
 	if btn_skip_cutscene:
 		btn_skip_cutscene.pressed.connect(skip_prologue_cutscene)
-	if btn_start_operation:
-		btn_start_operation.pressed.connect(_on_synopsis_advance_pressed)
-	if btn_skip_synopsis:
-		btn_skip_synopsis.pressed.connect(_on_synopsis_skip_pressed)
+	if prologue_synopsis_screen:
+		prologue_synopsis_screen.gui_input.connect(_on_synopsis_gui_input)
 	
 	audio_player = AudioStreamPlayer.new()
 	audio_player.bus = &"Master"
@@ -750,6 +752,10 @@ func start_prologue_cutscene() -> void:
 			tween.tween_property(vbox, "modulate", Color.WHITE, 0.8)
 	else:
 		play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
+
+func _on_synopsis_gui_input(event: InputEvent) -> void:
+	if is_synopsis_running and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_on_synopsis_advance_pressed()
 
 func _on_synopsis_advance_pressed() -> void:
 	if not is_synopsis_running:

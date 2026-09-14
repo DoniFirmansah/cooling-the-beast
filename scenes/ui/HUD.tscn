@@ -894,30 +894,26 @@ Untuk menjaga keseimbangan rapuh ini, robot otomasi hidrologis diaktifkan:
 Air alami yang tersisa tak lagi mampu mencukupi kedua belah pihak.
 Setiap tetes yang kau putuskan... akan menentukan siapa yang bertahan hidup.[/center]"
 
-[node name="PromptBox" type="HBoxContainer" parent="PrologueSynopsisScreen/CenterContainer/VBox"]
+[node name="PromptBox" type="VBoxContainer" parent="PrologueSynopsisScreen/CenterContainer/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 6
 alignment = 1
-theme_override_constants/separation = 16
 
-[node name="BtnStartOperation" type="Button" parent="PrologueSynopsisScreen/CenterContainer/VBox/PromptBox"]
+[node name="SynopsisPrompt" type="Label" parent="PrologueSynopsisScreen/CenterContainer/VBox/PromptBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 36)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "START GAME [SPASI] ▸"
+theme_override_colors/font_color = Color(0.85, 0.88, 0.94, 0.95)
+theme_override_font_sizes/font_size = 13
+text = "Klik Layar atau Tekan [SPASI] untuk Lanjut ▸"
+horizontal_alignment = 1
 
-[node name="BtnSkipSynopsis" type="Button" parent="PrologueSynopsisScreen/CenterContainer/VBox/PromptBox"]
+[node name="SynopsisSkipHint" type="Label" parent="PrologueSynopsisScreen/CenterContainer/VBox/PromptBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 36)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.68, 0.72, 0.78, 0.9)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_skip_btn")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "LEWATI [ESC]"
+theme_override_colors/font_color = Color(0.50, 0.55, 0.62, 0.75)
+theme_override_font_sizes/font_size = 10
+text = "[ESC] Lewati Sinopsis"
+horizontal_alignment = 1
 
 [node name="ShiftTransitionScreen" type="Control" parent="."]
 unique_name_in_owner = true
