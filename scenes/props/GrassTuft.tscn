@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5q0grasstuft01"]
+[gd_scene load_steps=4 format=3 uid="uid://bx53fwsorbvrs"]
 
 [ext_resource type="Script" path="res://scripts/props/GrassTuft.gd" id="1_grass_script"]
 [ext_resource type="Texture2D" uid="uid://xkjop2fvwpix" path="res://assets/environment/farmland/grass_01.png" id="2_grass_tex"]
