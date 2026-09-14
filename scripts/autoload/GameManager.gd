@@ -208,6 +208,38 @@ func cheat_finish_shift_instantly() -> void:
 	time_left = 0.2
 	time_tick.emit(0)
 
+func get_clock_info() -> Dictionary:
+	var progress: float = clampf(1.0 - (time_left / SHIFT_DURATION), 0.0, 1.0)
+	var start_hour: float = 6.0
+	var end_hour: float = 11.0
+	var period: String = "PAGI"
+	
+	match current_shift:
+		1:
+			start_hour = 6.0
+			end_hour = 11.0
+			period = "PAGI" if progress < 0.75 else "SIANG"
+		2:
+			start_hour = 11.0
+			end_hour = 16.0
+			period = "SIANG" if progress < 0.6 else "SORE"
+		3:
+			start_hour = 16.0
+			end_hour = 21.0
+			period = "SENJA" if progress < 0.5 else "MALAM"
+	
+	var cur_hour: float = lerpf(start_hour, end_hour, progress)
+	var h: int = int(cur_hour)
+	var m: int = int((cur_hour - float(h)) * 60.0)
+	var time_str: String = "%02d:%02d" % [h, m]
+	var display_str: String = "%s %s" % [time_str, period]
+	return {
+		"time_str": time_str,
+		"period": period,
+		"display": display_str,
+		"progress": progress
+	}
+
 func jump_to_shift(shift_num: int) -> void:
 	if shift_num < 1 or shift_num > 3:
 		return

@@ -4,6 +4,7 @@ class_name LevelManager
 @onready var hud: CanvasLayer = $HUD
 @onready var bgm_player: AudioStreamPlayer = $BGMPlayer
 @onready var env_modulate: CanvasModulate = $EnvModulate
+@onready var background_skyline: Sprite2D = $BackgroundSkyline
 @onready var grass_floor: TextureRect = $Floors/GrassFloorAgriDome
 @onready var heat_ember_particles: CPUParticles2D = $HeatEmberParticles
 @onready var forest_leaf_particles: CPUParticles2D = $ForestLeafParticles
@@ -30,6 +31,8 @@ func _process(delta: float) -> void:
 		strobe_timer += delta * strobe_speed
 		var flash: float = (sin(strobe_timer) + 1.0) * 0.5
 		warning_light_bar.modulate = strobe_color.lerp(Color(0.2, 0.2, 0.25), flash * 0.75)
+	
+	_update_dynamic_diurnal_lighting(delta)
 
 func _on_shift_started(shift_num: int, _title: String) -> void:
 	_apply_shift_environment(shift_num, true)
@@ -37,6 +40,7 @@ func _on_shift_started(shift_num: int, _title: String) -> void:
 
 func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 	var target_sky_color: Color = Color.WHITE
+	var target_bg_color: Color = Color.WHITE
 	var target_grass_color: Color = Color(0.80, 0.95, 0.78)
 	var emit_embers: bool = false
 	var ember_amount: int = 20
@@ -50,23 +54,21 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 	
 	match shift_num:
 		1:
-			# Shift 1: Subur, sejuk, asri (Protokol Standar 2049)
-			target_sky_color = Color(1.0, 1.0, 1.0)
-			target_grass_color = Color(0.80, 0.95, 0.78)
+			target_sky_color = Color(1.06, 0.96, 0.88)
+			target_bg_color = Color(1.12, 0.96, 0.90)
+			target_grass_color = Color(0.82, 0.98, 0.80)
 			strobe_warning_bar = false
 			if warning_light_bar:
 				warning_light_bar.modulate = Color(0.35, 0.85, 1.0)
 			emit_embers = false
-			
 			leaf_amount = 25
 			leaf_color = Color(0.45, 0.88, 0.38, 0.85)
 			leaf_gravity = Vector2(20, 25)
 			leaf_vel_min = 20.0
 			leaf_vel_max = 45.0
-			
 		2:
-			# Shift 2: Gelombang panas, kering, dedaunan rontok menguning
 			target_sky_color = Color(1.08, 0.94, 0.76)
+			target_bg_color = Color(1.12, 0.92, 0.70)
 			target_grass_color = Color(0.85, 0.74, 0.46)
 			strobe_warning_bar = true
 			strobe_color = Color(1.0, 0.8, 0.25)
@@ -74,27 +76,24 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			emit_embers = true
 			ember_amount = 25
 			ember_color = Color(1.0, 0.75, 0.35, 0.45)
-			
 			leaf_amount = 55
 			leaf_color = Color(0.92, 0.68, 0.24, 0.88)
 			leaf_gravity = Vector2(55, 38)
 			leaf_vel_min = 35.0
 			leaf_vel_max = 70.0
-			
 		3:
-			# Shift 3: Krisis Zero-Sum, langit merah membara, abu/bara api, dedaunan gosong
 			target_sky_color = Color(0.95, 0.50, 0.35)
+			target_bg_color = Color(1.0, 0.42, 0.30)
 			target_grass_color = Color(0.42, 0.30, 0.22)
 			strobe_warning_bar = true
 			strobe_color = Color(1.0, 0.15, 0.15)
-			strobe_speed = 12.0 # Strobo darurat cepat
+			strobe_speed = 12.0
 			emit_embers = true
 			ember_amount = 80
 			ember_color = Color(1.0, 0.35, 0.1, 0.9)
-			
 			leaf_amount = 85
-			leaf_color = Color(0.32, 0.20, 0.16, 0.95) # Daun hangus kehitaman
-			leaf_gravity = Vector2(100, 50) # Angin kencang
+			leaf_color = Color(0.32, 0.20, 0.16, 0.95)
+			leaf_gravity = Vector2(100, 50)
 			leaf_vel_min = 60.0
 			leaf_vel_max = 120.0
 	
@@ -115,13 +114,74 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 		var tween: Tween = create_tween().set_parallel(true)
 		if env_modulate:
 			tween.tween_property(env_modulate, "color", target_sky_color, 2.5)
+		if background_skyline:
+			tween.tween_property(background_skyline, "modulate", target_bg_color, 2.5)
 		if grass_floor:
 			tween.tween_property(grass_floor, "modulate", target_grass_color, 2.5)
 	else:
 		if env_modulate:
 			env_modulate.color = target_sky_color
+		if background_skyline:
+			background_skyline.modulate = target_bg_color
 		if grass_floor:
 			grass_floor.modulate = target_grass_color
+
+func _update_dynamic_diurnal_lighting(delta: float) -> void:
+	var clock: Dictionary = GameManager.get_clock_info()
+	var progress: float = clock.get("progress", 0.0)
+	var shift: int = GameManager.current_shift
+	
+	var target_sky: Color = Color.WHITE
+	var target_bg: Color = Color.WHITE
+	var target_grass: Color = Color(0.80, 0.95, 0.78)
+	
+	match shift:
+		1:
+			var dawn_sky: Color = Color(1.06, 0.96, 0.88)
+			var dawn_bg: Color = Color(1.12, 0.96, 0.90)
+			var dawn_grass: Color = Color(0.82, 0.98, 0.80)
+			
+			var noon_sky: Color = Color(1.0, 1.0, 1.0)
+			var noon_bg: Color = Color(1.0, 1.0, 1.0)
+			var noon_grass: Color = Color(0.78, 0.94, 0.75)
+			
+			target_sky = dawn_sky.lerp(noon_sky, progress)
+			target_bg = dawn_bg.lerp(noon_bg, progress)
+			target_grass = dawn_grass.lerp(noon_grass, progress)
+			
+		2:
+			var noon_sky: Color = Color(1.04, 0.98, 0.86)
+			var noon_bg: Color = Color(1.05, 0.96, 0.88)
+			var noon_grass: Color = Color(0.85, 0.86, 0.65)
+			
+			var afternoon_sky: Color = Color(1.10, 0.92, 0.72)
+			var afternoon_bg: Color = Color(1.14, 0.90, 0.66)
+			var afternoon_grass: Color = Color(0.85, 0.74, 0.44)
+			
+			target_sky = noon_sky.lerp(afternoon_sky, progress)
+			target_bg = noon_bg.lerp(afternoon_bg, progress)
+			target_grass = noon_grass.lerp(afternoon_grass, progress)
+			
+		3:
+			var dusk_sky: Color = Color(0.98, 0.58, 0.42)
+			var dusk_bg: Color = Color(1.04, 0.54, 0.38)
+			var dusk_grass: Color = Color(0.55, 0.38, 0.28)
+			
+			var night_sky: Color = Color(0.88, 0.42, 0.30)
+			var night_bg: Color = Color(0.94, 0.36, 0.26)
+			var night_grass: Color = Color(0.38, 0.26, 0.18)
+			
+			target_sky = dusk_sky.lerp(night_sky, progress)
+			target_bg = dusk_bg.lerp(night_bg, progress)
+			target_grass = dusk_grass.lerp(night_grass, progress)
+	
+	if env_modulate:
+		env_modulate.color = env_modulate.color.lerp(target_sky, delta * 3.0)
+	if background_skyline:
+		background_skyline.modulate = background_skyline.modulate.lerp(target_bg, delta * 3.0)
+	if grass_floor:
+		grass_floor.modulate = grass_floor.modulate.lerp(target_grass, delta * 3.0)
+
 
 func _trigger_shift_transition_effects(shift_num: int) -> void:
 	if not player:

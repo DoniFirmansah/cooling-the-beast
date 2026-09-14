@@ -9,6 +9,7 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var reservoir_bar: ProgressBar = %ReservoirBar
 @onready var reservoir_label: Label = %ReservoirLabel
 @onready var shift_label: Label = %ShiftLabel
+@onready var clock_label: Label = %ClockLabel
 @onready var timer_label: Label = %TimerLabel
 @onready var server_bar: ProgressBar = %ServerBar
 @onready var server_label: Label = %ServerLabel
@@ -240,6 +241,9 @@ func _on_shift_started(shift_num: int, _shift_title: String) -> void:
 		shift_label.text = "SHIFT %d/3" % shift_num
 	if timer_label:
 		timer_label.text = "01:00"
+	if clock_label:
+		var clock_info: Dictionary = GameManager.get_clock_info()
+		clock_label.text = "• " + clock_info.get("display", "06:00 PAGI")
 
 func _on_shift_intermission(shift_completed: int, log_title: String, log_desc: String) -> void:
 	_play_sfx(SFX_WIN)
@@ -282,6 +286,17 @@ func _on_time_tick(seconds_left: int) -> void:
 		var secs: int = seconds_left % 60
 		timer_label.text = "%02d:%02d" % [mins, secs]
 		timer_label.modulate = Color(1.0, 0.2, 0.2) if seconds_left <= 15 else Color.WHITE
+	
+	if clock_label:
+		var clock_info: Dictionary = GameManager.get_clock_info()
+		clock_label.text = "• " + clock_info.get("display", "06:00 PAGI")
+		match GameManager.current_shift:
+			1:
+				clock_label.modulate = Color(1.0, 0.90, 0.45)
+			2:
+				clock_label.modulate = Color(1.0, 0.65, 0.25)
+			3:
+				clock_label.modulate = Color(1.0, 0.35, 0.25)
 
 func _on_server_integrity_changed(val: float) -> void:
 	if server_bar:
