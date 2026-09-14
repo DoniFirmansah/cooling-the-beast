@@ -99,7 +99,7 @@ color = Color(0.42, 0.85, 0.35, 0.85)
 [node name="BackgroundSkyline" type="Sprite2D" parent="."]
 z_index = -20
 z_as_relative = false
-position = Vector2(0, -320)
+position = Vector2(2, -306)
 texture = ExtResource("32_skyline_tex")
 
 [node name="Floors" type="Node2D" parent="."]

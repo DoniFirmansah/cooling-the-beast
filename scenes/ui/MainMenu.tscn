@@ -101,20 +101,20 @@ theme_override_constants/separation = 4
 
 [node name="GameTitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.88, 1, 1)
+theme_override_colors/font_color = Color(0.35, 0.9, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 36
-text = "COOLING THE BEAST"
+theme_override_font_sizes/font_size = 32
+text = "AQUA-7: BETWEEN SILICON & SOIL"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4, 0.95, 0.65, 1)
 theme_override_font_sizes/font_size = 13
-text = "AQUA-7 // ZERO-SUM WATER CRISIS (SIJORI 2049)"
+text = "Dilema Air Ekologis: Pendinginan AI vs Ketahanan Pangan (2049)"
 horizontal_alignment = 1
 
 [node name="ThemeLabel" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]

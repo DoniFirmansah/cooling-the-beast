@@ -1,4 +1,4 @@
-# Panduan Penempatan Aset Grafis (Raw PNG) - "Cooling the Beast"
+# Panduan Penempatan Aset Grafis (Raw PNG) - "AQUA-7: Between Silicon & Soil"
 
 Silakan letakkan file gambar PNG (spritesheet atau loose PNG) ke sub-folder di bawah ini:
 

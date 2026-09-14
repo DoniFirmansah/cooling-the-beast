@@ -1,4 +1,4 @@
-# DOKUMEN LORE & KONSEP GAME: COOLING THE BEAST
+# DOKUMEN LORE & KONSEP GAME: AQUA-7: BETWEEN SILICON & SOIL
 **Kompetisi:** Grafika Gametastic 2026 (Gamecomm Indonesia)  
 **Tema Resmi:** Isu Lingkungan (*Save the Earth*)  
 **Format Pengumpulan:** Web Playable (itch.io) & PC Standalone  
@@ -9,7 +9,7 @@
 
 ## 1. IDENTITAS GIM & SINOPSIS EKSEKUTIF
 
-* **Judul Gim:** *Cooling The Beast*
+* **Judul Gim:** *AQUA-7: Between Silicon & Soil*
 * **Genre:** *Top-Down Eco-Resource Management, Time-Pressure Strategy & Narrative Dilemma*
 * **Durasi Putaran:** 3 Shift Progresif (~3 – 5 Menit Total Gameplay)
 * **Tagline:** *"Ketika satu tetes air menentukan masa depan: kecerdasan buatan atau kehidupan di bumi?"*
@@ -27,7 +27,7 @@ Pemain mengendalikan **AQUA-7**, unit robot logistik hidrolik otonom yang ditemp
 Gim ini dirancang bukan dari fiksi ilmiah hampa, melainkan bertumpu pada **fakta krisis ekologis abad ke-21**:
 * Menurut riset data center global, pelatihan satu model bahasa AI berskala besar mengonsumsi hingga ratusan ribu hingga jutaan liter air tawar untuk sistem pendingin evaporatif (*evaporative cooling system*).
 * Pembangunan fasilitas data center di wilayah agraris sering kali menyedot akuifer air tanah setempat, menyebabkan sumur-sumur warga mengering dan lahan pertanian mengalami gagal panen.
-* *Cooling The Beast* mengonversi paradoks modern ini menjadi mekanika permainan langsung: **Setiap megawatt komputasi yang kita nikmati di layar digital dibayar dengan tetesan air dan masa depan bumi.**
+* *AQUA-7: Between Silicon & Soil* mengonversi paradoks modern ini menjadi mekanika permainan langsung: **Setiap megawatt komputasi yang kita nikmati di layar digital dibayar dengan tetesan air dan masa depan bumi.**
 
 ### 2.2 Profil Tokoh Utama: Unit AQUA-7
 * **Kode Unit:** *AQUA-7 (Autonomous Quenching & Utility Automaton - Model 7)*
@@ -188,7 +188,7 @@ Sesuai aturan mutlak panitia Grafika Gametastic 2026:
 
 ## 9. KESIMPULAN & PESAN KARYA BAGI DEWAN JURI
 
-*Cooling The Beast* mendemonstrasikan bahwa tema lingkungan hidup (*Save the Earth*) tidak harus selalu disajikan dalam bentuk memungut sampah konvensional. Gim ini mengangkat isu **konsumsi air raksasa industri kecerdasan buatan** yang sangat relevan dengan zaman sekarang, membungkusnya dalam mekanika manajemen sumber daya yang adil, responsif, dan kaya secara emosional.
+*AQUA-7: Between Silicon & Soil* mendemonstrasikan bahwa tema lingkungan hidup (*Save the Earth*) tidak harus selalu disajikan dalam bentuk memungut sampah konvensional. Gim ini mengangkat isu **konsumsi air raksasa industri kecerdasan buatan** yang sangat relevan dengan zaman sekarang, membungkusnya dalam mekanika manajemen sumber daya yang adil, responsif, dan kaya secara emosional.
 
 Pemain diajak untuk merasakan sendiri ketegangan menjadi penjaga perbatasan antara alam dan teknologi, di mana setiap liter air memiliki bobot nyata bagi keberlangsungan bumi.
 
