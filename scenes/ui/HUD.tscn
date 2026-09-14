@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctb_hud_001"]
+[gd_scene load_steps=10 format=3 uid="uid://ctb_hud_001"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
 
@@ -46,6 +46,42 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheat_btn"]
+bg_color = Color(0.1, 0.16, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.5, 0.75, 0.8)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheat_btn_hover"]
+bg_color = Color(0.16, 0.26, 0.4, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.75, 1, 0.9)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheat_active"]
+bg_color = Color(0.12, 0.4, 0.22, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.95, 0.45, 0.9)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
@@ -507,13 +543,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PauseScreen/CenterContainer"]
-custom_minimum_size = Vector2(320, 260)
+custom_minimum_size = Vector2(440, 420)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Label" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
@@ -522,31 +558,119 @@ theme_override_font_sizes/font_size = 20
 text = "GAME DIJEDA"
 horizontal_alignment = 1
 
-[node name="BtnResume" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 34)
+[node name="HBoxStandard" type="HBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="BtnResume" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/HBoxStandard"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_font_sizes/font_size = 12
 text = "LANJUTKAN"
 
-[node name="BtnPauseRestart" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="BtnPauseRestart" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/HBoxStandard"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 34)
+custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_font_sizes/font_size = 12
 text = "MULAI ULANG"
 
-[node name="BtnPauseMenu" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="BtnPauseMenu" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/HBoxStandard"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 34)
+custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_font_sizes/font_size = 12
 text = "MENU UTAMA"
+
+[node name="HSeparator1" type="HSeparator" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DevCheatBox" type="VBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DevTitle" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 12
+text = "🛠️ DEV CHEAT & DEBUG CONSOLE"
+horizontal_alignment = 1
+
+[node name="BtnCheatGodMode" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 12
+text = "🛡️ KEBAL DURABILITAS (GOD MODE): NONAKTIF"
+
+[node name="BtnCheatSpeed" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 12
+text = "⚡ KECEPATAN WAKTU: 1X (NORMAL)"
+
+[node name="BtnCheatFinishShift" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 12
+text = "⏭️ SELESAIKAN SHIFT SEKARANG (Timer -> 0s)"
+
+[node name="ShiftJumpLabel" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "Lompat Langsung ke Shift:"
+horizontal_alignment = 1
+
+[node name="HBoxShifts" type="HBoxContainer" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="BtnJumpShift1" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox/HBoxShifts"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 11
+text = "▶ Shift 1 (2049)"
+
+[node name="BtnJumpShift2" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox/HBoxShifts"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 11
+text = "▶ Shift 2 (Beban AI)"
+
+[node name="BtnJumpShift3" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox/HBoxShifts"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
+theme_override_font_sizes/font_size = 11
+text = "▶ Shift 3 (Krisis Air)"
 
 

@@ -219,21 +219,17 @@ shape = SubResource("RectangleShape2D_console")
 
 [node name="ServerRack1" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(-114, -19)
-rack_variant = "cluster_b"
 
 [node name="ServerRack2" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(114, -19)
-rack_variant = "cluster_b"
 rack_id = 2
 
 [node name="ServerRack3" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(-114, 101)
-rack_variant = "cluster_b"
 rack_id = 3
 
 [node name="ServerRack4" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(114, 101)
-rack_variant = "cluster_b"
 rack_id = 4
 
 [node name="WarningLightBar" type="Sprite2D" parent="."]

@@ -40,6 +40,14 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var btn_pause_restart: Button = %BtnPauseRestart
 @onready var btn_pause_menu: Button = %BtnPauseMenu
 
+# Dev Cheat Controls
+@onready var btn_cheat_god_mode: Button = %BtnCheatGodMode
+@onready var btn_cheat_speed: Button = %BtnCheatSpeed
+@onready var btn_cheat_finish_shift: Button = %BtnCheatFinishShift
+@onready var btn_jump_shift1: Button = %BtnJumpShift1
+@onready var btn_jump_shift2: Button = %BtnJumpShift2
+@onready var btn_jump_shift3: Button = %BtnJumpShift3
+
 var audio_player: AudioStreamPlayer
 
 var guide_connected: bool = false
@@ -107,6 +115,20 @@ func _ready() -> void:
 	if btn_next_shift:
 		btn_next_shift.pressed.connect(_on_next_shift_pressed)
 	
+	# Connect Dev Cheat Controls
+	if btn_cheat_god_mode:
+		btn_cheat_god_mode.pressed.connect(_on_cheat_god_mode_pressed)
+	if btn_cheat_speed:
+		btn_cheat_speed.pressed.connect(_on_cheat_speed_pressed)
+	if btn_cheat_finish_shift:
+		btn_cheat_finish_shift.pressed.connect(_on_cheat_finish_shift_pressed)
+	if btn_jump_shift1:
+		btn_jump_shift1.pressed.connect(func(): _on_jump_shift_pressed(1))
+	if btn_jump_shift2:
+		btn_jump_shift2.pressed.connect(func(): _on_jump_shift_pressed(2))
+	if btn_jump_shift3:
+		btn_jump_shift3.pressed.connect(func(): _on_jump_shift_pressed(3))
+	
 	_on_water_changed(GameManager.current_water, GameManager.MAX_BACKPACK_WATER)
 	_on_reservoir_changed(GameManager.reservoir_water, GameManager.max_reservoir_shift)
 	_on_food_security_changed(GameManager.food_security)
@@ -127,12 +149,71 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		if intermission_screen and intermission_screen.visible:
 			_on_next_shift_pressed()
+	elif event is InputEventKey and event.pressed and not event.echo:
+		var key_ev: InputEventKey = event as InputEventKey
+		match key_ev.keycode:
+			KEY_F1:
+				_on_cheat_god_mode_pressed()
+			KEY_F2:
+				_on_cheat_speed_pressed()
+			KEY_F3:
+				_on_cheat_finish_shift_pressed()
+			KEY_F4:
+				_on_jump_shift_pressed(1)
+			KEY_F5:
+				_on_jump_shift_pressed(2)
+			KEY_F6:
+				_on_jump_shift_pressed(3)
 
 func _toggle_pause() -> void:
 	var is_paused: bool = not get_tree().paused
 	get_tree().paused = is_paused
 	pause_screen.visible = is_paused
+	if is_paused:
+		_update_cheat_ui()
 	_play_sfx(SFX_CLICK)
+
+func _update_cheat_ui() -> void:
+	if btn_cheat_god_mode:
+		if GameManager.cheat_god_mode:
+			btn_cheat_god_mode.text = "🛡️ KEBAL DURABILITAS: AKTIF (GOD MODE)"
+			btn_cheat_god_mode.modulate = Color(0.35, 1.0, 0.5)
+		else:
+			btn_cheat_god_mode.text = "🛡️ KEBAL DURABILITAS: NONAKTIF"
+			btn_cheat_god_mode.modulate = Color.WHITE
+	
+	if btn_cheat_speed:
+		if GameManager.dev_time_multiplier == 1.0:
+			btn_cheat_speed.text = "⚡ KECEPATAN WAKTU: 1X (NORMAL)"
+			btn_cheat_speed.modulate = Color.WHITE
+		elif GameManager.dev_time_multiplier == 5.0:
+			btn_cheat_speed.text = "⚡ KECEPATAN WAKTU: 5X (CEPAT)"
+			btn_cheat_speed.modulate = Color(1.0, 0.9, 0.3)
+		else:
+			btn_cheat_speed.text = "⚡ KECEPATAN WAKTU: 10X (ULTRA CEPAT)"
+			btn_cheat_speed.modulate = Color(1.0, 0.45, 0.35)
+
+func _on_cheat_god_mode_pressed() -> void:
+	_play_sfx(SFX_CLICK)
+	GameManager.toggle_cheat_god_mode()
+	_update_cheat_ui()
+
+func _on_cheat_speed_pressed() -> void:
+	_play_sfx(SFX_CLICK)
+	GameManager.toggle_cheat_fast_time()
+	_update_cheat_ui()
+
+func _on_cheat_finish_shift_pressed() -> void:
+	_play_sfx(SFX_WIN)
+	pause_screen.visible = false
+	get_tree().paused = false
+	GameManager.cheat_finish_shift_instantly()
+
+func _on_jump_shift_pressed(shift_num: int) -> void:
+	_play_sfx(SFX_WIN)
+	pause_screen.visible = false
+	get_tree().paused = false
+	GameManager.jump_to_shift(shift_num)
 
 func _on_resume_pressed() -> void:
 	_play_sfx(SFX_CLICK)

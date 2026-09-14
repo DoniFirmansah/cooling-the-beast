@@ -107,6 +107,12 @@ func _animate_leds(delta: float) -> void:
 		cabinet_sprite.modulate = Color(1.3, 1.3, 1.3) if is_targeted else Color.WHITE
 
 func _check_temperature_states() -> void:
+	if GameManager.cheat_god_mode:
+		temperature = min(temperature, 35.0)
+		smoke_particles.emitting = false
+		fire_particles.emitting = false
+		return
+	
 	if temperature >= 100.0 and not is_broken:
 		_trigger_breakdown()
 		return

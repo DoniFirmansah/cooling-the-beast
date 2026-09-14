@@ -56,6 +56,11 @@ var is_game_active: bool = true
 var total_water_used_servers: float = 0.0
 var total_water_used_crops: float = 0.0
 
+# Developer Cheat States
+var cheat_god_mode: bool = false
+var cheat_fast_time: bool = false
+var dev_time_multiplier: float = 1.0
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_save_file()
@@ -130,7 +135,9 @@ func _setup_shift(shift_num: int) -> void:
 	current_water = MAX_BACKPACK_WATER
 	time_left = SHIFT_DURATION
 	is_game_active = true
-	get_tree().paused = false
+	var tree: SceneTree = get_tree()
+	if tree:
+		tree.paused = false
 	
 	water_changed.emit(current_water, MAX_BACKPACK_WATER)
 	reservoir_changed.emit(reservoir_water, max_reservoir_shift)
@@ -141,7 +148,7 @@ func _setup_shift(shift_num: int) -> void:
 func _process(delta: float) -> void:
 	if not is_game_active or get_tree().paused:
 		return
-	time_left = max(0.0, time_left - delta)
+	time_left = max(0.0, time_left - delta * dev_time_multiplier)
 	time_tick.emit(int(ceil(time_left)))
 	if time_left <= 0.0:
 		_on_shift_timer_expired()
@@ -159,7 +166,77 @@ func advance_to_next_shift() -> void:
 	if current_shift < 3:
 		_setup_shift(current_shift + 1)
 
+# Developer Cheat & Test Controls
+func toggle_cheat_god_mode() -> bool:
+	cheat_god_mode = not cheat_god_mode
+	if cheat_god_mode:
+		server_integrity = 100.0
+		food_security = 100.0
+		current_water = MAX_BACKPACK_WATER
+		server_integrity_changed.emit(server_integrity)
+		food_security_changed.emit(food_security)
+		water_changed.emit(current_water, MAX_BACKPACK_WATER)
+		var tree: SceneTree = get_tree()
+		if tree:
+			for rack in tree.get_nodes_in_group("server_racks"):
+				if is_instance_valid(rack) and rack.has_method("_update_ui"):
+					rack.set("temperature", 30.0)
+					rack.set("is_broken", false)
+					rack.call("_update_ui")
+			for plot in tree.get_nodes_in_group("farm_plots"):
+				if is_instance_valid(plot) and plot.has_method("_update_visuals"):
+					plot.set("moisture", 100.0)
+					plot.set("is_dead", false)
+					plot.call("_update_visuals")
+	return cheat_god_mode
+
+func toggle_cheat_fast_time() -> float:
+	if dev_time_multiplier == 1.0:
+		dev_time_multiplier = 5.0
+		cheat_fast_time = true
+	elif dev_time_multiplier == 5.0:
+		dev_time_multiplier = 10.0
+		cheat_fast_time = true
+	else:
+		dev_time_multiplier = 1.0
+		cheat_fast_time = false
+	return dev_time_multiplier
+
+func cheat_finish_shift_instantly() -> void:
+	if not is_game_active:
+		return
+	time_left = 0.2
+	time_tick.emit(0)
+
+func jump_to_shift(shift_num: int) -> void:
+	if shift_num < 1 or shift_num > 3:
+		return
+	current_shift = shift_num
+	food_security = 100.0
+	server_integrity = 100.0
+	_setup_shift(shift_num)
+	var tree: SceneTree = get_tree()
+	if tree:
+		for rack in tree.get_nodes_in_group("server_racks"):
+			if is_instance_valid(rack) and rack.has_method("_update_ui"):
+				rack.set("temperature", 30.0)
+				rack.set("is_broken", false)
+				rack.call("_update_ui")
+		for plot in tree.get_nodes_in_group("farm_plots"):
+			if is_instance_valid(plot) and plot.has_method("_update_visuals"):
+				plot.set("moisture", 100.0)
+				plot.set("is_dead", false)
+				plot.call("_update_visuals")
+
 func use_water(amount: float, target_type: String) -> bool:
+	if cheat_god_mode:
+		current_water = MAX_BACKPACK_WATER
+		water_changed.emit(current_water, MAX_BACKPACK_WATER)
+		if target_type == "server":
+			total_water_used_servers += amount
+		elif target_type == "crop":
+			total_water_used_crops += amount
+		return true
 	if current_water <= 0.0:
 		return false
 	var actual: float = min(current_water, amount)
@@ -172,6 +249,10 @@ func use_water(amount: float, target_type: String) -> bool:
 	return true
 
 func refill_water(amount: float) -> bool:
+	if cheat_god_mode:
+		current_water = MAX_BACKPACK_WATER
+		water_changed.emit(current_water, MAX_BACKPACK_WATER)
+		return true
 	if current_water >= MAX_BACKPACK_WATER or reservoir_water <= 0.0:
 		return false
 	var needed: float = MAX_BACKPACK_WATER - current_water
@@ -183,20 +264,24 @@ func refill_water(amount: float) -> bool:
 	return true
 
 func get_heat_multiplier() -> float:
+	if cheat_god_mode:
+		return 0.0
 	return SHIFT_CONFIG.get(current_shift, {}).get("heat_mult", 1.0)
 
 func get_dry_multiplier() -> float:
+	if cheat_god_mode:
+		return 0.0
 	return SHIFT_CONFIG.get(current_shift, {}).get("dry_mult", 1.0)
 
 func damage_server_integrity(amount: float) -> void:
-	if not is_game_active:
+	if not is_game_active or cheat_god_mode:
 		return
 	server_integrity = max(0.0, server_integrity - amount)
 	server_integrity_changed.emit(server_integrity)
 	_check_early_failure()
 
 func damage_food_security(amount: float) -> void:
-	if not is_game_active:
+	if not is_game_active or cheat_god_mode:
 		return
 	food_security = max(0.0, food_security - amount)
 	food_security_changed.emit(food_security)

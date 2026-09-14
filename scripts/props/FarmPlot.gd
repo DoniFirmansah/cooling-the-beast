@@ -120,6 +120,10 @@ func interact_tick(delta: float, _player: Node) -> bool:
 	return true
 
 func _trigger_crop_death() -> void:
+	if GameManager.cheat_god_mode:
+		moisture = 100.0
+		zero_moisture_timer = 0.0
+		return
 	is_dead = true
 	moisture = 0.0
 	splash_particles.emitting = false
