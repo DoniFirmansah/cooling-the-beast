@@ -55,7 +55,7 @@ const SHIFT_CONFIG: Dictionary = {
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 110.0,
+		"reservoir": 150.0,
 		"heat_mult": 1.15,
 		"dry_mult": 1.10,
 		"next_title": "",

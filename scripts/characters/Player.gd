@@ -36,6 +36,22 @@ var occluding_sources_count: int = 0
 
 const SPRITE_BASE_Y: float = -24.0
 
+# SFX streams (preloaded)
+const SFX_WATER_FILL_STREAM: AudioStream = preload("res://assets/audio/sfx/sfx_water_fill.mp3")
+const SFX_WATER_POUR_STREAM: AudioStream = preload("res://assets/audio/sfx/sfx_water_pour.mp3")
+const SFX_FOOTSTEP_STREAM: AudioStream  = preload("res://assets/audio/sfx/sfx_footstep.mp3")
+
+# SFX AudioStreamPlayer2D nodes (dibuat di _ready)
+var sfx_water_fill: AudioStreamPlayer2D  # loop saat mengambil air dari reservoir
+var sfx_water_pour: AudioStreamPlayer2D  # one-shot saat menyemprot / irigasi
+var sfx_footstep: AudioStreamPlayer2D    # saat karakter berjalan
+
+# Footstep timing
+const FOOTSTEP_INTERVAL: float = 0.38   # jarak antar langkah (detik)
+var _footstep_timer: float = 0.0
+var _is_filling: bool = false            # sedang ambil air dari reservoir
+var _pour_cooldown: float = 0.0          # cooldown one-shot pour agar tidak spam
+
 func add_slow_effect(factor: float = 0.55) -> void:
 	active_slow_sources += 1
 	speed_modifier = factor
@@ -64,13 +80,37 @@ func _ready() -> void:
 	add_to_group("player")
 	water_particles.emitting = false
 	sprite.position.y = SPRITE_BASE_Y
-	
+
 	if interaction_detector:
 		interaction_detector.area_entered.connect(_on_interaction_area_entered)
 		interaction_detector.area_exited.connect(_on_interaction_area_exited)
-	
+
 	GameManager.water_changed.connect(_on_water_changed)
 	_on_water_changed(GameManager.current_water, GameManager.MAX_WATER)
+
+	# --- SFX Water Fill (loop saat mengambil air dari reservoir) ---
+	sfx_water_fill = AudioStreamPlayer2D.new()
+	sfx_water_fill.stream = SFX_WATER_FILL_STREAM
+	sfx_water_fill.bus = &"Master"
+	sfx_water_fill.volume_db = -6.0
+	sfx_water_fill.max_distance = 800.0
+	add_child(sfx_water_fill)
+
+	# --- SFX Water Pour (one-shot saat menyemprot / irigasi) ---
+	sfx_water_pour = AudioStreamPlayer2D.new()
+	sfx_water_pour.stream = SFX_WATER_POUR_STREAM
+	sfx_water_pour.bus = &"Master"
+	sfx_water_pour.volume_db = -8.0
+	sfx_water_pour.max_distance = 600.0
+	add_child(sfx_water_pour)
+
+	# --- SFX Footstep (dipicu per interval saat berjalan) ---
+	sfx_footstep = AudioStreamPlayer2D.new()
+	sfx_footstep.stream = SFX_FOOTSTEP_STREAM
+	sfx_footstep.bus = &"Master"
+	sfx_footstep.volume_db = -14.0
+	sfx_footstep.max_distance = 400.0
+	add_child(sfx_footstep)
 
 
 func _physics_process(delta: float) -> void:
@@ -78,12 +118,14 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		_clear_target()
+		_stop_all_sfx()
 		return
 	
 	_update_best_target()
 	_handle_movement(delta)
 	_handle_interaction(delta)
 	_update_animation_and_bobbing(delta)
+	_update_sfx(delta)
 
 func _update_best_target() -> void:
 	nearby_interactables = nearby_interactables.filter(func(node: Node) -> bool:
@@ -148,6 +190,8 @@ func _handle_movement(delta: float) -> void:
 			tutorial_sprinted.emit(delta)
 
 func _handle_interaction(delta: float) -> void:
+	_is_filling = false
+
 	is_spraying = false
 	if not can_interact:
 		return
@@ -167,6 +211,8 @@ func _handle_interaction(delta: float) -> void:
 					target.interact_tick(delta, self)
 					var diff: float = GameManager.current_water - old_w
 					if diff > 0.0:
+						_is_filling = true
+
 						tutorial_water_refilled.emit(diff)
 				break
 		
@@ -256,6 +302,48 @@ func _on_interaction_area_exited(area: Area2D) -> void:
 		current_interactable = null
 		is_spraying = false
 		water_particles.emitting = false
+
+## Update semua SFX berdasarkan state player saat ini
+func _update_sfx(delta: float) -> void:
+	# --- SFX Water Fill: loop saat mengambil air ---
+	if _is_filling:
+		if not sfx_water_fill.playing:
+			sfx_water_fill.play()
+	else:
+		if sfx_water_fill.playing:
+			sfx_water_fill.stop()
+
+	# --- SFX Water Pour: one-shot saat menyemprot (dengan cooldown) ---
+	_pour_cooldown = max(0.0, _pour_cooldown - delta)
+	if is_spraying and _pour_cooldown <= 0.0:
+		if not sfx_water_pour.playing:
+			sfx_water_pour.play()
+			_pour_cooldown = 0.55  # jeda antar trigger ulang
+	if not is_spraying:
+		if sfx_water_pour.playing:
+			sfx_water_pour.stop()
+
+	# --- SFX Footstep: dipicu per FOOTSTEP_INTERVAL saat bergerak ---
+	var is_moving: bool = velocity.length_squared() > 10.0
+	if is_moving:
+		_footstep_timer += delta
+		if _footstep_timer >= FOOTSTEP_INTERVAL:
+			_footstep_timer = 0.0
+			if not sfx_footstep.playing:
+				sfx_footstep.pitch_scale = randf_range(0.92, 1.08)
+				sfx_footstep.play()
+	else:
+		_footstep_timer = 0.0
+
+## Hentikan semua SFX gameplay saat game tidak aktif
+func _stop_all_sfx() -> void:
+	if sfx_water_fill and sfx_water_fill.playing:
+		sfx_water_fill.stop()
+	if sfx_water_pour and sfx_water_pour.playing:
+		sfx_water_pour.stop()
+	if sfx_footstep and sfx_footstep.playing:
+		sfx_footstep.stop()
+
 
 func play_sfx(stream: AudioStream) -> void:
 	if sfx_player and stream:
