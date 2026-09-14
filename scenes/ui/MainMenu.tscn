@@ -278,12 +278,14 @@ text = "✖  KELUAR PERMAINAN"
 [node name="CollectionModal" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 
 [node name="DimBackdrop" type="ColorRect" parent="CollectionModal"]
 layout_mode = 1
@@ -513,10 +515,14 @@ text = "◀  KEMBALI KE MENU"
 [node name="GuideModal" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
 grow_horizontal = 2
 grow_vertical = 2
 

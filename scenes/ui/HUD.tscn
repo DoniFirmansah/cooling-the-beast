@@ -175,29 +175,30 @@ shadow_offset = Vector2(0, 2)
 script = ExtResource("1_hud_script")
 
 [node name="TopBar" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(0, 52)
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 40.0
-offset_right = -40.0
-offset_bottom = 56.0
+offset_left = 8.0
+offset_right = -8.0
+offset_bottom = 52.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_top")
 
 [node name="MarginContainer" type="MarginContainer" parent="TopBar"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 10
 
 [node name="ServerBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ServerBox"]
 layout_mode = 2
@@ -225,7 +226,7 @@ value = 100.0
 show_percentage = false
 
 [node name="WaterBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -255,7 +256,7 @@ value = 100.0
 show_percentage = false
 
 [node name="TimeBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(135, 0)
 layout_mode = 2
 alignment = 1
 
@@ -284,7 +285,7 @@ text = "01:00"
 horizontal_alignment = 1
 
 [node name="ReservoirBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(185, 0)
+custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -315,8 +316,9 @@ max_value = 250.0
 show_percentage = false
 
 [node name="FoodBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(145, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/FoodBox"]
 layout_mode = 2
@@ -345,14 +347,14 @@ show_percentage = false
 
 [node name="ObjectiveTracker" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(490, 42)
+custom_minimum_size = Vector2(480, 38)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -245.0
-offset_top = 62.0
-offset_right = 245.0
-offset_bottom = 104.0
+offset_left = -240.0
+offset_top = 58.0
+offset_right = 240.0
+offset_bottom = 96.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tracker")
 
@@ -789,6 +791,88 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
 theme_override_font_sizes/font_size = 11
 text = "▶ Shift 3 (Krisis Air)"
+
+[node name="ShiftTransitionScreen" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 90
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+process_mode = 4
+
+[node name="BlackFill" type="ColorRect" parent="ShiftTransitionScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0, 0.0, 0.0, 1.0)
+
+[node name="VBox" type="VBoxContainer" parent="ShiftTransitionScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -90.0
+offset_right = 360.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="TimeSkipLabel" type="Label" parent="ShiftTransitionScreen/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.85)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 13
+text = "+ 14 HARI BERLALU"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="ShiftTransitionScreen/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25, 0.85, 1.0, 1.0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 42
+text = "HARI KE-15"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="ShiftTransitionScreen/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 0.8, 0.25, 1.0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "BEBAN KOMPUTASI MASIF"
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="ShiftTransitionScreen/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 12
+text = "Sistem AI DeepBeast 2.0T menyedot cadangan air tanah secara masif."
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="CinematicOverlay" type="Control" parent="."]
 unique_name_in_owner = true
