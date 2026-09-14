@@ -2,8 +2,8 @@ extends StaticBody2D
 class_name FarmPlot
 
 @export var plot_id: int = 1
-@export var base_dry_rate: float = 1.8
-@export var irrigate_rate: float = 80.0
+@export var base_dry_rate: float = 1.5
+@export var irrigate_rate: float = 90.0
 @export var water_cost_per_sec: float = 10.0
 
 @onready var splash_particles: CPUParticles2D = $SplashParticles
@@ -40,6 +40,19 @@ func _ready() -> void:
 	splash_particles.emitting = false
 	_update_visuals()
 
+func reset_plot_state() -> void:
+	is_dead = false
+	moisture = 100.0
+	is_targeted = false
+	was_interacted_this_frame = false
+	zero_moisture_timer = 0.0
+	if splash_particles:
+		splash_particles.emitting = false
+	if soil_bed:
+		soil_bed.texture = TEX_BED_WET
+		soil_bed.modulate = Color.WHITE
+	_update_visuals()
+
 func _process(delta: float) -> void:
 	if not GameManager.is_game_active or is_dead:
 		splash_particles.emitting = false
@@ -50,7 +63,8 @@ func _process(delta: float) -> void:
 	was_interacted_this_frame = false
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
-	var current_dry_rate: float = base_dry_rate * GameManager.get_dry_multiplier() * (1.0 + shift_progress * 0.7)
+	var cascade_mult: float = GameManager.get_cascading_dry_multiplier()
+	var current_dry_rate: float = base_dry_rate * GameManager.get_dry_multiplier() * cascade_mult * (1.0 + shift_progress * 0.5)
 	
 	moisture = max(0.0, moisture - current_dry_rate * delta)
 	
@@ -91,7 +105,7 @@ func _update_visuals() -> void:
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.2, 0.9, 0.3)
 		if label_status:
-			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
+			label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color.WHITE
 		if soil_bed:
 			soil_bed.texture = TEX_BED_WET
@@ -102,7 +116,7 @@ func _update_visuals() -> void:
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.9, 0.8, 0.2)
 		if label_status:
-			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
+			label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color(1.0, 0.9, 0.4)
 		if soil_bed:
 			soil_bed.texture = TEX_BED_DRY
@@ -115,10 +129,11 @@ func _update_visuals() -> void:
 		if label_status:
 			var countdown: int = int(ceil(MAX_ZERO_TIME - zero_moisture_timer))
 			if moisture <= 0.0:
-				label_status.text = "ROW #%d LAYU! %ds" % [plot_id, countdown]
+				label_status.text = "ROW #" + str(plot_id) + " LAYU! " + str(countdown) + "s"
 			else:
-				label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
+				label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color(1.0, 0.2, 0.2)
+
 		if soil_bed:
 			soil_bed.texture = TEX_BED_DRY
 			soil_bed.modulate = Color(1.1, 0.95, 0.85)
@@ -167,4 +182,6 @@ func _trigger_crop_death() -> void:
 	var count = max(1, plots.size())
 	var dmg: float = 100.0 / float(count)
 	GameManager.damage_food_security(dmg)
+	GameManager.report_crop_death(plot_id)
+
 

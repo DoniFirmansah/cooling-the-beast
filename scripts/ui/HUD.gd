@@ -138,7 +138,7 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "💧 SENSOR HIDROLOGI // AKUIFER MENYUSUT",
 		"speaker_color": Color(0.85, 0.68, 0.40),
-		"raw_text": "Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut hingga 25%.\nCadangan air bersih terpangkas menjadi [b]190 Liter (2.4m)[/b]. Dasar lumpur mulai mengering.",
+		"raw_text": "Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut hingga 25%.\nCadangan air bersih terpangkas menjadi [b]180 Liter (2.3m)[/b]. Dasar lumpur mulai mengering.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -152,7 +152,7 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 65), # Robot AQUA-7
 		"speaker_badge": "⚙️ AQUA-7 // PROTOKOL DARURAT LEVEL 2",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Tingkat pemanasan server naik 1.15x. Pengeringan lahan sawah naik 1.10x.\nAlokasi air danau: [b]190 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.",
+		"raw_text": "Tingkat pemanasan server naik 1.15x. Pengeringan lahan sawah naik 1.10x.\nAlokasi air danau: [b]180 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.",
 		"prompt": "[SPASI] Hadapi Hari ke-15 ▸"
 	}
 ]
@@ -169,7 +169,7 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "⚠️ SENSOR AKUIFER // TAMPUNGAN MINIMAL",
 		"speaker_color": Color(0.85, 0.55, 0.35),
-		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]110 Liter (1.4m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
+		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]135 Liter (1.7m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -183,12 +183,20 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 65), # Robot AQUA-7
 		"speaker_badge": "⚖️ AQUA-7 // TITIK KEPUTUSAN FINAL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Kalkulasi sistem: Sisa air 110L tidak lagi memiliki toleransi kesalahan.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
+		"raw_text": "Kalkulasi sistem: Sisa air 135L danau berada pada batas kritis dengan toleransi tipis.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
 		"prompt": "[SPASI] Hadapi Hari Terakhir ▸"
 	}
 ]
 
+
+var hazard_alert_timer: float = 0.0
+var hazard_alert_title: String = ""
+var hazard_alert_msg: String = ""
+
 func _process(delta: float) -> void:
+	if hazard_alert_timer > 0.0:
+		hazard_alert_timer = max(0.0, hazard_alert_timer - delta)
+
 	if is_synopsis_running and synopsis_prompt:
 		prompt_blink_timer += delta * 3.5
 		synopsis_prompt.modulate.a = 0.55 + 0.45 * ((sin(prompt_blink_timer) + 1.0) * 0.5)
@@ -208,12 +216,20 @@ func _process(delta: float) -> void:
 func _on_objective_changed(data: Dictionary) -> void:
 	if not objective_tracker:
 		return
-	if objective_title:
-		objective_title.text = data.get("title", "")
-		objective_title.modulate = Color(0.95, 0.96, 0.98)
-	if objective_subtext:
-		objective_subtext.text = data.get("subtext", "")
-		objective_subtext.modulate = Color(0.68, 0.72, 0.78)
+	if hazard_alert_timer > 0.0:
+		if objective_title:
+			objective_title.text = "⚠️ " + hazard_alert_title
+			objective_title.modulate = Color(1.0, 0.35, 0.25)
+		if objective_subtext:
+			objective_subtext.text = hazard_alert_msg
+			objective_subtext.modulate = Color(1.0, 0.85, 0.6)
+	else:
+		if objective_title:
+			objective_title.text = data.get("title", "")
+			objective_title.modulate = Color(0.95, 0.96, 0.98)
+		if objective_subtext:
+			objective_subtext.text = data.get("subtext", "")
+			objective_subtext.modulate = Color(0.68, 0.72, 0.78)
 	if objective_icon:
 		objective_icon.text = data.get("icon", "💧")
 	if objective_dir:
@@ -228,6 +244,19 @@ func _on_objective_changed(data: Dictionary) -> void:
 		else:
 			objective_dist.text = "%dm" % dist_m
 			objective_dist.modulate = Color(0.55, 0.78, 0.90)
+
+func _on_hazard_alert(title: String, message: String) -> void:
+	hazard_alert_timer = 4.0
+	hazard_alert_title = title
+	hazard_alert_msg = message
+	_play_sfx(SFX_FAIL)
+	if objective_title:
+		objective_title.text = "⚠️ " + title
+		objective_title.modulate = Color(1.0, 0.35, 0.25)
+	if objective_subtext:
+		objective_subtext.text = message
+		objective_subtext.modulate = Color(1.0, 0.85, 0.6)
+
 
 
 func _ready() -> void:
@@ -272,6 +301,7 @@ func _ready() -> void:
 	GameManager.shift_started.connect(_on_shift_started)
 	GameManager.shift_intermission.connect(_on_shift_intermission)
 	GameManager.game_finished.connect(_on_game_finished)
+	GameManager.hazard_alert.connect(_on_hazard_alert)
 	
 	btn_restart.pressed.connect(_on_restart_pressed)
 	btn_resume.pressed.connect(_on_resume_pressed)
@@ -581,7 +611,7 @@ func _on_server_integrity_changed(val: float) -> void:
 		server_bar.value = val
 		server_bar.modulate = Color(0.92, 0.32, 0.30) if val <= 25.0 else Color.WHITE
 	if server_label:
-		server_label.text = "%d%%" % int(val)
+		server_label.text = str(int(val)) + "%"
 		server_label.modulate = Color(0.92, 0.32, 0.30) if val <= 25.0 else Color.WHITE
 
 func _on_food_security_changed(val: float) -> void:
@@ -589,7 +619,7 @@ func _on_food_security_changed(val: float) -> void:
 		food_bar.value = val
 		food_bar.modulate = Color(0.92, 0.40, 0.30) if val <= 30.0 else Color.WHITE
 	if food_label:
-		food_label.text = "%d%%" % int(val)
+		food_label.text = str(int(val)) + "%"
 		food_label.modulate = Color(0.92, 0.40, 0.30) if val <= 30.0 else Color.WHITE
 
 func _on_game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
@@ -621,12 +651,13 @@ func _display_end_screen(ending_code: String, title: String, narrative: String, 
 	end_reason.text = narrative
 	end_stats.text = (
 		"STATISTIK AIR UNIT AQUA-7:\n" +
-		"• Air Dingin Terpakai (Mega AI Server): %d Liter\n" % int(stats.get("servers_used_water", 0)) +
-		"• Air Bersih Terpakai (Sawah Warga): %d Liter\n" % int(stats.get("crops_used_water", 0)) +
-		"• Integritas Server Akhir: %d%%\n" % int(stats.get("server_integrity", 0)) +
-		"• Ketahanan Pangan Akhir: %d%%" % int(stats.get("food_security", 0))
+		"• Air Dingin Terpakai (Mega AI Server): " + str(int(stats.get("servers_used_water", 0))) + " Liter\n" +
+		"• Air Bersih Terpakai (Sawah Warga): " + str(int(stats.get("crops_used_water", 0))) + " Liter\n" +
+		"• Integritas Server Akhir: " + str(int(stats.get("server_integrity", 0))) + "%\n" +
+		"• Ketahanan Pangan Akhir: " + str(int(stats.get("food_security", 0))) + "%"
 	)
 	end_moral.text = "Save the Earth: Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Bisakah manusia dan teknologi tumbuh berdampingan secara bijak?"
+
 
 func _build_ending_beats(ending_code: String, _title: String, _narrative: String, stats: Dictionary) -> Array[Dictionary]:
 	var beats: Array[Dictionary] = []
@@ -639,14 +670,14 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // TELEMETRI STABIL",
 				"speaker_color": Color(0.42, 0.72, 0.88),
-				"raw_text": "Telemetri stabil pada integritas [b]%d%%[/b]. Model kecerdasan buatan 2.0T parameter berhasil dilatih dengan efisiensi energi terukur." % s_integ,
+				"raw_text": "Telemetri stabil pada integritas [b]" + str(s_integ) + "%[/b]. Model kecerdasan buatan 2.0T parameter berhasil dilatih dengan efisiensi energi terukur.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🌾 WARGA DESA // AIR MATA HARU",
 				"speaker_color": Color(0.45, 0.80, 0.55),
-				"raw_text": "Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!" % f_sec,
+				"raw_text": "Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]" + str(f_sec) + "%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
@@ -661,14 +692,14 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🌾 WARGA DESA // SUJUD SYUKUR",
 				"speaker_color": Color(0.48, 0.75, 0.52),
-				"raw_text": "Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan.",
+				"raw_text": "Sawah pangan warga terselamatkan pada [b]" + str(f_sec) + "%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DAYA MATI",
 				"speaker_color": Color(0.85, 0.45, 0.42),
-				"raw_text": "Daya server padam total ([b]%d%%[/b]). Kerusakan termal permanen terkonfirmasi. Korporasi kehilangan aset komputasi, namun nurani kehidupan dimenangkan.",
+				"raw_text": "Daya server padam total ([b]" + str(s_integ) + "%[/b]). Kerusakan termal permanen terkonfirmasi. Korporasi kehilangan aset komputasi, namun nurani kehidupan dimenangkan.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
@@ -683,14 +714,14 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DOMINASI MUTLAK",
 				"speaker_color": Color(0.42, 0.68, 0.85),
-				"raw_text": "Integritas superkomputer prima ([b]%d%%[/b]). Arsitektur neural 2.0T terlahir sempurna, memproses miliaran data peradaban per detik.",
+				"raw_text": "Integritas superkomputer prima ([b]" + str(s_integ) + "%[/b]). Arsitektur neural 2.0T terlahir sempurna, memproses miliaran data peradaban per detik.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🥀 TANAH TANDUS // GURUN SILIKON",
 				"speaker_color": Color(0.82, 0.62, 0.42),
-				"raw_text": "Tanah pertanian mati retak menjadi abu ([b]%d%%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya...",
+				"raw_text": "Tanah pertanian mati retak menjadi abu ([b]" + str(f_sec) + "%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya...",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
@@ -700,6 +731,7 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"raw_text": "Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di tengah kesunyian gurun abu...\n[b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
+
 		_: # TOTAL_COLLAPSE
 			beats.append({
 				"camera_target": Vector2(-356, -36),

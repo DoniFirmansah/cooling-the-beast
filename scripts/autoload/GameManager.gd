@@ -9,6 +9,7 @@ signal time_tick(seconds_left: int)
 signal shift_started(shift_num: int, shift_title: String)
 signal shift_intermission(shift_completed: int, log_title: String, log_desc: String)
 signal game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary)
+signal hazard_alert(title: String, message: String)
 
 const SHIFT_DURATION: float = 60.0
 const MAX_BACKPACK_WATER: float = 120.0
@@ -38,25 +39,25 @@ const TIMELINES: Dictionary = {
 const SHIFT_CONFIG: Dictionary = {
 	1: {
 		"title": "HARI 1: PROTOKOL STANDAR (2049)",
-		"reservoir": 280.0,
+		"reservoir": 260.0,
 		"heat_mult": 0.85,
 		"dry_mult": 0.85,
 		"next_title": "LAPORAN AKHIR HARI KE-1 [AQUA-7]",
-		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 190L!"
+		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 180L!"
 	},
 	2: {
 		"title": "HARI 15: BEBAN KOMPUTASI MASIF",
-		"reservoir": 190.0,
+		"reservoir": 180.0,
 		"heat_mult": 1.15,
 		"dry_mult": 1.10,
 		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
-		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 110L untuk kedua sektor."
+		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 135L untuk kedua sektor."
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 110.0,
-		"heat_mult": 1.45,
-		"dry_mult": 1.35,
+		"reservoir": 135.0,
+		"heat_mult": 1.35,
+		"dry_mult": 1.25,
 		"next_title": "",
 		"next_desc": ""
 	}
@@ -157,16 +158,77 @@ func _setup_shift(shift_num: int) -> void:
 	reservoir_water = max_reservoir_shift
 	current_water = MAX_BACKPACK_WATER
 	time_left = SHIFT_DURATION
+	food_security = 100.0
+	server_integrity = 100.0
 	is_game_active = true
 	var tree: SceneTree = get_tree()
 	if tree:
 		tree.paused = false
+	
+	reset_shift_entities()
 	
 	water_changed.emit(current_water, MAX_BACKPACK_WATER)
 	reservoir_changed.emit(reservoir_water, TOTAL_BASIN_CAPACITY)
 	food_security_changed.emit(food_security)
 	server_integrity_changed.emit(server_integrity)
 	shift_started.emit(current_shift, cfg["title"])
+
+func reset_shift_entities() -> void:
+	var tree: SceneTree = get_tree()
+	if not tree:
+		return
+	for rack in tree.get_nodes_in_group("server_racks"):
+		if is_instance_valid(rack) and rack.has_method("reset_rack_state"):
+			rack.call("reset_rack_state")
+	for plot in tree.get_nodes_in_group("farm_plots"):
+		if is_instance_valid(plot) and plot.has_method("reset_plot_state"):
+			plot.call("reset_plot_state")
+
+func get_broken_servers_count() -> int:
+	var count: int = 0
+	var tree: SceneTree = get_tree()
+	if tree:
+		for node in tree.get_nodes_in_group("server_racks"):
+			if is_instance_valid(node) and node is ServerRack:
+				if (node as ServerRack).is_broken:
+					count += 1
+	return count
+
+func get_dead_plots_count() -> int:
+	var count: int = 0
+	var tree: SceneTree = get_tree()
+	if tree:
+		for node in tree.get_nodes_in_group("farm_plots"):
+			if is_instance_valid(node) and node is FarmPlot:
+				if (node as FarmPlot).is_dead:
+					count += 1
+	return count
+
+func get_cascading_heat_multiplier() -> float:
+	# Beban Berpindah: +12.5% panas pada server tersisa per server yang rusak
+	return 1.0 + (float(get_broken_servers_count()) * 0.125)
+
+func get_cascading_dry_multiplier() -> float:
+	# Anomali Mikroklimat: +15.0% laju penguapan tanah per baris sawah yang mati
+	return 1.0 + (float(get_dead_plots_count()) * 0.15)
+
+func report_server_breakdown(rack_id: int) -> void:
+	var broken_count: int = get_broken_servers_count()
+	var extra_pct: int = int(broken_count * 12.5)
+	hazard_alert.emit(
+		"BEBAN KOMPUTASI MEMBENGKAK",
+		"Server #" + str(rack_id) + " offline! Beban dialihkan (+" + str(extra_pct) + "% panas server tersisa)"
+	)
+
+func report_crop_death(plot_id: int) -> void:
+	var dead_count: int = get_dead_plots_count()
+	var extra_pct: int = int(dead_count * 15.0)
+	hazard_alert.emit(
+		"ANOMALI MIKROKLIMAT",
+		"Sawah Row #" + str(plot_id) + " mati! Penguapan tanah meningkat (+" + str(extra_pct) + "% laju kekeringan)"
+	)
+
+
 
 func _process(delta: float) -> void:
 	if not is_game_active or get_tree().paused:

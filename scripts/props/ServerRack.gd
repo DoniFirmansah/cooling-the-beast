@@ -9,8 +9,8 @@ const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_
 
 @export_enum("cluster_a", "cluster_b") var rack_variant: String = "cluster_b"
 @export var rack_id: int = 1
-@export var base_heat_rate: float = 2.2
-@export var cool_rate: float = 75.0
+@export var base_heat_rate: float = 1.8
+@export var cool_rate: float = 85.0
 @export var water_cost_per_sec: float = 10.0
 
 @onready var cabinet_sprite: Sprite2D = $CabinetSprite
@@ -22,7 +22,7 @@ const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_
 @onready var label_temp: Label = $ThermalDisplay/LabelTemp
 @onready var prompt_badge: Control = $PromptBadge
 
-var temperature: float = 35.0
+var temperature: float = 30.0
 var is_broken: bool = false
 var is_targeted: bool = false
 var was_interacted_this_frame: bool = false
@@ -55,6 +55,24 @@ func _ready() -> void:
 	
 	_update_ui()
 
+func reset_rack_state() -> void:
+	is_broken = false
+	temperature = 30.0
+	is_targeted = false
+	was_interacted_this_frame = false
+	if cabinet_sprite:
+		cabinet_sprite.modulate = Color.WHITE
+	if led_overlay:
+		led_overlay.visible = true
+	if smoke_particles:
+		smoke_particles.amount = 16
+		smoke_particles.emitting = false
+	if fire_particles:
+		fire_particles.emitting = false
+	if steam_particles:
+		steam_particles.emitting = false
+	_update_ui()
+
 func _process(delta: float) -> void:
 	if not GameManager.is_game_active or is_broken:
 		steam_particles.emitting = false
@@ -65,7 +83,8 @@ func _process(delta: float) -> void:
 	was_interacted_this_frame = false
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
-	var current_heat_rate: float = base_heat_rate * GameManager.get_heat_multiplier() * (1.0 + shift_progress * 0.75)
+	var cascade_mult: float = GameManager.get_cascading_heat_multiplier()
+	var current_heat_rate: float = base_heat_rate * GameManager.get_heat_multiplier() * cascade_mult * (1.0 + shift_progress * 0.5)
 	
 	temperature = min(100.0, temperature + current_heat_rate * delta)
 	_check_temperature_states()
@@ -196,6 +215,8 @@ func _trigger_breakdown() -> void:
 	var count = max(1, racks.size())
 	var dmg: float = 100.0 / float(count)
 	GameManager.damage_server_integrity(dmg)
+	GameManager.report_server_breakdown(rack_id)
+
 
 
 
