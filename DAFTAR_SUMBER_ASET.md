@@ -36,10 +36,6 @@ Sesuai dengan ketentuan integritas dan etika pengembangan game:
 | `assets/environment/server_room/wall_structure_bottom_right.png`| `pixel-cyberpunk-interior.png` | OpenGameArt (Modular Wall) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/server_room/left_wall_col.png` | `pixel-cyberpunk-interior.png` | OpenGameArt (Modular Wall) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
 | `assets/environment/server_room/right_wall_col.png` | `pixel-cyberpunk-interior.png` | OpenGameArt (Modular Wall) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
-| `assets/environment/server_room/barrel_coolant_blue.png` | `pixel-cyberpunk-interior.png` | OpenGameArt (Sliced) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
-| `assets/environment/server_room/barrel_hazard_red.png` | `pixel-cyberpunk-interior.png` | OpenGameArt (Sliced) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
-| `assets/environment/server_room/crate_metal_supply.png` | `pixel-cyberpunk-interior.png` | OpenGameArt (Sliced) | CC0 1.0 Universal | **Non-AI (Hand-Made Pixel Art)** |
-
 
 ---
 
