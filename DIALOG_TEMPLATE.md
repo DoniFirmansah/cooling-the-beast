@@ -54,9 +54,9 @@ Beban komputasi klaster neural aktif. Suhu operasional inti silikon meningkat ta
 [color=#feb2b2]Direktif Utama: Semprotkan pendingin dengan [b][SPASI][/b] sebelum suhu menyentuh batas bahaya 90°C.[/color]
 ```
 
-### Beat 3 — Sawah Agri-Dome (Pak Marno Transmission)
+### Beat 3 — Sawah Agri-Dome (Warga Desa Transmission)
 ```
-speaker_badge : 🌾 PAK MARNO // TRANSMISI RADIO TANI
+speaker_badge : 🌾 WARGA DESA // TRANSMISI RADIO TANI
 speaker_color : Color(0.48, 0.78, 0.52)
 camera_target : Vector2(336, 0)
 prompt        : [SPASI] Lanjut ▸
@@ -110,7 +110,7 @@ Cadangan air bersih terpangkas menjadi [b]190 Liter (2.4m)[/b]. Dasar lumpur mul
 
 ### Beat 3 — Kekeringan Lahan Pertanian
 ```
-speaker_badge : 🌾 PAK MARNO // TRANSMISI RADIO TANI
+speaker_badge : 🌾 WARGA DESA // TRANSMISI RADIO TANI
 speaker_color : Color(0.48, 0.78, 0.52)
 camera_target : Vector2(336, 0)
 prompt        : [SPASI] Lanjut ▸
@@ -163,7 +163,7 @@ Palung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.
 
 ### Beat 3 — Permohonan Terakhir Warga
 ```
-speaker_badge : 🥀 PAK MARNO // JERITAN PETANI
+speaker_badge : 🥀 WARGA DESA // JERITAN PETANI
 speaker_color : Color(0.55, 0.75, 0.58)
 camera_target : Vector2(336, 0)
 prompt        : [SPASI] Lanjut ▸
@@ -194,13 +194,13 @@ Keputusanmu akan menentukan akhir dari lembah ini.
 ### 1. HARMONY (Keseimbangan Rapuh — True Ending)
 *Kondisi: Ketahanan Pangan ≥ 35% DAN Integritas Server ≥ 25%*
 - **Beat 1 (DeepBeast):** `"Telemetri stabil pada integritas [b]%d%%[/b]. Model kecerdasan buatan 2.0T parameter berhasil dilatih dengan efisiensi energi terukur."`
-- **Beat 2 (Pak Marno):** `"Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!"`
+- **Beat 2 (Warga Desa):** `"Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!"`
 - **Beat 3 (Epilog):** `"Di tepi jurang kepunahan, Unit AQUA-7 menemukan satu celah sempit harmoni.
 Sebuah bukti abadi: [b]Kemajuan teknologi tidak harus mematikan bumi tempatnya berpijak.[/b]"`
 
 ### 2. ORGANIC (Nurani Organik — Sawah Terselamatkan)
 *Kondisi: Ketahanan Pangan > Integritas Server*
-- **Beat 1 (Pak Marno):** `"Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan."`
+- **Beat 1 (Warga Desa):** `"Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan."`
 - **Beat 2 (DeepBeast):** `"Daya server padam total ([b]%d%%[/b]). Kerusakan termal permanen terkonfirmasi. Korporasi kehilangan aset komputasi, namun nurani kehidupan dimenangkan."`
 - **Beat 3 (Epilog):** `"Unit AQUA-7 mengesampingkan algoritma korporasi demi mengalirkan sisa air terakhir kepada kehidupan.
 [b]Logika mesin tunduk pada nurani bumi.[/b]"`
@@ -208,13 +208,13 @@ Sebuah bukti abadi: [b]Kemajuan teknologi tidak harus mematikan bumi tempatnya b
 ### 3. SILICON (Gurun Silikon — Server Terselamatkan)
 *Kondisi: Integritas Server > Ketahanan Pangan*
 - **Beat 1 (DeepBeast):** `"Integritas superkomputer prima ([b]%d%%[/b]). Arsitektur neural 2.0T terlahir sempurna, memproses miliaran data peradaban per detik."`
-- **Beat 2 (Pak Marno):** `"Tanah pertanian mati retak menjadi abu ([b]%d%%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya..."`
+- **Beat 2 (Warga Desa):** `"Tanah pertanian mati retak menjadi abu ([b]%d%%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya..."`
 - **Beat 3 (Epilog):** `"Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di tengah kesunyian gurun abu...
 [b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]"`
 
 ### 4. TOTAL_COLLAPSE (Bencana Ekologi Total — Keduanya Hancur)
 *Kondisi: Kedua sektor habis (0%) sebelum waktu selesai*
 - **Beat 1 (DeepBeast):** `"Alarm kegagalan katastrofik: Seluruh rak server meledak terbakar dalam kepulan asap hitam!"`
-- **Beat 2 (Pak Marno):** `"Tanaman sawah puso dan kering terbakar terik matahari... Semua yang kami perjuangkan musnah tak bersisa."`
+- **Beat 2 (Warga Desa):** `"Tanaman sawah puso dan kering terbakar terik matahari... Semua yang kami perjuangkan musnah tak bersisa."`
 - **Beat 3 (Epilog):** `"Kelalaian dalam mengelola sumber daya berujung pada keruntuhan total ekosistem.
 [b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]"`

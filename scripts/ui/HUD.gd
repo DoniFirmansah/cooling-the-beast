@@ -112,7 +112,7 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
-		"speaker_badge": "🌾 PAK MARNO // TRANSMISI RADIO TANI",
+		"speaker_badge": "🌾 WARGA DESA // TRANSMISI RADIO TANI",
 		"speaker_color": Color(0.48, 0.78, 0.52),
 		"raw_text": "\"AQUA-7, dengarkan kami... Sawah ini adalah napas hidup keluarga kami di lembah ini.\n[color=#9ae6b4]Tolong seberangi jembatan ke timur. Siram tanah kami dengan [b][SPASI][/b] agar kelembapan tidak anjlok di bawah 30%.\"",
 		"prompt": "[SPASI] Lanjut ▸"
@@ -143,7 +143,7 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
-		"speaker_badge": "🌾 PAK MARNO // TRANSMISI RADIO TANI",
+		"speaker_badge": "🌾 WARGA DESA // TRANSMISI RADIO TANI",
 		"speaker_color": Color(0.48, 0.78, 0.52),
 		"raw_text": "\"Kemarau ini makin kejam, AQUA-7... Daun-daun padi kami mulai menguning terpanggang matahari.\nJangan biarkan seluruh air mata air disedot ke gedung server! Kami butuh air itu untuk bertahan!\"",
 		"prompt": "[SPASI] Lanjut ▸"
@@ -174,7 +174,7 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
-		"speaker_badge": "🥀 PAK MARNO // JERITAN PETANI",
+		"speaker_badge": "🥀 WARGA DESA // JERITAN PETANI",
 		"speaker_color": Color(0.55, 0.75, 0.58),
 		"raw_text": "\"Hari ini adalah penentuan panen raya kami, AQUA-7! Jika sawah ini mati sebelum senja, ratusan keluarga kami tak punya makanan esok hari...\nTolong, jangan biarkan mesin membunuh kehidupan!\"",
 		"prompt": "[SPASI] Lanjut ▸"
@@ -644,7 +644,7 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
-				"speaker_badge": "🌾 PAK MARNO // AIR MATA HARU",
+				"speaker_badge": "🌾 WARGA DESA // AIR MATA HARU",
 				"speaker_color": Color(0.45, 0.80, 0.55),
 				"raw_text": "Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!" % f_sec,
 				"prompt": "[SPASI] Lanjut ▸"
@@ -659,7 +659,7 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 		"ORGANIC":
 			beats.append({
 				"camera_target": Vector2(336, 0),
-				"speaker_badge": "🌾 PAK MARNO // SUJUD SYUKUR",
+				"speaker_badge": "🌾 WARGA DESA // SUJUD SYUKUR",
 				"speaker_color": Color(0.48, 0.75, 0.52),
 				"raw_text": "Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan.",
 				"prompt": "[SPASI] Lanjut ▸"
