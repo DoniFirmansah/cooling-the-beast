@@ -265,20 +265,24 @@ func _on_water_changed(current: float, max_amount: float) -> void:
 		water_label.text = "%d / %dL" % [int(current), int(max_amount)]
 		water_label.modulate = Color(1.0, 0.3, 0.3) if current < 20.0 else Color.WHITE
 
-func _on_reservoir_changed(current: float, max_amount: float) -> void:
+func _on_reservoir_changed(current: float, _max_amount: float) -> void:
+	var basin_cap: float = GameManager.TOTAL_BASIN_CAPACITY
 	if reservoir_bar:
-		reservoir_bar.max_value = max_amount
+		reservoir_bar.max_value = basin_cap
 		reservoir_bar.value = current
 	if reservoir_label:
-		var depth_m: float = (current / maxf(max_amount, 1.0)) * 3.5
+		var depth_m: float = (current / basin_cap) * 3.5
 		if current <= 0.0:
-			reservoir_label.text = "KERING (0L | 0.0m)"
+			reservoir_label.text = "KERING TOTAL (0L | 0.0m)"
 			reservoir_label.modulate = Color(1.0, 0.2, 0.2)
-		elif current < 50.0:
-			reservoir_label.text = "%dL (%.1fm)" % [int(current), depth_m]
-			reservoir_label.modulate = Color(1.0, 0.7, 0.2)
+		elif current < 60.0:
+			reservoir_label.text = "%dL (%.1fm • KRITIS)" % [int(current), depth_m]
+			reservoir_label.modulate = Color(1.0, 0.35, 0.2)
+		elif current < 200.0:
+			reservoir_label.text = "%dL (%.1fm • SURUT)" % [int(current), depth_m]
+			reservoir_label.modulate = Color(1.0, 0.75, 0.25)
 		else:
-			reservoir_label.text = "%dL (%.1fm)" % [int(current), depth_m]
+			reservoir_label.text = "%dL (%.1fm • PENUH)" % [int(current), depth_m]
 			reservoir_label.modulate = Color(0.3, 0.85, 1.0)
 
 func _on_time_tick(seconds_left: int) -> void:

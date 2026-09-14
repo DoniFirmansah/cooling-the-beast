@@ -13,6 +13,7 @@ signal game_finished(ending_code: String, title: String, narrative: String, stat
 const SHIFT_DURATION: float = 60.0
 const MAX_BACKPACK_WATER: float = 120.0
 const MAX_WATER: float = MAX_BACKPACK_WATER
+const TOTAL_BASIN_CAPACITY: float = 280.0
 
 const TIMELINE_MODE: String = "monthly" # "monthly" (Hari 1, 15, 30), "consecutive" (Hari 1, 2, 3), "seasonal" (Hari 1, 45, 90)
 
@@ -160,7 +161,7 @@ func _setup_shift(shift_num: int) -> void:
 		tree.paused = false
 	
 	water_changed.emit(current_water, MAX_BACKPACK_WATER)
-	reservoir_changed.emit(reservoir_water, max_reservoir_shift)
+	reservoir_changed.emit(reservoir_water, TOTAL_BASIN_CAPACITY)
 	food_security_changed.emit(food_security)
 	server_integrity_changed.emit(server_integrity)
 	shift_started.emit(current_shift, cfg["title"])
@@ -323,7 +324,7 @@ func refill_water(amount: float) -> bool:
 	reservoir_water -= actual
 	current_water += actual
 	water_changed.emit(current_water, MAX_BACKPACK_WATER)
-	reservoir_changed.emit(reservoir_water, max_reservoir_shift)
+	reservoir_changed.emit(reservoir_water, TOTAL_BASIN_CAPACITY)
 	return true
 
 func get_heat_multiplier() -> float:

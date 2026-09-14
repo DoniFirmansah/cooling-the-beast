@@ -6,6 +6,7 @@ class_name LevelManager
 @onready var env_modulate: CanvasModulate = $EnvModulate
 @onready var background_skyline: Sprite2D = $BackgroundSkyline
 @onready var grass_floor: TextureRect = $Floors/GrassFloorAgriDome
+@onready var stone_plaza_floor: TextureRect = $Floors/CentralPlaza
 @onready var heat_ember_particles: CPUParticles2D = $HeatEmberParticles
 @onready var forest_leaf_particles: CPUParticles2D = $ForestLeafParticles
 @onready var warning_light_bar: Sprite2D = $YSortEntities/WarningLightBar
@@ -42,6 +43,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 	var target_sky_color: Color = Color.WHITE
 	var target_bg_color: Color = Color.WHITE
 	var target_grass_color: Color = Color(0.80, 0.95, 0.78)
+	var target_stone_color: Color = Color.WHITE
 	var emit_embers: bool = false
 	var ember_amount: int = 20
 	var ember_color: Color = Color(1.0, 0.75, 0.35, 0.45)
@@ -57,6 +59,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			target_sky_color = Color(1.06, 0.96, 0.88)
 			target_bg_color = Color(1.12, 0.96, 0.90)
 			target_grass_color = Color(0.82, 0.98, 0.80)
+			target_stone_color = Color(1.0, 1.0, 1.0)
 			strobe_warning_bar = false
 			if warning_light_bar:
 				warning_light_bar.modulate = Color(0.35, 0.85, 1.0)
@@ -70,6 +73,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			target_sky_color = Color(1.08, 0.94, 0.76)
 			target_bg_color = Color(1.12, 0.92, 0.70)
 			target_grass_color = Color(0.85, 0.74, 0.46)
+			target_stone_color = Color(0.92, 0.88, 0.78)
 			strobe_warning_bar = true
 			strobe_color = Color(1.0, 0.8, 0.25)
 			strobe_speed = 5.0
@@ -85,6 +89,7 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			target_sky_color = Color(0.95, 0.50, 0.35)
 			target_bg_color = Color(1.0, 0.42, 0.30)
 			target_grass_color = Color(0.42, 0.30, 0.22)
+			target_stone_color = Color(0.65, 0.48, 0.40)
 			strobe_warning_bar = true
 			strobe_color = Color(1.0, 0.15, 0.15)
 			strobe_speed = 12.0
@@ -118,6 +123,8 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			tween.tween_property(background_skyline, "modulate", target_bg_color, 2.5)
 		if grass_floor:
 			tween.tween_property(grass_floor, "modulate", target_grass_color, 2.5)
+		if stone_plaza_floor:
+			tween.tween_property(stone_plaza_floor, "modulate", target_stone_color, 2.5)
 	else:
 		if env_modulate:
 			env_modulate.color = target_sky_color
@@ -125,6 +132,8 @@ func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 			background_skyline.modulate = target_bg_color
 		if grass_floor:
 			grass_floor.modulate = target_grass_color
+		if stone_plaza_floor:
+			stone_plaza_floor.modulate = target_stone_color
 
 func _update_dynamic_diurnal_lighting(delta: float) -> void:
 	var clock: Dictionary = GameManager.get_clock_info()
@@ -230,6 +239,13 @@ func _update_dynamic_diurnal_lighting(delta: float) -> void:
 		background_skyline.modulate = background_skyline.modulate.lerp(target_bg, delta * 3.0)
 	if grass_floor:
 		grass_floor.modulate = grass_floor.modulate.lerp(target_grass, delta * 3.0)
+	if stone_plaza_floor:
+		var target_stone: Color = Color.WHITE
+		match shift:
+			1: target_stone = Color(1.0, 1.0, 1.0)
+			2: target_stone = Color(0.92, 0.88, 0.78)
+			3: target_stone = Color(0.65, 0.48, 0.40)
+		stone_plaza_floor.modulate = stone_plaza_floor.modulate.lerp(target_stone, delta * 3.0)
 
 
 func _trigger_shift_transition_effects(shift_num: int) -> void:

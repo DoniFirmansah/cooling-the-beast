@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/stone_small_03.png" id="9_stone3"]
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/flower_yellow_01.png" id="10_flower1"]
 [ext_resource type="Texture2D" path="res://assets/environment/farmland/flower_white_01.png" id="11_flower2"]
+[ext_resource type="Texture2D" path="res://assets/environment/lake/lake_bed_dry.png" id="12_dry_bed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_water_barrier"]
 size = Vector2(128, 64)
@@ -31,6 +32,11 @@ script = ExtResource("1_lake_script")
 z_index = -1
 z_as_relative = false
 texture = ExtResource("2_basin_tex")
+
+[node name="DryBed" type="Sprite2D" parent="."]
+z_index = -1
+z_as_relative = false
+texture = ExtResource("12_dry_bed")
 
 [node name="WaterContainer" type="Node2D" parent="."]
 z_index = -1
