@@ -1,4 +1,4 @@
-# Panduan Penempatan Aset Grafis (Raw PNG) - "AQUA-7: Between Silicon & Soil"
+# Panduan Penempatan Aset Grafis (Raw PNG) - "Aqua-7: Machine and Earth"
 
 Silakan letakkan file gambar PNG (spritesheet atau loose PNG) ke sub-folder di bawah ini:
 
