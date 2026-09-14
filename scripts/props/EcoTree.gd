@@ -109,9 +109,9 @@ func _apply_shift_visuals(shift_num: int, animate: bool) -> void:
 		1:
 			current_shift_color = Color(1.0, 1.0, 1.0)
 		2:
-			current_shift_color = Color(0.92, 0.82, 0.52)
+			current_shift_color = Color(0.92, 0.78, 0.46)
 		3:
-			current_shift_color = Color(0.55, 0.42, 0.32)
+			current_shift_color = Color(0.42, 0.30, 0.24)
 	
 	var final_color: Color = current_shift_color
 	final_color.a = 0.42 if is_canopy_occluding else 1.0

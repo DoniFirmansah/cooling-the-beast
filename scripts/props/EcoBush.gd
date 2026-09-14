@@ -58,9 +58,9 @@ func _apply_shift_visuals(shift_num: int, animate: bool) -> void:
 		1:
 			target_color = Color(1.0, 1.0, 1.0)
 		2:
-			target_color = Color(0.92, 0.82, 0.52)
+			target_color = Color(0.92, 0.78, 0.46)
 		3:
-			target_color = Color(0.55, 0.42, 0.32)
+			target_color = Color(0.42, 0.30, 0.24)
 	
 	if animate:
 		var tween: Tween = create_tween()
