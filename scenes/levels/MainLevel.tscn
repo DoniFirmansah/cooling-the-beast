@@ -46,6 +46,9 @@ size = Vector2(10, 341)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coolant_tank"]
 size = Vector2(40, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_breaker"]
+size = Vector2(58, 20)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_console"]
 size = Vector2(54, 16)
 
@@ -161,6 +164,22 @@ texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(55, 150, 50, 10)
 
+[node name="PipeTopShadow" type="Sprite2D" parent="Floors"]
+modulate = Color(0, 0, 0, 0.35)
+position = Vector2(-356, -114)
+scale = Vector2(4.8, 0.75)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 30, 4)
+
+[node name="PipeBottomShadow" type="Sprite2D" parent="Floors"]
+modulate = Color(0, 0, 0, 0.35)
+position = Vector2(-356, 6)
+scale = Vector2(4.8, 0.75)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 30, 4)
+
 [node name="WalkwayBelowBuilding" type="TextureRect" parent="Floors"]
 modulate = Color(0.48, 0.52, 0.58, 1)
 texture_repeat = 2
@@ -269,11 +288,18 @@ texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(198, 3, 120, 27)
 
-[node name="BreakerPanel" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(-356, -188)
+[node name="BreakerPanel" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-356, -176)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/BreakerPanel"]
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(323, 64, 58, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/BreakerPanel"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_breaker")
 
 [node name="TelemetryPanel" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-252, -186)
@@ -314,7 +340,7 @@ position = Vector2(-356, -145)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="YSortEntities/MainframeConsole"]
-position = Vector2(0, -10)
+position = Vector2(0, 1)
 texture = ExtResource("30_terminal_desk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/MainframeConsole"]
@@ -335,6 +361,50 @@ rack_id = 3
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("18_server_rack")]
 position = Vector2(-242, 65)
 rack_id = 4
+
+[node name="OverheadPipes" type="Node2D" parent="YSortEntities"]
+z_index = 5
+position = Vector2(-356, -36)
+
+[node name="PipeTopLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(-50, -84)
+scale = Vector2(2.8, 1)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeTopCenter" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(1, -84)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(393, 332, 46, 8)
+
+[node name="PipeTopRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(51, -84)
+scale = Vector2(2.7, 1)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeBottomLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(-50, 36)
+scale = Vector2(2.8, 1)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeBottomCenter" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(0, 36)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(393, 301, 46, 7)
+
+[node name="PipeBottomRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
+position = Vector2(50, 36)
+scale = Vector2(2.8, 1)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
 
 [node name="WarningLightBar" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-356, 75)
@@ -365,7 +435,7 @@ collision_mask = 0
 texture = ExtResource("19_bot_left_tex")
 
 [node name="LeftPillar" type="Sprite2D" parent="YSortEntities/DownWallColl/BottomWallLeft"]
-position = Vector2(-100, 1)
+position = Vector2(-102, 2)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(56, 0, 7, 65)

@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4q4y8d5r6t2s"]
+[gd_scene load_steps=15 format=3 uid="uid://oxojce3q5qln"]
 
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="1_floor_metal"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_left.png" id="3_wall_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_right.png" id="4_wall_right"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="5_wall_bot_left"]
-[ext_resource type="Texture2D" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
+[ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
+[ext_resource type="Texture2D" uid="uid://dudkjg4lpkjap" path="res://assets/environment/server_room/wall_structure_left.png" id="3_wall_left"]
+[ext_resource type="Texture2D" uid="uid://ce1qtsjhkq8fb" path="res://assets/environment/server_room/wall_structure_right.png" id="4_wall_right"]
+[ext_resource type="Texture2D" uid="uid://66pq8ghdmg0c" path="res://assets/environment/server_room/wall_structure_bottom_left.png" id="5_wall_bot_left"]
+[ext_resource type="Texture2D" uid="uid://cmmxbidhqcsrk" path="res://assets/environment/server_room/wall_structure_bottom_right.png" id="6_wall_bot_right"]
 [ext_resource type="PackedScene" uid="uid://b5ik0uh7jn03i" path="res://assets/environment/server_room/doorstructure.tscn" id="7_door_structure"]
 [ext_resource type="PackedScene" uid="uid://d0o7xldmvlsen" path="res://scenes/props/ServerRack.tscn" id="8_server_rack"]
 [ext_resource type="Texture2D" uid="uid://6wj7oijc4jp2" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="9_pipe_h"]
@@ -112,11 +112,9 @@ position = Vector2(-104, -25)
 
 [node name="ServerRack2" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(106, -25)
-rack_variant = "cluster_b"
 
 [node name="ServerRack3" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(-104, 65)
 
 [node name="ServerRack4" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(106, 65)
-rack_variant = "cluster_b"

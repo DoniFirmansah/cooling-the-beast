@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bkhaly4supl64"]
+[gd_scene load_steps=19 format=3 uid="uid://bkhaly4supl64"]
 
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="1_floor_metal"]
 [ext_resource type="Texture2D" uid="uid://b0cgsvgob8yfq" path="res://assets/environment/server_room/wall_structure_top.png" id="2_wall_top"]
@@ -25,6 +25,9 @@ size = Vector2(198, 61)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_down_right"]
 size = Vector2(188.5, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjp4i"]
+size = Vector2(58, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coolant_tank"]
 size = Vector2(40, 14)
@@ -129,7 +132,7 @@ collision_mask = 0
 texture = ExtResource("5_wall_bot_left")
 
 [node name="LeftPillar" type="Sprite2D" parent="DownWallColl/BottomWallLeft"]
-position = Vector2(-100, 1)
+position = Vector2(-102, 2)
 texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(56, 0, 7, 65)
@@ -165,11 +168,18 @@ texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(198, 3, 120, 27)
 
-[node name="BreakerPanel" type="Sprite2D" parent="."]
-position = Vector2(0, -152)
+[node name="BreakerPanel" type="StaticBody2D" parent="."]
+position = Vector2(0, -140)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="BreakerPanel"]
 texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(323, 64, 58, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakerPanel"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_yjp4i")
 
 [node name="TelemetryPanel" type="Sprite2D" parent="."]
 position = Vector2(104, -150)
@@ -210,7 +220,7 @@ position = Vector2(0, -109)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="MainframeConsole"]
-position = Vector2(0, -10)
+position = Vector2(0, 1)
 texture = ExtResource("9_terminal_desk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainframeConsole"]
@@ -233,6 +243,49 @@ rack_id = 3
 [node name="ServerRack4" parent="Racks" instance=ExtResource("8_server_rack")]
 position = Vector2(114, 101)
 rack_id = 4
+
+[node name="OverheadPipes" type="Node2D" parent="."]
+z_index = 5
+
+[node name="PipeTopLeft" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(-50, -84)
+scale = Vector2(2.8, 1)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeTopCenter" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(1, -84)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(393, 332, 46, 8)
+
+[node name="PipeTopRight" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(51, -84)
+scale = Vector2(2.7, 1)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeBottomLeft" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(-50, 36)
+scale = Vector2(2.8, 1)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
+
+[node name="PipeBottomCenter" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(0, 36)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(393, 301, 46, 7)
+
+[node name="PipeBottomRight" type="Sprite2D" parent="OverheadPipes"]
+position = Vector2(50, 36)
+scale = Vector2(2.8, 1)
+texture = ExtResource("3_yjp4i")
+region_enabled = true
+region_rect = Rect2(406, 302, 20, 4)
 
 [node name="WarningLightBar" type="Sprite2D" parent="."]
 position = Vector2(0, 111)
