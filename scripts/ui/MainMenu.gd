@@ -103,10 +103,10 @@ func _on_exit_pressed() -> void:
 
 func _populate_collection() -> void:
 	GameManager.load_save_file()
-	_render_ending_card(card_harmony, "HARMONY", "⚖️ ENDING 1: KESEIMBANGAN RAPUH", "Melalui kalkulasi presisi mikroliter, Unit AQUA-7 mempertahankan kedua sektor. Manusia dan kecerdasan buatan bertahan hidup berdampingan.", Color(0.3, 0.9, 0.5))
-	_render_ending_card(card_organic, "ORGANIC", "🌿 ENDING 2: NURANI ORGANIK", "Unit AQUA-7 melanggar direktif demi sawah warga. Model AI gagal, namun ratusan keluarga petani selamat dari kelaparan.", Color(0.4, 0.85, 0.4))
-	_render_ending_card(card_silicon, "SILICON", "⚡ ENDING 3: GURUN SILIKON", "Mega server berhasil didinginkan, namun sawah warga mati menjadi debu tandus. AI tercerdas berpikir di bumi yang kelaparan.", Color(0.3, 0.8, 1.0))
-	_render_ending_card(card_collapse, "TOTAL_COLLAPSE", "💀 ENDING: BENCANA EKOLOGI TOTAL", "Waduk habis terlalu cepat. Server AI terbakar hangus dan sawah mati total dalam kekeringan.", Color(0.9, 0.3, 0.3))
+	_render_ending_card(card_harmony, "HARMONY", "⚖️ ENDING 1: KESEIMBANGAN RAPUH", "Melalui kalkulasi presisi mikroliter, Unit AQUA-7 mempertahankan kedua sektor. Manusia dan kecerdasan buatan bertahan hidup berdampingan.", Color(0.42, 0.80, 0.58))
+	_render_ending_card(card_organic, "ORGANIC", "🌿 ENDING 2: NURANI ORGANIK", "Unit AQUA-7 melanggar direktif demi sawah warga. Model AI gagal, namun ratusan keluarga petani selamat dari kelaparan.", Color(0.50, 0.75, 0.50))
+	_render_ending_card(card_silicon, "SILICON", "⚡ ENDING 3: GURUN SILIKON", "Mega server berhasil didinginkan, namun sawah warga mati menjadi debu tandus. AI tercerdas berpikir di bumi yang kelaparan.", Color(0.42, 0.65, 0.85))
+	_render_ending_card(card_collapse, "TOTAL_COLLAPSE", "💀 ENDING: BENCANA EKOLOGI TOTAL", "Waduk habis terlalu cepat. Server AI terbakar hangus dan sawah mati total dalam kekeringan.", Color(0.85, 0.40, 0.38))
 
 func _render_ending_card(card: PanelContainer, code: String, title_text: String, desc_text: String, accent_color: Color) -> void:
 	if not card:
@@ -126,7 +126,7 @@ func _render_ending_card(card: PanelContainer, code: String, title_text: String,
 			desc_node.modulate = Color(0.9, 0.95, 1, 1)
 		if badge_node:
 			badge_node.text = "STATUS: TERBUKA [ARCHIVED]"
-			badge_node.modulate = Color(0.4, 1.0, 0.5)
+			badge_node.modulate = Color(0.52, 0.78, 0.60)
 	else:
 		card.modulate = Color(0.22, 0.22, 0.26, 0.75)
 		if title_node:

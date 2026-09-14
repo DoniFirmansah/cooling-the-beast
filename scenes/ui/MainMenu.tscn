@@ -7,57 +7,57 @@
 [ext_resource type="Texture2D" uid="uid://87tabsg220gl" path="res://assets/environment/farmland/leaf_particle.png" id="5_leaf_tex"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
-bg_color = Color(0.08, 0.16, 0.28, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.6, 0.9, 0.9)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 4
-shadow_offset = Vector2(0, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(0.15, 0.35, 0.6, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.35, 0.85, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0.1, 0.5, 0.8, 0.5)
-shadow_size = 6
-shadow_offset = Vector2(0, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.04, 0.06, 0.1, 0.96)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.65, 0.95, 0.9)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-shadow_color = Color(0, 0, 0, 0.7)
-shadow_size = 8
-shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
-bg_color = Color(0.06, 0.09, 0.14, 0.95)
+bg_color = Color(0.10, 0.12, 0.16, 0.94)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.25, 0.45, 0.7, 0.8)
+border_color = Color(0.24, 0.28, 0.35, 0.7)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 3
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.15, 0.19, 0.25, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.46, 0.58, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.10, 0.13, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.28, 0.35, 0.65)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.06, 0.07, 0.09, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.22, 0.28, 0.55)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -86,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LeftMetalFloor" type="TextureRect" parent="FloorsSplit"]
-modulate = Color(0.32, 0.38, 0.48, 0.85)
+modulate = Color(0.22, 0.25, 0.30, 0.85)
 texture_repeat = 2
 layout_mode = 1
 anchors_preset = 9
@@ -97,7 +97,7 @@ texture = ExtResource("2_bg_metal")
 stretch_mode = 1
 
 [node name="RightGrassFloor" type="TextureRect" parent="FloorsSplit"]
-modulate = Color(0.28, 0.48, 0.32, 0.85)
+modulate = Color(0.20, 0.27, 0.22, 0.85)
 texture_repeat = 2
 layout_mode = 1
 anchors_preset = 11
@@ -120,39 +120,39 @@ offset_left = -1.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2, 0.75, 1, 0.35)
+color = Color(1, 1, 1, 0.06)
 
 [node name="EmbersLeft" type="CPUParticles2D" parent="."]
 position = Vector2(300, 720)
-amount = 24
-lifetime = 4.0
+amount = 16
+lifetime = 5.0
 emission_shape = 3
 emission_rect_extents = Vector2(280, 20)
 direction = Vector2(0.2, -1)
 spread = 25.0
 gravity = Vector2(-15, -30)
-initial_velocity_min = 35.0
-initial_velocity_max = 75.0
-scale_amount_min = 2.0
-scale_amount_max = 4.0
-color = Color(1, 0.55, 0.2, 0.65)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 1.5
+scale_amount_max = 3.0
+color = Color(0.85, 0.52, 0.25, 0.35)
 
 [node name="LeavesRight" type="CPUParticles2D" parent="."]
 position = Vector2(980, -20)
-amount = 20
+amount = 16
 texture = ExtResource("5_leaf_tex")
-lifetime = 5.5
+lifetime = 6.0
 emission_shape = 3
 emission_rect_extents = Vector2(280, 20)
 direction = Vector2(-0.3, 1)
 spread = 20.0
 gravity = Vector2(15, 20)
-initial_velocity_min = 20.0
-initial_velocity_max = 45.0
-angular_velocity_min = -90.0
-angular_velocity_max = 90.0
-scale_amount_max = 1.6
-color = Color(0.5, 0.9, 0.4, 0.75)
+initial_velocity_min = 15.0
+initial_velocity_max = 35.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+scale_amount_max = 1.4
+color = Color(0.42, 0.62, 0.40, 0.45)
 
 [node name="Vignette" type="ColorRect" parent="."]
 layout_mode = 1
@@ -183,35 +183,34 @@ theme_override_constants/separation = 4
 
 [node name="BadgeTheme" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.4, 0.95, 0.65, 0.9)
+theme_override_colors/font_color = Color(0.60, 0.66, 0.74, 0.95)
 theme_override_font_sizes/font_size = 11
 text = "🌱 ISU LINGKUNGAN: SAVE THE EARTH  •  GRAFIKA GAMETASTIC 2026 ⚙️"
 horizontal_alignment = 1
 
 [node name="GameTitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
-theme_override_constants/shadow_offset_x = 2
+theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.75)
+theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 44
 text = "AQUA-7"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_colors/font_color = Color(0.78, 0.74, 0.65, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 15
 text = "MACHINE AND EARTH"
 horizontal_alignment = 1
 
 [node name="Tagline" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.85)
+theme_override_colors/font_color = Color(0.64, 0.68, 0.75, 0.85)
 theme_override_font_sizes/font_size = 12
 text = "\"Dilema Air 2049: Pendinginan Superkomputer AI vs Ketahanan Pangan Bumi\""
 horizontal_alignment = 1
@@ -326,8 +325,8 @@ theme_override_constants/separation = 2
 
 [node name="ModalTitle" type="Label" parent="CollectionModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HeaderBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.92, 0.94, 0.98, 1)
+theme_override_font_sizes/font_size = 17
 text = "🏆 ARSIP TELEMETRI AQUA-7 // KOLEKSI ENDING"
 horizontal_alignment = 1
 
@@ -561,8 +560,8 @@ theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.92, 0.94, 0.98, 1)
+theme_override_font_sizes/font_size = 17
 text = "📖 PANDUAN KONTROL & STRATEGI OPERASIONAL"
 horizontal_alignment = 1
 
@@ -595,7 +594,7 @@ theme_override_constants/separation = 6
 
 [node name="Header" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelControls/Margin/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_color = Color(0.88, 0.85, 0.75, 1)
 theme_override_font_sizes/font_size = 13
 text = "🎮 PEMETAAN KONTROL"
 
@@ -633,7 +632,7 @@ theme_override_constants/separation = 6
 
 [node name="Header" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelLore/Margin/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_colors/font_color = Color(0.82, 0.88, 0.94, 1)
 theme_override_font_sizes/font_size = 13
 text = "⚖️ DILEMA SUMBER DAYA AIR"
 
