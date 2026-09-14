@@ -178,6 +178,7 @@ Sesuai aturan mutlak panitia Grafika Gametastic 2026:
    * **Tile Tanah & Dinding Bangunan:** Kenney CC0 Roguelike/Industrial Pack & 32x32 Pixel Art CC0.
    * **Properti Interior Cyberpunk:** Spritesheet *pixel-cyberpunk-interior* CC0 (tabung pendingin, monitor telemetri, panel gardu daya, kabel lantai, pemadam api).
    * **Properti Pertanian:** Aset 2D CC0 Public Domain (bibit padi, tanaman layu, pagar pembatas, tanaman hias, ayam animasi).
+   * **Dedaunan & Partikel Lingkungan:** Sprite piksel daun 8x8 tangan murni (`leaf_particle.png`), CPUParticles2D guguran daun dinamis, dan badai bara api (*heat embers*).
    * **Visual FX & Shader:** Godot CanvasItem Shaders prosedural (denyut emisi LED, outline siluet saat tertutup dinding, partikel uap dan percikan air murni CPU Particles).
 2. **Format Audio Kompatibel Web:**
    * **BGM:** Musik latar loop berformat `.ogg` berlatensi rendah.
