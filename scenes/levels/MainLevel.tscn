@@ -38,10 +38,10 @@ size = Vector2(24, 520)
 size = Vector2(436, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_left_wall"]
-size = Vector2(26, 290)
+size = Vector2(11, 338)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_right_wall"]
-size = Vector2(26, 290)
+size = Vector2(10, 341)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_coolant_tank"]
 size = Vector2(40, 14)
@@ -124,15 +124,15 @@ offset_bottom = 156.0
 color = Color(0.2, 0.45, 0.7, 0.8)
 
 [node name="HazardStripeRight" type="Sprite2D" parent="Floors"]
-position = Vector2(-230, 89)
-scale = Vector2(5.9375, 1.125)
+position = Vector2(-233, 89)
+scale = Vector2(5.75, 1.125)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(64, 256, 32, 8)
 
 [node name="HazardStripeLeft" type="Sprite2D" parent="Floors"]
-position = Vector2(-482, 89)
-scale = Vector2(6.1875, 1.1875)
+position = Vector2(-485, 89)
+scale = Vector2(6.125, 1.1875)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(64, 256, 32, 8)
@@ -218,8 +218,8 @@ shape = SubResource("RectangleShape2D_wall_v")
 y_sort_enabled = true
 
 [node name="RoofTrim" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(-356, -236)
-scale = Vector2(13.5, 1.25)
+position = Vector2(-360, -236)
+scale = Vector2(12.8824, 1.25)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(63, 150, 34, 10)
@@ -241,31 +241,33 @@ shape = SubResource("RectangleShape2D_top_wall")
 position = Vector2(-570, -196)
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/LeftWallColl"]
-position = Vector2(-16, 160)
-texture = ExtResource("16_left_wall_tex")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/LeftWallColl"]
-position = Vector2(-13, 160)
+position = Vector2(-12.5, 136)
 shape = SubResource("RectangleShape2D_left_wall")
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/LeftWallColl"]
+position = Vector2(-24, 123.5)
+scale = Vector2(1, 1.22812)
+texture = ExtResource("16_left_wall_tex")
 
 [node name="RightWallColl" type="StaticBody2D" parent="YSortEntities"]
 position = Vector2(-142, -196)
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/RightWallColl"]
-position = Vector2(16, 160)
-texture = ExtResource("17_right_wall_tex")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/RightWallColl"]
-position = Vector2(13, 160)
+position = Vector2(5, 134.5)
 shape = SubResource("RectangleShape2D_right_wall")
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/RightWallColl"]
+position = Vector2(16, 123.5)
+scale = Vector2(1, 1.22812)
+texture = ExtResource("17_right_wall_tex")
 
 [node name="WallScreens" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-460, -186)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
-region_rect = Rect2(198, 3, 90, 27)
+region_rect = Rect2(198, 3, 120, 27)
 
 [node name="BreakerPanel" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-356, -188)

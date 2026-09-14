@@ -15,10 +15,10 @@
 size = Vector2(436, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_left"]
-size = Vector2(26, 290)
+size = Vector2(11, 338)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_right"]
-size = Vector2(26, 290)
+size = Vector2(10, 341)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_down_left"]
 size = Vector2(198, 61)
@@ -41,9 +41,9 @@ z_index = -1
 [node name="MetalFloor" type="TextureRect" parent="Floors"]
 modulate = Color(0.6, 0.65, 0.72, 1)
 texture_repeat = 2
-offset_left = -230.0
+offset_left = -231.0
 offset_top = -192.0
-offset_right = 230.0
+offset_right = 229.0
 offset_bottom = 192.0
 texture = ExtResource("1_floor_metal")
 stretch_mode = 1
@@ -96,25 +96,27 @@ shape = SubResource("RectangleShape2D_top")
 position = Vector2(-214, -160)
 collision_mask = 0
 
-[node name="LeftWallCol" type="Sprite2D" parent="LeftWallColl"]
-position = Vector2(-16, 160)
-texture = ExtResource("6_tesr5")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallColl"]
-position = Vector2(-13, 160)
+position = Vector2(-12.5, 136)
 shape = SubResource("RectangleShape2D_left")
+
+[node name="LeftWallCol" type="Sprite2D" parent="LeftWallColl"]
+position = Vector2(-24, 123.5)
+scale = Vector2(1, 1.22812)
+texture = ExtResource("6_tesr5")
 
 [node name="RightWallColl" type="StaticBody2D" parent="."]
 position = Vector2(214, -160)
 collision_mask = 0
 
-[node name="RightWallCol" type="Sprite2D" parent="RightWallColl"]
-position = Vector2(16, 160)
-texture = ExtResource("5_fsjg6")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallColl"]
-position = Vector2(13, 160)
+position = Vector2(5, 134.5)
 shape = SubResource("RectangleShape2D_right")
+
+[node name="RightWallCol" type="Sprite2D" parent="RightWallColl"]
+position = Vector2(16, 123.5)
+scale = Vector2(1, 1.22812)
+texture = ExtResource("5_fsjg6")
 
 [node name="DownWallColl" type="Node2D" parent="."]
 position = Vector2(0, 160)
@@ -161,7 +163,7 @@ shape = SubResource("RectangleShape2D_down_right")
 position = Vector2(-104, -150)
 texture = ExtResource("3_yjp4i")
 region_enabled = true
-region_rect = Rect2(198, 3, 90, 27)
+region_rect = Rect2(198, 3, 120, 27)
 
 [node name="BreakerPanel" type="Sprite2D" parent="."]
 position = Vector2(0, -152)
@@ -251,22 +253,22 @@ region_enabled = true
 region_rect = Rect2(620, 266, 8, 10)
 
 [node name="Pixel-cyberpunk-interior" type="Sprite2D" parent="."]
-position = Vector2(0, -200)
-scale = Vector2(13.5, 1.25)
+position = Vector2(-3.99999, -200)
+scale = Vector2(12.8824, 1.25)
 texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(63, 150, 34, 10)
 
 [node name="Pixel-cyberpunk-interior4" type="Sprite2D" parent="."]
-position = Vector2(126, 125)
-scale = Vector2(5.9375, 1.125)
+position = Vector2(123, 125)
+scale = Vector2(5.75, 1.125)
 texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(64, 256, 32, 8)
 
 [node name="Pixel-cyberpunk-interior5" type="Sprite2D" parent="."]
-position = Vector2(-126, 125)
-scale = Vector2(6.1875, 1.1875)
+position = Vector2(-129, 125)
+scale = Vector2(6.125, 1.1875)
 texture = ExtResource("3_yjp4i")
 region_enabled = true
 region_rect = Rect2(64, 256, 32, 8)
