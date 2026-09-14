@@ -420,17 +420,18 @@ func damage_food_security(amount: float) -> void:
 func _check_early_failure() -> void:
 	if current_shift < 3:
 		if server_integrity <= 0.0:
-			_trigger_early_defeat("Sistem AI Blackout! Data Center Terbakar Sebelum Shift Selesai.")
+			_trigger_early_defeat("SERVER_MELTDOWN", "AI BLACKOUT (KEGAGALAN PUSAT DATA)", "Sistem AI Blackout! Seluruh server mengalami meltdown termal sebelum giliran kerja usai.")
 		elif food_security <= 0.0:
-			_trigger_early_defeat("Krisis Pangan! Sawah Warga Mati Total Sebelum Shift Selesai.")
+			_trigger_early_defeat("CROP_FAMINE", "KRISIS PANGAN (SAWAH PUSO)", "Krisis Pangan! Seluruh petak sawah warga puso kekeringan sebelum giliran kerja usai.")
 	else:
 		if server_integrity <= 0.0 and food_security <= 0.0:
-			_trigger_early_defeat("Runtuhnya Ekosistem! Seluruh Server dan Tanaman Hancur Total.")
+			_trigger_early_defeat("TOTAL_COLLAPSE", "BENCANA EKOLOGI TOTAL", "Runtuhnya Ekosistem! Seluruh Server dan Tanaman Hancur Total.")
 
-func _trigger_early_defeat(reason: String) -> void:
+func _trigger_early_defeat(code: String, title: String, reason: String) -> void:
 	is_game_active = false
 	unlock_ending("TOTAL_COLLAPSE")
-	game_finished.emit("TOTAL_COLLAPSE", "BENCANA EKOLOGI TOTAL", reason, _get_stats())
+	game_finished.emit(code, title, reason, _get_stats())
+
 
 func _evaluate_final_endings() -> void:
 	is_game_active = false

@@ -645,29 +645,44 @@ func _on_game_finished(ending_code: String, title: String, narrative: String, st
 
 func _display_end_screen(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
 	end_screen.visible = true
+	var s_integ: int = int(stats.get("server_integrity", 0))
+	var f_sec: int = int(stats.get("food_security", 0))
+	
 	if ending_code == "HARMONY":
 		_play_sfx(SFX_WIN)
 		end_title.modulate = Color(0.42, 0.80, 0.58)
+		end_moral.text = "Save the Earth: Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Keseimbangan rapuh membuktikan manusia dan teknologi bisa tumbuh berdampingan."
 	elif ending_code == "ORGANIC":
 		_play_sfx(SFX_WIN)
 		end_title.modulate = Color(0.48, 0.75, 0.52)
+		end_moral.text = "Save the Earth: Mengutamakan hak hidup manusia dan alam di atas ambisi teknologi adalah wujud nurani etis masa depan."
 	elif ending_code == "SILICON":
 		_play_sfx(SFX_WIN)
 		end_title.modulate = Color(0.42, 0.65, 0.85)
+		end_moral.text = "Save the Earth: Kecerdasan buatan tercanggih sekalipun tak memiliki makna di atas bumi yang mati kelaparan."
+	elif ending_code == "SERVER_MELTDOWN" or (s_integ <= 0 and f_sec > 0):
+		_play_sfx(SFX_FAIL)
+		end_title.modulate = Color(0.92, 0.42, 0.35)
+		end_moral.text = "Save the Earth: Ambisi mempertahankan teknologi tanpa kapasitas pendinginan yang memadai berujung pada kehancuran mesin oleh panasnya sendiri."
+	elif ending_code == "CROP_FAMINE" or (f_sec <= 0 and s_integ > 0):
+		_play_sfx(SFX_FAIL)
+		end_title.modulate = Color(0.85, 0.52, 0.30)
+		end_moral.text = "Save the Earth: Membiarkan sektor pertanian kekeringan demi komputasi menghancurkan rantai pangan dan memicu krisis kemanusiaan."
 	else:
 		_play_sfx(SFX_FAIL)
 		end_title.modulate = Color(0.88, 0.38, 0.35)
+		end_moral.text = "Save the Earth: Kelalaian dalam tata kelola air memicu kehancuran ganda — teknologi padam dan pangan musnah."
 	
 	end_title.text = title
 	end_reason.text = narrative
 	end_stats.text = (
 		"STATISTIK AIR UNIT AQUA-7:\n" +
 		"• Air Dingin Terpakai (Mega AI Server): " + str(int(stats.get("servers_used_water", 0))) + " Liter\n" +
-		"• Air Bersih Terpakai (Sawah Warga): " + str(int(stats.get("crops_used_water", 0))) + " Liter\n" +
-		"• Integritas Server Akhir: " + str(int(stats.get("server_integrity", 0))) + "%\n" +
-		"• Ketahanan Pangan Akhir: " + str(int(stats.get("food_security", 0))) + "%"
+		"• Air Bersih Terpakai (Petak Sawah): " + str(int(stats.get("crops_used_water", 0))) + " Liter\n" +
+		"• Integritas Server Akhir: " + str(s_integ) + "%\n" +
+		"• Ketahanan Pangan Akhir: " + str(f_sec) + "%"
 	)
-	end_moral.text = "Save the Earth: Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Bisakah manusia dan teknologi tumbuh berdampingan secara bijak?"
+
 
 
 func _build_ending_beats(ending_code: String, _title: String, _narrative: String, stats: Dictionary) -> Array[Dictionary]:
@@ -675,8 +690,19 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 	var s_integ: int = int(stats.get("server_integrity", 0))
 	var f_sec: int = int(stats.get("food_security", 0))
 	
-	match ending_code:
+	# Evaluasi adaptif: Jika kode kegagalan dipanggil, sesuaikan cabang secara dinamis
+	var effective_code: String = ending_code
+	if effective_code == "TOTAL_COLLAPSE" or effective_code == "":
+		if s_integ <= 0 and f_sec > 0:
+			effective_code = "SERVER_MELTDOWN"
+		elif f_sec <= 0 and s_integ > 0:
+			effective_code = "CROP_FAMINE"
+		else:
+			effective_code = "TOTAL_COLLAPSE"
+	
+	match effective_code:
 		"HARMONY":
+
 			beats.append({
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // TELEMETRI STABIL",
@@ -743,6 +769,66 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
 
+		"SERVER_MELTDOWN":
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "🔥 ALARM PUSAT DATA // MELTDOWN TERMAL",
+				"speaker_color": Color(0.92, 0.38, 0.35),
+				"raw_text": "Suhu inti prosesor melampaui batas kritis! Sirkuit pendingin gagal mengatasi beban komputasi dan seluruh rak server meledak terbakar dalam kepulan asap pekat.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "🤖 AQUA-7 // PROTOKOL TEKNOLOGI GAGAL",
+				"speaker_color": Color(0.85, 0.65, 0.45),
+				"raw_text": "Kamu telah berupaya sekuat tenaga mempertahankan infrastruktur teknologi server, namun laju panas mesin terlalu buas untuk diredam.\nModel AI DeepBeast musnah terbakar, mengakhiri ambisi komputasi sebelum sempat disempurnakan.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🌾 WARGA DESA // PANGAN BERTAHAN",
+				"speaker_color": Color(0.48, 0.78, 0.52),
+				"raw_text": "\"Petak sawah kami masih hijau dan basah terairi (" + str(f_sec) + "%), namun ledakan di gedung server telah memutus seluruh suplai daya lembah.\nAmbisi teknologi telah runtuh oleh panasnya sendiri...\"",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "💀 EPILOG: KEGAGALAN PUSAT DATA",
+				"speaker_color": Color(0.85, 0.38, 0.35),
+				"raw_text": "Kegagalan pendinginan mengakhiri era kecerdasan buatan di lembah ini.\n[b]Mesin padam menjadi abu, membuktikan bahwa komputasi tanpa pendinginan yang cukup adalah kehancuran yang tak terhindarkan.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+
+		"CROP_FAMINE":
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🥀 TANAH MATI // PUSO KEKERINGAN",
+				"speaker_color": Color(0.88, 0.38, 0.35),
+				"raw_text": "Tanah retak dan akar tanaman terbakar terik matahari! Seluruh petak sawah puso mengering sebelum sempat menghasilkan bulir pangan.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🌾 WARGA DESA // RATAPAN PETANI",
+				"speaker_color": Color(0.85, 0.55, 0.45),
+				"raw_text": "\"Air bersih telah terabaikan... Ratusan keluarga kami kini kehilangan satu-satunya sumber penghidupan di lembah ini.\nKami terpaksa mengungsi mencari kehidupan di tempat lain...\"",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DAYA DINGIN AKTIF",
+				"speaker_color": Color(0.45, 0.75, 0.88),
+				"raw_text": "Integritas server bertahan prima pada " + str(s_integ) + "%, namun hilangnya ketahanan pangan memicu krisis kemanusiaan massal di sekitar fasilitas.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "💀 EPILOG: KRISIS PANGAN",
+				"speaker_color": Color(0.85, 0.38, 0.35),
+				"raw_text": "Kehidupan biologis di lembah musnah akibat ketiadaan air.\n[b]Server komputasi tetap berdenyut dingin di tengah hamparan tanah tandus yang ditinggalkan penduduknya.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+
 		_: # TOTAL_COLLAPSE
 			beats.append({
 				"camera_target": Vector2(-356, -36),
@@ -765,6 +851,7 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"raw_text": "Kelalaian dalam mengelola sumber daya berujung pada keruntuhan total ekosistem.\n[b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
+
 	
 	return beats
 

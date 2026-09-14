@@ -212,9 +212,29 @@ Sebuah bukti abadi: [b]Kemajuan teknologi tidak harus mematikan bumi tempatnya b
 - **Beat 3 (Epilog):** `"Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di tengah kesunyian gurun abu...
 [b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]"`
 
-### 4. TOTAL_COLLAPSE (Bencana Ekologi Total — Keduanya Hancur)
+### 4. KEGAGALAN DINI (EARLY DEFEAT & ADAPTIVE COLLAPSE)
+*Dialog dievaluasi secara adaptif berdasarkan sektor mana yang mengalami kegagalan sebelum Shift 3 berakhir:*
+
+#### A. SERVER_MELTDOWN (AI Blackout — Server Hancur, Pangan Selamat)
+*Kondisi: Integritas Server 0%, Ketahanan Pangan > 0%*
+- **Beat 1 (Alarm Pusat Data):** `"Suhu inti prosesor melampaui batas kritis! Sirkuit pendingin gagal mengatasi beban komputasi dan seluruh rak server meledak terbakar dalam kepulan asap pekat."`
+- **Beat 2 (AQUA-7):** `"Kamu telah berupaya sekuat tenaga mempertahankan infrastruktur teknologi server, namun laju panas mesin terlalu buas untuk diredam. Model AI DeepBeast musnah terbakar, mengakhiri ambisi komputasi sebelum sempat disempurnakan."`
+- **Beat 3 (Warga Desa):** `"\"Petak sawah kami masih hijau dan basah terairi (%d%%), namun ledakan di gedung server telah memutus seluruh suplai daya lembah. Ambisi teknologi telah runtuh oleh panasnya sendiri...\""`
+- **Beat 4 (Epilog):** `"Kegagalan pendinginan mengakhiri era kecerdasan buatan di lembah ini.
+[b]Mesin padam menjadi abu, membuktikan bahwa komputasi tanpa pendinginan yang cukup adalah kehancuran yang tak terhindarkan.[/b]"`
+
+#### B. CROP_FAMINE (Krisis Pangan — Sawah Puso, Server Selamat)
+*Kondisi: Ketahanan Pangan 0%, Integritas Server > 0%*
+- **Beat 1 (Tanah Mati):** `"Tanah retak dan akar tanaman terbakar terik matahari! Seluruh petak sawah puso mengering sebelum sempat menghasilkan bulir pangan."`
+- **Beat 2 (Warga Desa):** `"\"Air bersih telah terabaikan... Ratusan keluarga kami kini kehilangan satu-satunya sumber penghidupan di lembah ini. Kami terpaksa mengungsi mencari kehidupan di tempat lain...\""`
+- **Beat 3 (DeepBeast):** `"Integritas server bertahan prima pada %d%%, namun hilangnya ketahanan pangan memicu krisis kemanusiaan massal di sekitar fasilitas."`
+- **Beat 4 (Epilog):** `"Kehidupan biologis di lembah musnah akibat ketiadaan air.
+[b]Server komputasi tetap berdenyut dingin di tengah hamparan tanah tandus yang ditinggalkan penduduknya.[/b]"`
+
+#### C. TOTAL_COLLAPSE (Bencana Ekologi Total — Keduanya Hancur)
 *Kondisi: Kedua sektor habis (0%) sebelum waktu selesai*
 - **Beat 1 (DeepBeast):** `"Alarm kegagalan katastrofik: Seluruh rak server meledak terbakar dalam kepulan asap hitam!"`
 - **Beat 2 (Warga Desa):** `"Tanaman sawah puso dan kering terbakar terik matahari... Semua yang kami perjuangkan musnah tak bersisa."`
 - **Beat 3 (Epilog):** `"Kelalaian dalam mengelola sumber daya berujung pada keruntuhan total ekosistem.
 [b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]"`
+
