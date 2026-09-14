@@ -179,7 +179,6 @@ func _process(delta: float) -> void:
 func _on_shift_timer_expired() -> void:
 	if current_shift < 3:
 		is_game_active = false
-		get_tree().paused = true
 		var cfg: Dictionary = SHIFT_CONFIG[current_shift]
 		shift_intermission.emit(current_shift, cfg["next_title"], cfg["next_desc"])
 	else:
@@ -365,13 +364,11 @@ func _check_early_failure() -> void:
 
 func _trigger_early_defeat(reason: String) -> void:
 	is_game_active = false
-	get_tree().paused = true
 	unlock_ending("TOTAL_COLLAPSE")
 	game_finished.emit("TOTAL_COLLAPSE", "BENCANA EKOLOGI TOTAL", reason, _get_stats())
 
 func _evaluate_final_endings() -> void:
 	is_game_active = false
-	get_tree().paused = true
 	var stats: Dictionary = _get_stats()
 	if food_security >= 35.0 and server_integrity >= 25.0:
 		unlock_ending("HARMONY")

@@ -75,6 +75,8 @@ var current_beat_index: int = 0
 var is_typewriting: bool = false
 var typewriter_tween: Tween
 var prompt_blink_timer: float = 0.0
+var active_cutscene_beats: Array[Dictionary] = []
+var on_cutscene_complete_callable: Callable = Callable()
 
 const PROLOGUE_BEATS: Array[Dictionary] = [
 	{
@@ -88,7 +90,7 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(-356, -36), # Mega Server Data Center
 		"speaker_badge": "🔥 🖥️ DEEPBEAST-2.0T // DIRECTIVE ALPHA",
 		"speaker_color": Color(1.0, 0.35, 0.25),
-		"raw_text": "Peringatan Panas: 4 klaster rak server AI beroperasi pada daya komputasi tinggi.\n[color=#ff8a80][b][TUTORIAL]:[/b] Dekati rak server lalu semprot pendingin dengan [b][SPASI][/b]. Jika suhu menyentuh 90°C, kerusakan chip bersifat permanen![/color]",
+		"raw_text": "Peringatan Panas: 4 klaster rak server AI beroperasi pada daya komputasi tinggi.\n[color=#ff8a80][b][TUTORIAL]:[/b] Dekati rak server lalu semprot pendingin dengan [b][SPASI][/b]. Jangan biarkan suhu menyentuh 90°C atau chip rusak permanen![/color]",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -102,8 +104,70 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 65), # Karakter AQUA-7
 		"speaker_badge": "⚡ ⚙️ STATUS OPERASIONAL // HARI KE-1",
 		"speaker_color": Color(1.0, 0.85, 0.30),
-		"raw_text": "[color=#ffe066][b][KONTROL]:[/b] [b][WASD][/b] Gerak • Tahan [b][SHIFT][/b] Lari Cepat • [b][SPASI][/b] Siram / Ambil Air.[/color]\nAir sangat terbatas dan beban krisis meningkat di hari-hari berikutnya. Selamat bertugas, Unit AQUA-7!",
+		"raw_text": "[color=#ffe066][b][KONTROL]:[/b] [b][WASD][/b] Gerak • Tahan [b][SHIFT][/b] Lari Cepat • [b][SPASI][/b] Siram / Ambil Air.[/color]\nAir melimpah 280L. Waktu 06:00 dimulai. Selamat bertugas, Unit AQUA-7!",
 		"prompt": "[SPASI] Mulai Operasi 🚀"
+	}
+]
+
+const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
+	{
+		"camera_target": Vector2(-356, -36), # Mega Server Data Center
+		"speaker_badge": "📡 TELEMETRI SATELIT // +14 HARI BERLALU",
+		"speaker_color": Color(0.15, 0.90, 1.0),
+		"raw_text": "[b]HARI KE-1 SELESAI.[/b] +14 Hari telah berlalu (Memasuki 15 Agustus 2049).\nBatch pelatihan model AI DeepBeast 2.0T parameter telah berjalan penuh selama 2 pekan non-stop!",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(0, 15), # Danau Tengah
+		"speaker_badge": "💧 SENSOR HIDROLOGI // DANAU SURUT",
+		"speaker_color": Color(1.0, 0.75, 0.25),
+		"raw_text": "Sistem pendingin evaporatif AI menyedot air tanah secara masif. Cadangan danau kini [b]anjlok ke 190 Liter (2.4m)[/b]!\nGaris air surut ~25% dan dasar lumpur mulai retak.",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
+		"speaker_badge": "🌾 PAK MARNO // LAPORAN KEKERINGAN",
+		"speaker_color": Color(0.40, 0.95, 0.45),
+		"raw_text": "Gelombang panas musiman mulai membakar daun-daun padi kami! AQUA-7, jangan biarkan seluruh air bersih disedot hanya untuk mesin AI!",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(0, 65), # Robot AQUA-7
+		"speaker_badge": "⚡ ⚙️ OPERASI HARI KE-15 // BEBAN MASIF",
+		"speaker_color": Color(1.0, 0.85, 0.30),
+		"raw_text": "Pemanasan server naik 1.15x dan pengeringan sawah naik 1.10x. Cadangan danau dipangkas ke 190L. Persiapkan nosel pendingin dan pompa sirammu!",
+		"prompt": "[SPASI] Masuk Hari ke-15 🚀"
+	}
+]
+
+const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
+	{
+		"camera_target": Vector2(-356, -36), # Mega Server Data Center
+		"speaker_badge": "🚨 ALARM KRITIS // DIRECTIVE ALPHA",
+		"speaker_color": Color(1.0, 0.25, 0.25),
+		"raw_text": "[b]HARI KE-15 SELESAI.[/b] +15 Hari berlalu (Memasuki 30 Agustus 2049 // Hari ke-30).\nGelombang panas mencapai rekor suhu ekstrem tertinggi! Seluruh klaster superkomputer di ambang meltdown permanen!",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(0, 15), # Danau Tengah
+		"speaker_badge": "⚠️ SENSOR AKUIFER // DARURAT AIR",
+		"speaker_color": Color(1.0, 0.50, 0.20),
+		"raw_text": "Pipa suplai regional terputus total! Cadangan danau kini [b]KRITIS HANYA 110 LITER (1.4m)[/b]!\nPalung dalam mengering total dan tanah retak-retak menganga di seluruh dasar danau.",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
+		"speaker_badge": "🥀 PAK MARNO // JERITAN PETANI",
+		"speaker_color": Color(1.0, 0.85, 0.40),
+		"raw_text": "Hari ke-30 adalah hari penentuan panen raya! Jika tanaman mati hari ini, ratusan keluarga kami akan kelaparan! Tolong prioritaskan kehidupan bumi!",
+		"prompt": "[SPASI] Lanjut ▸"
+	},
+	{
+		"camera_target": Vector2(0, 65), # Robot AQUA-7
+		"speaker_badge": "⚖️ DILEMA ZERO-SUM // HARI KE-30",
+		"speaker_color": Color(1.0, 0.85, 0.30),
+		"raw_text": "Air 110L tidak lagi cukup untuk mempertahankan kedua sektor secara sempurna. Anda dipaksa berhitung presisi atau memilih sektor mana yang harus dikorbankan!\nKeputusan Anda menentukan masa depan bumi.",
+		"prompt": "[SPASI] Hadapi Hari Terakhir ⚖️"
 	}
 ]
 
@@ -327,17 +391,15 @@ func _on_shift_started(shift_num: int, _shift_title: String) -> void:
 		var clock_info: Dictionary = GameManager.get_clock_info()
 		clock_label.text = "🕒 " + clock_info.get("time_str", "06:00") + " (" + clock_info.get("period", "PAGI") + ")"
 
-func _on_shift_intermission(shift_completed: int, log_title: String, log_desc: String) -> void:
-	_play_sfx(SFX_WIN)
-	if intermission_screen:
-		intermission_screen.visible = true
-	if shift_log_title:
-		shift_log_title.text = log_title
-	if shift_log_desc:
-		shift_log_desc.text = log_desc
-	if btn_next_shift:
-		var next_day_info: Dictionary = GameManager.get_day_info(shift_completed + 1)
-		btn_next_shift.text = "MULAI %s [SPASI]" % next_day_info.get("day_label", "SHIFT %d" % (shift_completed + 1))
+func _on_shift_intermission(shift_completed: int, _log_title: String, _log_desc: String) -> void:
+	if shift_completed == 1:
+		play_cutscene(SHIFT_1_TO_2_BEATS, func():
+			GameManager.advance_to_next_shift()
+		, "LEWATI INTRO [ESC]")
+	elif shift_completed == 2:
+		play_cutscene(SHIFT_2_TO_3_BEATS, func():
+			GameManager.advance_to_next_shift()
+		, "LEWATI INTRO [ESC]")
 
 func _on_water_changed(current: float, max_amount: float) -> void:
 	if water_bar:
@@ -400,6 +462,12 @@ func _on_food_security_changed(val: float) -> void:
 		food_label.modulate = Color(1.0, 0.2, 0.2) if val <= 25.0 else Color.WHITE
 
 func _on_game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
+	var beats: Array[Dictionary] = _build_ending_beats(ending_code, title, narrative, stats)
+	play_cutscene(beats, func():
+		_display_end_screen(ending_code, title, narrative, stats)
+	, "LEWATI EPILOG [ESC]")
+
+func _display_end_screen(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
 	end_screen.visible = true
 	if ending_code == "HARMONY":
 		_play_sfx(SFX_WIN)
@@ -425,33 +493,144 @@ func _on_game_finished(ending_code: String, title: String, narrative: String, st
 	)
 	end_moral.text = "Tema Grafika Gametastic 2026: Save the Earth. Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Bisakah manusia dan teknologi tumbuh berdampingan secara bijak?"
 
+func _build_ending_beats(ending_code: String, _title: String, _narrative: String, stats: Dictionary) -> Array[Dictionary]:
+	var beats: Array[Dictionary] = []
+	var s_integ: int = int(stats.get("server_integrity", 0))
+	var f_sec: int = int(stats.get("food_security", 0))
+	
+	match ending_code:
+		"HARMONY":
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "🖥️ DEEPBEAST-2.0T // TELEMETRI STABIL",
+				"speaker_color": Color(0.2, 0.9, 1.0),
+				"raw_text": "Integritas server terjaga pada [b]%d%%[/b]. Model AI 2.0T parameter berhasil dilatih dengan efisiensi energi hijau!" % s_integ,
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🌾 PAK MARNO // AIR MATA HARU",
+				"speaker_color": Color(0.3, 1.0, 0.4),
+				"raw_text": "Ketahanan pangan warga bertahan pada [b]%d%%[/b]! Panen raya berhasil dipetik. Terima kasih AQUA-7, kamu membuktikan manusia dan mesin bisa hidup berdampingan!" % f_sec,
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "✨ EPILOG: KESEIMBANGAN RAPUH (TRUE ENDING)",
+				"speaker_color": Color(1.0, 0.85, 0.30),
+				"raw_text": "Melalui kalkulasi presisi mikroliter, Unit AQUA-7 menyelamatkan bumi dan masa depan peradaban sekaligus.\nSebuah bukti abadi: [b]Kemajuan teknologi tidak harus membunuh bumi tempatnya berpijak.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+		"ORGANIC":
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🌾 PAK MARNO // SUJUD SYUKUR",
+				"speaker_color": Color(0.4, 0.9, 0.5),
+				"raw_text": "Sawah pangan warga terselamatkan ([b]%d%%[/b])! Ratusan keluarga petani tersenyum menyambut masa depan tanpa ancaman kelaparan.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DAYA MATI",
+				"speaker_color": Color(1.0, 0.3, 0.3),
+				"raw_text": "Data center padam dan server mengalami kerusakan chip ([b]%d%%[/b]). Korporasi merugi, namun nurani kehidupan telah dimenangkan.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "🌱 EPILOG: NURANI ORGANIK",
+				"speaker_color": Color(0.4, 1.0, 0.4),
+				"raw_text": "Unit AQUA-7 melanggar algoritma korporasi demi mengalirkan sisa air terakhir ke kehidupan.\n[b]Logika mesin tunduk pada nurani kehidupan.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+		"SILICON":
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DOMINASI MUTLAK",
+				"speaker_color": Color(0.2, 0.85, 1.0),
+				"raw_text": "Integritas superkomputer prima ([b]%d%%[/b])! Model AI 2.0T parameter lahir dengan sempurna, memproses miliaran token per detik.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "🥀 TANAH TANDUS // GURUN SILIKON",
+				"speaker_color": Color(0.9, 0.6, 0.3),
+				"raw_text": "Seluruh tanaman pangan mati kering ([b]%d%%[/b]). Tanah pertanian retak menjadi gurun abu dan para petani terpaksa mengungsi.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "🤖 EPILOG: GURUN SILIKON",
+				"speaker_color": Color(0.3, 0.85, 1.0),
+				"raw_text": "Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di atas tanah tandus...\n[b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+		_: # TOTAL_COLLAPSE
+			beats.append({
+				"camera_target": Vector2(-356, -36),
+				"speaker_badge": "☠️ KONTROL ALARM // KEGAGALAN SISTEM",
+				"speaker_color": Color(1.0, 0.2, 0.2),
+				"raw_text": "Data center terbakar dan seluruh rak server hancur berkeping-keping karena panas berlebih!",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(336, 0),
+				"speaker_badge": "☠️ TANAH MATI // GAGAL TOTAL",
+				"speaker_color": Color(1.0, 0.2, 0.2),
+				"raw_text": "Tanaman pangan puso dan mati kekeringan sebelum waktu panen tiba.",
+				"prompt": "[SPASI] Lanjut ▸"
+			})
+			beats.append({
+				"camera_target": Vector2(0, 65),
+				"speaker_badge": "☠️ EPILOG: BENCANA EKOLOGI TOTAL",
+				"speaker_color": Color(1.0, 0.2, 0.2),
+				"raw_text": "Ketidakmampuan mengelola air mengakibatkan keruntuhan total ekosistem.\n[b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]",
+				"prompt": "[SPASI] Lihat Statistik 📊"
+			})
+	
+	return beats
+
 # ==============================================================================
-# CINEMATIC PROLOGUE & TUTORIAL CUTSCENE CONTROLLER
+# CINEMATIC CUTSCENE & DIALOGUE CONTROLLER
 # ==============================================================================
 
 func start_prologue_cutscene() -> void:
+	play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
+
+func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
+	if beats.is_empty():
+		if on_complete.is_valid():
+			on_complete.call()
+		return
+	
+	active_cutscene_beats = beats
+	on_cutscene_complete_callable = on_complete
 	is_cutscene_running = true
 	current_beat_index = 0
 	prompt_blink_timer = 0.0
 	
 	if cinematic_overlay:
 		cinematic_overlay.visible = true
+	if btn_skip_cutscene:
+		btn_skip_cutscene.text = skip_text
 	if top_bar:
 		top_bar.visible = false
 	if objective_tracker:
 		objective_tracker.visible = false
 	if bottom_guide:
 		bottom_guide.visible = false
+	if intermission_screen:
+		intermission_screen.visible = false
 	
-	_show_cutscene_beat(0)
+	_show_active_cutscene_beat(0)
 
-func _show_cutscene_beat(index: int) -> void:
-	if index >= PROLOGUE_BEATS.size():
-		_finish_prologue_cutscene()
+func _show_active_cutscene_beat(index: int) -> void:
+	if index >= active_cutscene_beats.size():
+		_finish_active_cutscene()
 		return
 	
 	current_beat_index = index
-	var beat: Dictionary = PROLOGUE_BEATS[index]
+	var beat: Dictionary = active_cutscene_beats[index]
 	var cam_pos: Vector2 = beat.get("camera_target", Vector2.ZERO)
 	
 	cutscene_camera_pan.emit(cam_pos, 1.4)
@@ -496,17 +675,20 @@ func _on_cutscene_input_pressed() -> void:
 		_play_sfx(SFX_CLICK)
 	else:
 		_play_sfx(SFX_WIN)
-		_show_cutscene_beat(current_beat_index + 1)
+		_show_active_cutscene_beat(current_beat_index + 1)
 
 func skip_prologue_cutscene() -> void:
+	skip_current_cutscene()
+
+func skip_current_cutscene() -> void:
 	if not is_cutscene_running:
 		return
 	if typewriter_tween and typewriter_tween.is_valid():
 		typewriter_tween.kill()
 	_play_sfx(SFX_CLICK)
-	_finish_prologue_cutscene()
+	_finish_active_cutscene()
 
-func _finish_prologue_cutscene() -> void:
+func _finish_active_cutscene() -> void:
 	is_cutscene_running = false
 	if cinematic_overlay:
 		cinematic_overlay.visible = false
@@ -519,5 +701,10 @@ func _finish_prologue_cutscene() -> void:
 	
 	cutscene_camera_return.emit(0.8)
 	cutscene_ended.emit()
+	
+	var cb: Callable = on_cutscene_complete_callable
+	on_cutscene_complete_callable = Callable()
+	if cb.is_valid():
+		cb.call()
 
 
