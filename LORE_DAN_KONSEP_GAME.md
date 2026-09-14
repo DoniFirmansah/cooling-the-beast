@@ -1,7 +1,7 @@
 # DOKUMEN LORE & KONSEP GAME: AQUA-7: MACHINE AND EARTH
-**Kompetisi:** Grafika Gametastic 2026 (Gamecomm Indonesia)  
-**Tema Resmi:** Isu Lingkungan (*Save the Earth*)  
-**Format Pengumpulan:** Web Playable (itch.io) & PC Standalone  
+**Tema Utama:** Isu Lingkungan (*Save the Earth*)  
+**Genre:** 2D Top-Down Simulation / Eco-Resource Management  
+**Format Distribusi:** Web Playable (HTML5) & PC Standalone  
 **Game Engine:** Godot Engine 4.4.x Stable (GL Compatibility / Web Export)  
 **Legalitas Aset:** 100% Non-AI Art (Domain Publik CC0 & Manipulasi Engine Prosedural)
 
@@ -182,7 +182,7 @@ Guna memudahkan pengujian seluruh variasi shift, balancing, dan pencapaian endin
 
 ## 8. KEPATUHAN REGULASI & DAFTAR ASET LEGAL (100% NON-AI)
 
-Sesuai aturan mutlak panitia Grafika Gametastic 2026:
+Sesuai standar integritas dan etika pengembangan game:
 
 1. **Bebas Generator Difusi AI:** Seluruh tekstur, sprite, dan visual dibuat dengan tangan murni atau bersumber dari pustaka berlisensi domain publik:
    * **Tile Tanah & Dinding Bangunan:** Kenney CC0 Roguelike/Industrial Pack & 32x32 Pixel Art CC0.

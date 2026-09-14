@@ -581,7 +581,7 @@ func _display_end_screen(ending_code: String, title: String, narrative: String, 
 		"• Integritas Server Akhir: %d%%\n" % int(stats.get("server_integrity", 0)) +
 		"• Ketahanan Pangan Akhir: %d%%" % int(stats.get("food_security", 0))
 	)
-	end_moral.text = "Tema Grafika Gametastic 2026: Save the Earth. Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Bisakah manusia dan teknologi tumbuh berdampingan secara bijak?"
+	end_moral.text = "Save the Earth: Setiap tetes air pendingin komputasi di dunia nyata diambil dari hak alam dan kehidupan sekitar. Bisakah manusia dan teknologi tumbuh berdampingan secara bijak?"
 
 func _build_ending_beats(ending_code: String, _title: String, _narrative: String, stats: Dictionary) -> Array[Dictionary]:
 	var beats: Array[Dictionary] = []
