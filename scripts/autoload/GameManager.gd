@@ -48,16 +48,16 @@ const SHIFT_CONFIG: Dictionary = {
 	2: {
 		"title": "HARI 15: BEBAN KOMPUTASI MASIF",
 		"reservoir": 190.0,
-		"heat_mult": 1.25,
-		"dry_mult": 1.20,
+		"heat_mult": 1.05,
+		"dry_mult": 1.00,
 		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
 		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 110L untuk kedua sektor."
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
 		"reservoir": 110.0,
-		"heat_mult": 1.45,
-		"dry_mult": 1.35,
+		"heat_mult": 1.15,
+		"dry_mult": 1.10,
 		"next_title": "",
 		"next_desc": ""
 	}
@@ -212,16 +212,16 @@ func get_dead_plots_count() -> int:
 	return count
 
 func get_cascading_heat_multiplier() -> float:
-	# Beban Berpindah: +12.5% panas pada server tersisa per server yang rusak
-	return 1.0 + (float(get_broken_servers_count()) * 0.125)
+	# Beban Berpindah: +8% panas pada server tersisa per server yang rusak
+	return 1.0 + (float(get_broken_servers_count()) * 0.08)
 
 func get_cascading_dry_multiplier() -> float:
-	# Anomali Mikroklimat: +15.0% laju penguapan tanah per baris sawah yang mati
-	return 1.0 + (float(get_dead_plots_count()) * 0.15)
+	# Anomali Mikroklimat: +10% laju penguapan tanah per baris sawah yang mati
+	return 1.0 + (float(get_dead_plots_count()) * 0.10)
 
 func report_server_breakdown(rack_id: int) -> void:
 	var broken_count: int = get_broken_servers_count()
-	var extra_pct: int = int(broken_count * 12.5)
+	var extra_pct: int = int(broken_count * 8.0)
 	hazard_alert.emit(
 		"BEBAN KOMPUTASI MEMBENGKAK",
 		"Server #" + str(rack_id) + " offline! Beban dialihkan (+" + str(extra_pct) + "% panas server tersisa)"
@@ -229,7 +229,7 @@ func report_server_breakdown(rack_id: int) -> void:
 
 func report_crop_death(plot_id: int) -> void:
 	var dead_count: int = get_dead_plots_count()
-	var extra_pct: int = int(dead_count * 15.0)
+	var extra_pct: int = int(dead_count * 10.0)
 	hazard_alert.emit(
 		"ANOMALI MIKROKLIMAT",
 		"Petak " + str(plot_id) + " mati! Penguapan tanah meningkat (+" + str(extra_pct) + "% laju kekeringan)"

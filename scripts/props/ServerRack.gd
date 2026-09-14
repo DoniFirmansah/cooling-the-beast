@@ -85,7 +85,7 @@ func _process(delta: float) -> void:
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
 	var cascade_mult: float = GameManager.get_cascading_heat_multiplier()
-	var current_heat_rate: float = base_heat_rate * GameManager.get_heat_multiplier() * cascade_mult * (1.0 + shift_progress * 0.5)
+	var current_heat_rate: float = base_heat_rate * GameManager.get_heat_multiplier() * cascade_mult * (1.0 + shift_progress * 0.3)
 	
 	temperature = min(100.0, temperature + current_heat_rate * delta)
 	_check_temperature_states()

@@ -65,7 +65,7 @@ func _process(delta: float) -> void:
 	
 	var shift_progress: float = 1.0 - (GameManager.time_left / GameManager.SHIFT_DURATION)
 	var cascade_mult: float = GameManager.get_cascading_dry_multiplier()
-	var current_dry_rate: float = base_dry_rate * GameManager.get_dry_multiplier() * cascade_mult * (1.0 + shift_progress * 0.5)
+	var current_dry_rate: float = base_dry_rate * GameManager.get_dry_multiplier() * cascade_mult * (1.0 + shift_progress * 0.3)
 	
 	moisture = max(0.0, moisture - current_dry_rate * delta)
 	
