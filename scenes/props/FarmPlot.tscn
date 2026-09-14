@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cqe7qf3tbfoih" path="res://assets/environment/farmland/furrow_bed_dry.png" id="3_bed_dry"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
-size = Vector2(316, 16)
+size = Vector2(316, 18)
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
 size = Vector2(330, 48)
