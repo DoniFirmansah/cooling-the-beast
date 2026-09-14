@@ -9,7 +9,7 @@ const SFX_WIN = preload("res://assets/audio/sfx/confirmation_001.ogg")
 const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 
 @onready var top_bar: PanelContainer = $TopBar
-@onready var bottom_guide: HBoxContainer = $BottomGuide
+@onready var bottom_guide: PanelContainer = $BottomGuide
 
 @onready var water_bar: ProgressBar = %WaterBar
 @onready var water_label: Label = %WaterLabel
@@ -405,6 +405,7 @@ func _on_water_changed(current: float, max_amount: float) -> void:
 	if water_bar:
 		water_bar.max_value = max_amount
 		water_bar.value = current
+		water_bar.modulate = Color(1.0, 0.35, 0.35) if current < 20.0 else Color.WHITE
 	if water_label:
 		water_label.text = "%d / %dL" % [int(current), int(max_amount)]
 		water_label.modulate = Color(1.0, 0.3, 0.3) if current < 20.0 else Color.WHITE
@@ -414,6 +415,12 @@ func _on_reservoir_changed(current: float, _max_amount: float) -> void:
 	if reservoir_bar:
 		reservoir_bar.max_value = basin_cap
 		reservoir_bar.value = current
+		if current <= 0.0:
+			reservoir_bar.modulate = Color(1.0, 0.2, 0.2)
+		elif current < 60.0:
+			reservoir_bar.modulate = Color(1.0, 0.45, 0.25)
+		else:
+			reservoir_bar.modulate = Color.WHITE
 	if reservoir_label:
 		var depth_m: float = (current / basin_cap) * 3.5
 		if current <= 0.0:
@@ -450,6 +457,7 @@ func _on_time_tick(seconds_left: int) -> void:
 func _on_server_integrity_changed(val: float) -> void:
 	if server_bar:
 		server_bar.value = val
+		server_bar.modulate = Color(1.0, 0.25, 0.25) if val <= 25.0 else Color.WHITE
 	if server_label:
 		server_label.text = "%d%%" % int(val)
 		server_label.modulate = Color(1.0, 0.2, 0.2) if val <= 25.0 else Color.WHITE
@@ -457,9 +465,10 @@ func _on_server_integrity_changed(val: float) -> void:
 func _on_food_security_changed(val: float) -> void:
 	if food_bar:
 		food_bar.value = val
+		food_bar.modulate = Color(1.0, 0.3, 0.2) if val <= 30.0 else Color.WHITE
 	if food_label:
 		food_label.text = "%d%%" % int(val)
-		food_label.modulate = Color(1.0, 0.2, 0.2) if val <= 25.0 else Color.WHITE
+		food_label.modulate = Color(1.0, 0.2, 0.2) if val <= 30.0 else Color.WHITE
 
 func _on_game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
 	var beats: Array[Dictionary] = _build_ending_beats(ending_code, title, narrative, stats)

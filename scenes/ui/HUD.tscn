@@ -3,11 +3,17 @@
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_top"]
-bg_color = Color(0.08, 0.1, 0.14, 0.85)
+bg_color = Color(0.04, 0.06, 0.10, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
 border_width_bottom = 2
-border_color = Color(0.2, 0.35, 0.5, 0.8)
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_color = Color(0.2, 0.45, 0.7, 0.75)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 6
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.06, 0.08, 0.12, 0.95)
@@ -110,6 +116,61 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
+bg_color = Color(0.03, 0.05, 0.08, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.15, 0.25, 0.35, 0.8)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_server"]
+bg_color = Color(0.1, 0.75, 1.0, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_food"]
+bg_color = Color(0.3, 0.9, 0.4, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_reservoir"]
+bg_color = Color(0.2, 0.65, 1.0, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_water"]
+bg_color = Color(0.1, 0.9, 0.85, 1.0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guide_pill"]
+bg_color = Color(0.04, 0.06, 0.10, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.55, 0.8, 0.75)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
 
@@ -158,40 +219,13 @@ text = "100%"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_server")
 value = 100.0
 show_percentage = false
 
-[node name="ReservoirBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(190, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
-theme_override_font_sizes/font_size = 11
-text = "💧 SUMBER AIR BERSIH"
-
-[node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 11
-text = "250 / 250L"
-
-[node name="ReservoirBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 8)
-layout_mode = 2
-value = 250.0
-max_value = 250.0
-show_percentage = false
-
 [node name="WaterBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -215,6 +249,8 @@ text = "100 / 100L"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_water")
 value = 100.0
 show_percentage = false
 
@@ -247,6 +283,37 @@ theme_override_font_sizes/font_size = 14
 text = "01:00"
 horizontal_alignment = 1
 
+[node name="ReservoirBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(185, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "💧 SUMBER AIR BERSIH"
+
+[node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "250 / 250L"
+
+[node name="ReservoirBar" type="ProgressBar" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_reservoir")
+value = 250.0
+max_value = 250.0
+show_percentage = false
+
 [node name="FoodBox" type="VBoxContainer" parent="TopBar/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -271,6 +338,8 @@ text = "100%"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bar_food")
 value = 100.0
 show_percentage = false
 
@@ -341,24 +410,37 @@ text = "24m"
 vertical_alignment = 1
 
 
-[node name="BottomGuide" type="HBoxContainer" parent="."]
-anchors_preset = 12
+[node name="BottomGuide" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -32.0
+offset_left = -440.0
+offset_top = -36.0
+offset_right = 440.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
-alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_guide_pill")
 
-[node name="GuideLabel" type="Label" parent="BottomGuide"]
+[node name="Margin" type="MarginContainer" parent="BottomGuide"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 0.9)
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 2
+
+[node name="GuideLabel" type="Label" parent="BottomGuide/Margin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 0.95)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 13
-text = "◄ SEKTOR SERVER AI   |   [WASD] Gerak   •   Tahan [SHIFT] Lari Cepat   •   [SPASI] Siram / Ambil Air   |   SEKTOR SAWAH PANGAN ►"
+theme_override_font_sizes/font_size = 11
+text = "◄ SEKTOR SERVER AI   •   [WASD] Gerak   •   Tahan [SHIFT] Lari Cepat   •   [SPASI] Siram / Ambil Air   •   SEKTOR SAWAH PANGAN ►"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="IntermissionScreen" type="Control" parent="."]
 unique_name_in_owner = true

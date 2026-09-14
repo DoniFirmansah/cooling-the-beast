@@ -2,15 +2,21 @@ extends Control
 class_name MainMenu
 
 const SFX_CLICK = preload("res://assets/audio/sfx/click_001.ogg")
+const SFX_SELECT = preload("res://assets/audio/sfx/select_001.ogg")
 
 @onready var btn_start: Button = %BtnStart
 @onready var btn_load: Button = %BtnLoad
 @onready var btn_collection: Button = %BtnCollection
+@onready var btn_guide: Button = %BtnGuide
 @onready var btn_exit: Button = %BtnExit
 
 # Collection Modal & Cards
 @onready var collection_modal: Control = %CollectionModal
 @onready var btn_close_collection: Button = %BtnCloseCollection
+
+# Guide Modal
+@onready var guide_modal: Control = %GuideModal
+@onready var btn_close_guide: Button = %BtnCloseGuide
 
 @onready var card_harmony: PanelContainer = %CardHarmony
 @onready var card_organic: PanelContainer = %CardOrganic
@@ -21,6 +27,7 @@ var audio_player: AudioStreamPlayer
 
 func _ready() -> void:
 	collection_modal.visible = false
+	guide_modal.visible = false
 	audio_player = AudioStreamPlayer.new()
 	audio_player.bus = &"Master"
 	add_child(audio_player)
@@ -28,19 +35,34 @@ func _ready() -> void:
 	btn_start.pressed.connect(_on_start_pressed)
 	btn_load.pressed.connect(_on_load_pressed)
 	btn_collection.pressed.connect(_on_collection_pressed)
+	btn_guide.pressed.connect(_on_guide_pressed)
 	btn_exit.pressed.connect(_on_exit_pressed)
 	btn_close_collection.pressed.connect(_on_close_collection_pressed)
+	btn_close_guide.pressed.connect(_on_close_guide_pressed)
+	
+	for btn in [btn_start, btn_load, btn_collection, btn_guide, btn_exit, btn_close_collection, btn_close_guide]:
+		if btn:
+			btn.mouse_entered.connect(func(): _play_sfx(SFX_SELECT))
 	
 	_update_load_button()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		if collection_modal.visible:
+			_on_close_collection_pressed()
+			get_viewport().set_input_as_handled()
+		elif guide_modal.visible:
+			_on_close_guide_pressed()
+			get_viewport().set_input_as_handled()
 
 func _update_load_button() -> void:
 	GameManager.load_save_file()
 	if GameManager.saved_shift > 1:
 		btn_load.disabled = false
-		btn_load.text = "LOAD (LANJUTKAN SHIFT %d)" % GameManager.saved_shift
+		btn_load.text = "💾  LANJUTKAN OPERASI (SHIFT %d)" % GameManager.saved_shift
 	else:
 		btn_load.disabled = false
-		btn_load.text = "LOAD GAME (SHIFT 1)"
+		btn_load.text = "💾  LANJUTKAN OPERASI (SHIFT 1)"
 
 func _play_sfx(stream: AudioStream) -> void:
 	if audio_player and stream:
@@ -63,6 +85,14 @@ func _on_collection_pressed() -> void:
 func _on_close_collection_pressed() -> void:
 	_play_sfx(SFX_CLICK)
 	collection_modal.visible = false
+
+func _on_guide_pressed() -> void:
+	_play_sfx(SFX_CLICK)
+	guide_modal.visible = true
+
+func _on_close_guide_pressed() -> void:
+	_play_sfx(SFX_CLICK)
+	guide_modal.visible = false
 
 func _on_exit_pressed() -> void:
 	_play_sfx(SFX_CLICK)

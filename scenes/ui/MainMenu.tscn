@@ -1,51 +1,63 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctb_main_menu_001"]
+[gd_scene load_steps=12 format=3 uid="uid://ctb_main_menu_001"]
 
 [ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_menu_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_bg_metal"]
+[ext_resource type="Texture2D" uid="uid://ctgwsnt632mey" path="res://assets/environment/farmland/grass_floor_32.png" id="3_bg_grass"]
+[ext_resource type="Texture2D" uid="uid://vxupqra3v77x" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="4_skyline"]
+[ext_resource type="Texture2D" uid="uid://87tabsg220gl" path="res://assets/environment/farmland/leaf_particle.png" id="5_leaf_tex"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
-bg_color = Color(0.12, 0.28, 0.45, 0.95)
+bg_color = Color(0.08, 0.16, 0.28, 0.95)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.25, 0.65, 0.95, 0.9)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_color = Color(0.2, 0.6, 0.9, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(0.2, 0.45, 0.75, 1)
+bg_color = Color(0.15, 0.35, 0.6, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.85, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_color = Color(0.35, 0.85, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.1, 0.5, 0.8, 0.5)
+shadow_size = 6
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.05, 0.07, 0.1, 0.96)
+bg_color = Color(0.04, 0.06, 0.1, 0.96)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.2, 0.5, 0.75, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+border_color = Color(0.2, 0.65, 0.95, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
-bg_color = Color(0.08, 0.11, 0.16, 0.95)
+bg_color = Color(0.06, 0.09, 0.14, 0.95)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.25, 0.4, 0.6, 0.8)
+border_color = Color(0.25, 0.45, 0.7, 0.8)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -60,17 +72,87 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu_script")
 
-[node name="Background" type="TextureRect" parent="."]
-modulate = Color(0.3, 0.35, 0.42, 1)
-texture_repeat = 2
+[node name="BackgroundSkyline" type="Sprite2D" parent="."]
+modulate = Color(0.45, 0.5, 0.65, 0.65)
+position = Vector2(640, 180)
+texture = ExtResource("4_skyline")
+
+[node name="FloorsSplit" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="LeftMetalFloor" type="TextureRect" parent="FloorsSplit"]
+modulate = Color(0.32, 0.38, 0.48, 0.85)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 640.0
+grow_vertical = 2
 texture = ExtResource("2_bg_metal")
 stretch_mode = 1
+
+[node name="RightGrassFloor" type="TextureRect" parent="FloorsSplit"]
+modulate = Color(0.28, 0.48, 0.32, 0.85)
+texture_repeat = 2
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_bg_grass")
+stretch_mode = 1
+
+[node name="CenterDividerLine" type="ColorRect" parent="FloorsSplit"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.75, 1, 0.35)
+
+[node name="EmbersLeft" type="CPUParticles2D" parent="."]
+position = Vector2(300, 720)
+amount = 24
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(280, 20)
+direction = Vector2(0.2, -1)
+spread = 25.0
+gravity = Vector2(-15, -30)
+initial_velocity_min = 35.0
+initial_velocity_max = 75.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.55, 0.2, 0.65)
+
+[node name="LeavesRight" type="CPUParticles2D" parent="."]
+position = Vector2(980, -20)
+amount = 20
+texture = ExtResource("5_leaf_tex")
+lifetime = 5.5
+emission_shape = 3
+emission_rect_extents = Vector2(280, 20)
+direction = Vector2(-0.3, 1)
+spread = 20.0
+gravity = Vector2(15, 20)
+initial_velocity_min = 20.0
+initial_velocity_max = 45.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_amount_max = 1.6
+color = Color(0.5, 0.9, 0.4, 0.75)
 
 [node name="Vignette" type="ColorRect" parent="."]
 layout_mode = 1
@@ -79,7 +161,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.02, 0.04, 0.06, 0.75)
+color = Color(0.02, 0.04, 0.07, 0.78)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -90,88 +172,108 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(480, 0)
+custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="TitleBox" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
+[node name="BadgeTheme" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.65, 0.9)
+theme_override_font_sizes/font_size = 11
+text = "🌱 ISU LINGKUNGAN: SAVE THE EARTH  •  GRAFIKA GAMETASTIC 2026 ⚙️"
+horizontal_alignment = 1
+
 [node name="GameTitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.35, 0.9, 1, 1)
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 36
-text = "AQUA-7: MACHINE AND EARTH"
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 44
+text = "AQUA-7"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.4, 0.95, 0.65, 1)
-theme_override_font_sizes/font_size = 13
-text = "Dilema Air Ekologis: Pendinginan Mesin AI vs Kehidupan Bumi (2049)"
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+text = "MACHINE AND EARTH"
 horizontal_alignment = 1
 
-[node name="ThemeLabel" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
+[node name="Tagline" type="Label" parent="CenterContainer/VBoxContainer/TitleBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.8, 0.5, 0.85)
-theme_override_font_sizes/font_size = 11
-text = "Isu Lingkungan: Save the Earth — Grafika Gametastic 2026"
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.85)
+theme_override_font_sizes/font_size = 12
+text = "\"Dilema Air 2049: Pendinginan Superkomputer AI vs Ketahanan Pangan Bumi\""
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 
 [node name="BtnStart" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "▶  START (MULAI BARU)"
+text = "▶  MULAI OPERASI (HARI KE-1)"
 
 [node name="BtnLoad" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "📂  LOAD GAME"
+text = "💾  LANJUTKAN OPERASI (LOAD)"
 
 [node name="BtnCollection" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🏆  COLLECTION (GALERI ENDING)"
+text = "🏆  ARSIP LORE & ENDING (4 CABANG)"
 
-[node name="BtnExit" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+[node name="BtnGuide" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "✖  EXIT (KELUAR)"
+text = "📖  PANDUAN KONTROL & MISI"
+
+[node name="BtnExit" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "✖  KELUAR PERMAINAN"
 
 [node name="CollectionModal" type="Control" parent="."]
 unique_name_in_owner = true
@@ -407,5 +509,151 @@ theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "◀  KEMBALI KE MENU"
+
+[node name="GuideModal" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimBackdrop" type="ColorRect" parent="GuideModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.05, 0.92)
+
+[node name="CenterContainer" type="CenterContainer" parent="GuideModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="GuideModal/CenterContainer"]
+custom_minimum_size = Vector2(740, 480)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="GuideModal/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "📖 PANDUAN KONTROL & STRATEGI OPERASIONAL"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContentGrid" type="GridContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="PanelControls" type="PanelContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Margin" type="MarginContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelControls"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelControls/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelControls/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 13
+text = "🎮 PEMETAAN KONTROL"
+
+[node name="Text" type="RichTextLabel" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelControls/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.9, 0.95, 1, 0.95)
+theme_override_font_sizes/normal_font_size = 11
+theme_override_font_sizes/bold_font_size = 11
+bbcode_enabled = true
+text = "• [b][WASD] / [Panah][/b]: Navigasi gerak robot
+• [b]Tahan [SHIFT][/b]: Akselerasi lari cepat
+• [b][SPASI][/b]: Interaksi serbaguna
+  - Ambil air bersih di danau
+  - Semprot pendingin rak server AI
+  - Siram tanaman sawah pangan warga
+• [b][ESC][/b]: Menu jeda (Pause) & Dev Cheats"
+
+[node name="PanelLore" type="PanelContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Margin" type="MarginContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelLore"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelLore/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Header" type="Label" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelLore/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "⚖️ DILEMA SUMBER DAYA AIR"
+
+[node name="Text" type="RichTextLabel" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid/PanelLore/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.9, 0.95, 1, 0.95)
+theme_override_font_sizes/normal_font_size = 11
+theme_override_font_sizes/bold_font_size = 11
+bbcode_enabled = true
+text = "• [b]Sektor Barat (Server AI):[/b]
+  Jangan biarkan suhu mencapai [color=#ff5555][b]90°C[/b][/color] atau chip AI meleleh permanen!
+• [b]Sektor Timur (Sawah Warga):[/b]
+  Jangan biarkan kelembapan di bawah [color=#ff5555][b]30%[/b][/color] atau tanaman puso!
+• [b]Waduk Danau Tengah:[/b]
+  Menyusut di tiap shift: [b]280L ➔ 190L ➔ 110L[/b] (Puncak Krisis Zero-Sum)."
+
+[node name="BtnCloseGuide" type="Button" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 38)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "◀  TUTUP PANDUAN [ESC]"
 
 
