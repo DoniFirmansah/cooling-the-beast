@@ -197,23 +197,24 @@ func _on_objective_changed(data: Dictionary) -> void:
 		return
 	if objective_title:
 		objective_title.text = data.get("title", "")
-		objective_title.modulate = data.get("color", Color.WHITE)
+		objective_title.modulate = Color(0.95, 0.96, 0.98)
 	if objective_subtext:
 		objective_subtext.text = data.get("subtext", "")
+		objective_subtext.modulate = Color(0.68, 0.72, 0.78)
 	if objective_icon:
 		objective_icon.text = data.get("icon", "💧")
 	if objective_dir:
 		objective_dir.text = data.get("dir_arrow", "►")
-		objective_dir.modulate = data.get("color", Color.WHITE)
+		objective_dir.modulate = Color(0.85, 0.88, 0.92)
 	if objective_dist:
 		var dist_px: float = data.get("distance", 0.0)
 		var dist_m: int = int(dist_px / 16.0)
 		if data.get("is_near", false):
 			objective_dist.text = "[TEKAN SPASI]"
-			objective_dist.modulate = Color(0.2, 1.0, 0.4)
+			objective_dist.modulate = Color(0.40, 0.85, 0.50)
 		else:
 			objective_dist.text = "%dm" % dist_m
-			objective_dist.modulate = data.get("color", Color.WHITE)
+			objective_dist.modulate = Color(0.55, 0.78, 0.90)
 
 
 func _ready() -> void:
@@ -481,10 +482,10 @@ func _on_water_changed(current: float, max_amount: float) -> void:
 	if water_bar:
 		water_bar.max_value = max_amount
 		water_bar.value = current
-		water_bar.modulate = Color(1.0, 0.35, 0.35) if current < 20.0 else Color.WHITE
+		water_bar.modulate = Color(0.92, 0.35, 0.32) if current < 20.0 else Color.WHITE
 	if water_label:
 		water_label.text = "%d / %dL" % [int(current), int(max_amount)]
-		water_label.modulate = Color(1.0, 0.3, 0.3) if current < 20.0 else Color.WHITE
+		water_label.modulate = Color(0.92, 0.35, 0.32) if current < 20.0 else Color.WHITE
 
 func _on_reservoir_changed(current: float, _max_amount: float) -> void:
 	var basin_cap: float = GameManager.TOTAL_BASIN_CAPACITY
@@ -492,59 +493,59 @@ func _on_reservoir_changed(current: float, _max_amount: float) -> void:
 		reservoir_bar.max_value = basin_cap
 		reservoir_bar.value = current
 		if current <= 0.0:
-			reservoir_bar.modulate = Color(1.0, 0.2, 0.2)
+			reservoir_bar.modulate = Color(0.92, 0.32, 0.30)
 		elif current < 60.0:
-			reservoir_bar.modulate = Color(1.0, 0.45, 0.25)
+			reservoir_bar.modulate = Color(0.92, 0.58, 0.28)
 		else:
 			reservoir_bar.modulate = Color.WHITE
 	if reservoir_label:
 		var depth_m: float = (current / basin_cap) * 3.5
 		if current <= 0.0:
 			reservoir_label.text = "KERING TOTAL (0L | 0.0m)"
-			reservoir_label.modulate = Color(1.0, 0.2, 0.2)
+			reservoir_label.modulate = Color(0.92, 0.32, 0.30)
 		elif current < 60.0:
 			reservoir_label.text = "%dL (%.1fm • KRITIS)" % [int(current), depth_m]
-			reservoir_label.modulate = Color(1.0, 0.35, 0.2)
+			reservoir_label.modulate = Color(0.92, 0.55, 0.28)
 		elif current < 200.0:
 			reservoir_label.text = "%dL (%.1fm • SURUT)" % [int(current), depth_m]
-			reservoir_label.modulate = Color(1.0, 0.75, 0.25)
+			reservoir_label.modulate = Color(0.88, 0.75, 0.40)
 		else:
 			reservoir_label.text = "%dL (%.1fm • PENUH)" % [int(current), depth_m]
-			reservoir_label.modulate = Color(0.3, 0.85, 1.0)
+			reservoir_label.modulate = Color(0.72, 0.85, 0.95)
 
 func _on_time_tick(seconds_left: int) -> void:
 	if timer_label:
 		var mins: int = seconds_left / 60
 		var secs: int = seconds_left % 60
 		timer_label.text = "%02d:%02d" % [mins, secs]
-		timer_label.modulate = Color(1.0, 0.2, 0.2) if seconds_left <= 15 else Color.WHITE
+		timer_label.modulate = Color(0.92, 0.32, 0.30) if seconds_left <= 15 else Color.WHITE
 	
 	if clock_label:
 		var clock_info: Dictionary = GameManager.get_clock_info()
 		clock_label.text = "🕒 " + clock_info.get("time_str", "06:00") + " (" + clock_info.get("period", "PAGI") + ")"
 		match GameManager.current_shift:
 			1:
-				clock_label.modulate = Color(1.0, 0.90, 0.45)
+				clock_label.modulate = Color(0.92, 0.88, 0.78)
 			2:
-				clock_label.modulate = Color(1.0, 0.65, 0.25)
+				clock_label.modulate = Color(0.94, 0.76, 0.52)
 			3:
-				clock_label.modulate = Color(1.0, 0.35, 0.25)
+				clock_label.modulate = Color(0.92, 0.52, 0.42)
 
 func _on_server_integrity_changed(val: float) -> void:
 	if server_bar:
 		server_bar.value = val
-		server_bar.modulate = Color(1.0, 0.25, 0.25) if val <= 25.0 else Color.WHITE
+		server_bar.modulate = Color(0.92, 0.32, 0.30) if val <= 25.0 else Color.WHITE
 	if server_label:
 		server_label.text = "%d%%" % int(val)
-		server_label.modulate = Color(1.0, 0.2, 0.2) if val <= 25.0 else Color.WHITE
+		server_label.modulate = Color(0.92, 0.32, 0.30) if val <= 25.0 else Color.WHITE
 
 func _on_food_security_changed(val: float) -> void:
 	if food_bar:
 		food_bar.value = val
-		food_bar.modulate = Color(1.0, 0.3, 0.2) if val <= 30.0 else Color.WHITE
+		food_bar.modulate = Color(0.92, 0.40, 0.30) if val <= 30.0 else Color.WHITE
 	if food_label:
 		food_label.text = "%d%%" % int(val)
-		food_label.modulate = Color(1.0, 0.2, 0.2) if val <= 30.0 else Color.WHITE
+		food_label.modulate = Color(0.92, 0.40, 0.30) if val <= 30.0 else Color.WHITE
 
 func _on_game_finished(ending_code: String, title: String, narrative: String, stats: Dictionary) -> void:
 	if ending_shown:

@@ -3,55 +3,71 @@
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_top"]
-bg_color = Color(0.04, 0.06, 0.10, 0.92)
+bg_color = Color(0.08, 0.10, 0.13, 0.94)
 border_width_left = 1
-border_width_top = 1
+border_width_top = 0
 border_width_right = 1
-border_width_bottom = 2
-border_color = Color(0.2, 0.45, 0.7, 0.75)
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 6
+border_width_bottom = 1
+border_color = Color(0.22, 0.26, 0.32, 0.6)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 4
 shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.06, 0.08, 0.12, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3, 0.5, 0.7, 0.8)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+bg_color = Color(0.07, 0.09, 0.12, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.32, 0.42, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
-bg_color = Color(0.18, 0.45, 0.75, 1)
+bg_color = Color(0.14, 0.22, 0.32, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.38, 0.52, 0.75)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
-bg_color = Color(0.25, 0.55, 0.9, 1)
+bg_color = Color(0.18, 0.30, 0.44, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.52, 0.70, 0.9)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tracker"]
-bg_color = Color(0.04, 0.07, 0.12, 0.9)
-border_width_left = 2
+bg_color = Color(0.08, 0.10, 0.13, 0.94)
+border_width_left = 1
 border_width_top = 1
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.75, 1, 0.85)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.30, 0.38, 0.65)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheat_btn"]
 bg_color = Color(0.1, 0.16, 0.25, 0.95)
@@ -90,86 +106,86 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
-bg_color = Color(0.04, 0.07, 0.12, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.25, 0.65, 0.95, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.7)
+bg_color = Color(0.06, 0.08, 0.11, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.32, 0.42, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.6)
 shadow_size = 8
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skip_btn"]
-bg_color = Color(0.12, 0.18, 0.28, 0.9)
+bg_color = Color(0.12, 0.15, 0.20, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.35, 0.7, 0.9, 0.8)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_color = Color(0.28, 0.35, 0.45, 0.7)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_bg"]
-bg_color = Color(0.03, 0.05, 0.08, 0.85)
+bg_color = Color(0.05, 0.06, 0.08, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.15, 0.25, 0.35, 0.8)
+border_color = Color(0.18, 0.22, 0.28, 0.5)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_server"]
-bg_color = Color(0.1, 0.75, 1.0, 1.0)
+bg_color = Color(0.28, 0.55, 0.82, 1.0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_food"]
-bg_color = Color(0.3, 0.9, 0.4, 1.0)
+bg_color = Color(0.36, 0.68, 0.36, 1.0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_reservoir"]
-bg_color = Color(0.2, 0.65, 1.0, 1.0)
+bg_color = Color(0.20, 0.44, 0.74, 1.0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bar_water"]
-bg_color = Color(0.1, 0.9, 0.85, 1.0)
+bg_color = Color(0.22, 0.68, 0.78, 1.0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_guide_pill"]
-bg_color = Color(0.04, 0.06, 0.10, 0.92)
+bg_color = Color(0.07, 0.08, 0.11, 0.90)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.2, 0.55, 0.8, 0.75)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-shadow_color = Color(0, 0, 0, 0.5)
+border_color = Color(0.22, 0.27, 0.35, 0.55)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.3)
 shadow_size = 4
-shadow_offset = Vector2(0, 2)
+shadow_offset = Vector2(0, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
@@ -206,13 +222,14 @@ layout_mode = 2
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
 text = "🖥️ SERVER AI"
 
 [node name="ServerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 11
 text = "100%"
 
@@ -236,13 +253,14 @@ layout_mode = 2
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.9, 1, 1)
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
 text = "💧 TANGKI AQUA-7"
 
 [node name="WaterLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 11
 text = "100 / 100L"
 
@@ -263,7 +281,7 @@ alignment = 1
 [node name="ShiftLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.8, 0.3, 1)
+theme_override_colors/font_color = Color(0.78, 0.75, 0.68, 1)
 theme_override_font_sizes/font_size = 11
 text = "SHIFT 1/3"
 horizontal_alignment = 1
@@ -271,7 +289,7 @@ horizontal_alignment = 1
 [node name="ClockLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.88, 0.45, 1)
+theme_override_colors/font_color = Color(0.92, 0.88, 0.80, 1)
 theme_override_font_sizes/font_size = 11
 text = "🕒 06:00 (PAGI)"
 horizontal_alignment = 1
@@ -295,13 +313,14 @@ layout_mode = 2
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
 text = "💧 SUMBER AIR BERSIH"
 
 [node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 11
 text = "250 / 250L"
 
@@ -326,13 +345,14 @@ layout_mode = 2
 [node name="Title" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4, 0.9, 0.4, 1)
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
 text = "🌾 KETAHANAN PANGAN"
 
 [node name="FoodLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 11
 text = "100%"
 
@@ -347,14 +367,14 @@ show_percentage = false
 
 [node name="ObjectiveTracker" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(480, 38)
+custom_minimum_size = Vector2(480, 36)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -240.0
-offset_top = 58.0
+offset_top = 74.0
 offset_right = 240.0
-offset_bottom = 96.0
+offset_bottom = 110.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tracker")
 
@@ -372,7 +392,7 @@ theme_override_constants/separation = 10
 [node name="ObjectiveDir" type="Label" parent="ObjectiveTracker/Margin/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
 theme_override_font_sizes/font_size = 18
 text = "◄"
 vertical_alignment = 1
@@ -392,21 +412,21 @@ alignment = 1
 [node name="ObjectiveTitle" type="Label" parent="ObjectiveTracker/Margin/HBox/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.95, 0.96, 0.98, 1)
 theme_override_font_sizes/font_size = 11
 text = "OBJEKTIF: AMBIL AIR BERSIH [SPASI]"
 
 [node name="ObjectiveSubtext" type="Label" parent="ObjectiveTracker/Margin/HBox/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_colors/font_color = Color(0.68, 0.72, 0.78, 1)
 theme_override_font_sizes/font_size = 10
 text = "Danau Tengah • Tahan [SHIFT] untuk lari cepat"
 
 [node name="ObjectiveDist" type="Label" parent="ObjectiveTracker/Margin/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_colors/font_color = Color(0.55, 0.78, 0.90, 1)
 theme_override_font_sizes/font_size = 12
 text = "24m"
 vertical_alignment = 1
@@ -435,8 +455,8 @@ theme_override_constants/margin_bottom = 2
 
 [node name="GuideLabel" type="Label" parent="BottomGuide/Margin"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.95, 1, 0.95)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_colors/font_color = Color(0.78, 0.82, 0.88, 0.92)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_font_sizes/font_size = 11
