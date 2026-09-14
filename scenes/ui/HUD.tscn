@@ -814,6 +814,7 @@ text = "▶ Shift 3 (Krisis Air)"
 
 [node name="PrologueSynopsisScreen" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 92
 layout_mode = 3
 anchors_preset = 15
@@ -821,6 +822,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
 
 [node name="BlackFill" type="ColorRect" parent="PrologueSynopsisScreen"]
 layout_mode = 1
