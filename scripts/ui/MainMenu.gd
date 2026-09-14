@@ -57,12 +57,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _update_load_button() -> void:
 	GameManager.load_save_file()
+	var load_lbl: Label = btn_load.get_node_or_null("Margin/HBox/Text")
 	if GameManager.saved_shift > 1:
 		btn_load.disabled = false
-		btn_load.text = "💾  CONTINUE (SHIFT %d)" % GameManager.saved_shift
+		if load_lbl:
+			load_lbl.text = "CONTINUE (SHIFT %d)" % GameManager.saved_shift
+		else:
+			btn_load.text = "CONTINUE (SHIFT %d)" % GameManager.saved_shift
 	else:
 		btn_load.disabled = false
-		btn_load.text = "💾  CONTINUE"
+		if load_lbl:
+			load_lbl.text = "CONTINUE"
+		else:
+			btn_load.text = "CONTINUE"
 
 func _play_sfx(stream: AudioStream) -> void:
 	if audio_player and stream:
@@ -97,7 +104,11 @@ func _on_close_guide_pressed() -> void:
 func _on_exit_pressed() -> void:
 	_play_sfx(SFX_CLICK)
 	if OS.has_feature("web"):
-		btn_exit.text = "TERIMA KASIH TELAH BERMAIN!"
+		var exit_lbl: Label = btn_exit.get_node_or_null("Margin/HBox/Text")
+		if exit_lbl:
+			exit_lbl.text = "TERIMA KASIH TELAH BERMAIN!"
+		else:
+			btn_exit.text = "TERIMA KASIH TELAH BERMAIN!"
 	else:
 		get_tree().quit()
 

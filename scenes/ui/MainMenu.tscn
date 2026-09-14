@@ -214,51 +214,211 @@ theme_override_constants/separation = 10
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "▶  NEW GAME"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnStart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnStart/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Icon" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnStart/Margin/HBox"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 14
+text = "▶"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnStart/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "NEW GAME"
+vertical_alignment = 1
 
 [node name="BtnLoad" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "💾  CONTINUE"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnLoad"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnLoad/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Icon" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnLoad/Margin/HBox"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 14
+text = "💾"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnLoad/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "CONTINUE"
+vertical_alignment = 1
 
 [node name="BtnCollection" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "🏆  KOLEKSI ENDING"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnCollection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnCollection/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Icon" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnCollection/Margin/HBox"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 14
+text = "🏆"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnCollection/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "KOLEKSI ENDING"
+vertical_alignment = 1
 
 [node name="BtnGuide" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "📖  CARA BERMAIN"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnGuide"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnGuide/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Icon" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnGuide/Margin/HBox"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 14
+text = "📖"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnGuide/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "CARA BERMAIN"
+vertical_alignment = 1
 
 [node name="BtnExit" type="Button" parent="CenterContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "✖  KELUAR"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnExit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="HBox" type="HBoxContainer" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnExit/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="Icon" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnExit/Margin/HBox"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.96, 1)
+theme_override_font_sizes/font_size = 14
+text = "✖"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CenterContainer/VBoxContainer/ButtonContainer/BtnExit/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "KELUAR"
+vertical_alignment = 1
 
 [node name="CollectionModal" type="Control" parent="."]
 unique_name_in_owner = true

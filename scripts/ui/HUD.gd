@@ -32,6 +32,7 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 
 # Prologue Lore Synopsis Screen (black screen with lore text before Shift 1 dialog)
 @onready var prologue_synopsis_screen: Control = %PrologueSynopsisScreen
+@onready var synopsis_text: RichTextLabel = %SynopsisText
 @onready var synopsis_prompt: Label = %SynopsisPrompt
 @onready var synopsis_skip_hint: Label = %SynopsisSkipHint
 
@@ -85,6 +86,8 @@ var ending_shown: bool = false  # Guard against ending loop bug
 # Cutscene Controller State
 var is_cutscene_running: bool = false
 var is_synopsis_running: bool = false
+var is_synopsis_typing: bool = false
+var synopsis_typewriter_tween: Tween
 var current_beat_index: int = 0
 var is_typewriting: bool = false
 var typewriter_tween: Tween
@@ -745,11 +748,34 @@ func start_prologue_cutscene() -> void:
 			vbox.modulate = Color(1, 1, 1, 0)
 		prologue_synopsis_screen.visible = true
 		
-		# Fade in teks sinopsis secara sinematik
+		is_synopsis_typing = true
+		if synopsis_text:
+			synopsis_text.visible_ratio = 0.0
+		if synopsis_prompt:
+			synopsis_prompt.visible = false
+		if synopsis_skip_hint:
+			synopsis_skip_hint.text = "[SPASI] Percepat   •   [ESC] Lewati"
+
+		# Fade-in container judul
 		await get_tree().create_timer(0.3).timeout
 		if is_instance_valid(prologue_synopsis_screen) and vbox:
-			var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-			tween.tween_property(vbox, "modulate", Color.WHITE, 0.8)
+			var tween_vbox: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+			tween_vbox.tween_property(vbox, "modulate", Color.WHITE, 0.6)
+			await tween_vbox.finished
+
+		# Animasi teks mengalir / mengetik (Typewriter effect)
+		if is_instance_valid(prologue_synopsis_screen) and synopsis_text and is_synopsis_typing:
+			if synopsis_typewriter_tween and synopsis_typewriter_tween.is_valid():
+				synopsis_typewriter_tween.kill()
+
+			var char_count: int = synopsis_text.get_total_character_count()
+			if char_count <= 0:
+				char_count = synopsis_text.text.length()
+			var duration: float = clampf(float(char_count) / 65.0, 4.0, 7.5)
+
+			synopsis_typewriter_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
+			synopsis_typewriter_tween.tween_property(synopsis_text, "visible_ratio", 1.0, duration)
+			synopsis_typewriter_tween.finished.connect(_on_synopsis_typewriter_finished)
 	else:
 		play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
 
@@ -757,9 +783,28 @@ func _on_synopsis_gui_input(event: InputEvent) -> void:
 	if is_synopsis_running and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_on_synopsis_advance_pressed()
 
+func _on_synopsis_typewriter_finished() -> void:
+	is_synopsis_typing = false
+	if synopsis_text:
+		synopsis_text.visible_ratio = 1.0
+	if synopsis_prompt:
+		synopsis_prompt.visible = true
+		synopsis_prompt.text = "Klik Layar atau Tekan [SPASI] untuk Lanjut ▸"
+	if synopsis_skip_hint:
+		synopsis_skip_hint.text = "[ESC] Lewati Sinopsis"
+
 func _on_synopsis_advance_pressed() -> void:
 	if not is_synopsis_running:
 		return
+	
+	# Jika teks masih animasi, percepat seketika
+	if is_synopsis_typing:
+		if synopsis_typewriter_tween and synopsis_typewriter_tween.is_valid():
+			synopsis_typewriter_tween.kill()
+		_on_synopsis_typewriter_finished()
+		_play_sfx(SFX_CLICK)
+		return
+
 	is_synopsis_running = false
 	_play_sfx(SFX_CLICK)
 	
@@ -778,7 +823,10 @@ func _on_synopsis_advance_pressed() -> void:
 func _on_synopsis_skip_pressed() -> void:
 	if not is_synopsis_running:
 		return
+	if synopsis_typewriter_tween and synopsis_typewriter_tween.is_valid():
+		synopsis_typewriter_tween.kill()
 	is_synopsis_running = false
+	is_synopsis_typing = false
 	_play_sfx(SFX_CLICK)
 	
 	if prologue_synopsis_screen:
