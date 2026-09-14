@@ -351,60 +351,76 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_console")
 
 [node name="ServerRack1" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-470, -55)
+position = Vector2(-476, -55)
 
 [node name="ServerRack2" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-242, -55)
+position = Vector2(-396, -55)
 rack_id = 2
 
 [node name="ServerRack3" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-470, 65)
+position = Vector2(-316, -55)
 rack_id = 3
 
 [node name="ServerRack4" parent="YSortEntities" instance=ExtResource("18_server_rack")]
-position = Vector2(-242, 65)
+position = Vector2(-236, -55)
 rack_id = 4
+
+[node name="ServerRack5" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-476, 55)
+rack_id = 5
+
+[node name="ServerRack6" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-396, 55)
+rack_id = 6
+
+[node name="ServerRack7" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-316, 55)
+rack_id = 7
+
+[node name="ServerRack8" parent="YSortEntities" instance=ExtResource("18_server_rack")]
+position = Vector2(-236, 55)
+rack_id = 8
 
 [node name="OverheadPipes" type="Node2D" parent="YSortEntities"]
 z_index = 5
 position = Vector2(-356, -36)
 
 [node name="PipeTopLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(-50, -84)
-scale = Vector2(2.8, 1)
+position = Vector2(-75, -58)
+scale = Vector2(4.8, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
 
 [node name="PipeTopCenter" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(1, -84)
+position = Vector2(0, -58)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(393, 332, 46, 8)
 
 [node name="PipeTopRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(51, -84)
-scale = Vector2(2.7, 1)
+position = Vector2(75, -58)
+scale = Vector2(4.8, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
 
 [node name="PipeBottomLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(-50, 36)
-scale = Vector2(2.8, 1)
+position = Vector2(-75, 52)
+scale = Vector2(4.8, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
 
 [node name="PipeBottomCenter" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(0, 36)
+position = Vector2(0, 52)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(393, 301, 46, 7)
 
 [node name="PipeBottomRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(50, 36)
-scale = Vector2(2.8, 1)
+position = Vector2(75, 52)
+scale = Vector2(4.8, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
@@ -472,58 +488,63 @@ shape = SubResource("RectangleShape2D_bot_right")
 position = Vector2(0, 15)
 
 [node name="FenceNorth" parent="YSortEntities" instance=ExtResource("24_fence_h")]
-position = Vector2(336, -46)
+position = Vector2(460, -145)
+scale = Vector2(3.2, 1)
 
 [node name="FenceSouth" parent="YSortEntities" instance=ExtResource("24_fence_h")]
-position = Vector2(336, 56)
+position = Vector2(460, 145)
+scale = Vector2(3.2, 1)
 
 [node name="FenceEast" parent="YSortEntities" instance=ExtResource("28_fence_v")]
-position = Vector2(432, 12)
-scale = Vector2(1, 2.1)
+position = Vector2(645, 0)
+scale = Vector2(1, 4.5)
 
 [node name="FenceWestNorth" parent="YSortEntities" instance=ExtResource("28_fence_v")]
-position = Vector2(240, -20)
-scale = Vector2(1, 0.65)
+position = Vector2(275, -85)
+scale = Vector2(1, 1.8)
 
 [node name="FenceWestSouth" parent="YSortEntities" instance=ExtResource("28_fence_v")]
-position = Vector2(240, 52)
-scale = Vector2(1, 0.7)
+position = Vector2(275, 85)
+scale = Vector2(1, 1.8)
 
 [node name="FarmSign" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(240, -18)
+position = Vector2(265, -30)
 texture = ExtResource("29_farm_sign")
 
 [node name="FarmBarn" parent="YSortEntities" instance=ExtResource("25_farm_barn")]
-position = Vector2(416, -85)
+position = Vector2(230, -165)
 
 [node name="FarmPot1" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(380, -75)
+position = Vector2(195, -155)
 texture = ExtResource("26_farm_pot")
 
 [node name="FarmPot2" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(446, -75)
+position = Vector2(265, -155)
 texture = ExtResource("26_farm_pot")
 
 [node name="FarmChicken1" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
-position = Vector2(275, -24)
+position = Vector2(370, -62)
 
 [node name="FarmChicken2" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
-position = Vector2(385, 24)
+position = Vector2(450, 2)
 
 [node name="FarmChicken3" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
-position = Vector2(360, -70)
+position = Vector2(530, 68)
 
 [node name="FarmPlot1" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(285, -20)
+position = Vector2(460, -95)
 
 [node name="FarmPlot2" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(370, -20)
+position = Vector2(460, -30)
+plot_id = 2
 
 [node name="FarmPlot3" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(285, 22)
+position = Vector2(460, 35)
+plot_id = 3
 
 [node name="FarmPlot4" parent="YSortEntities" instance=ExtResource("7_farm_plot")]
-position = Vector2(370, 22)
+position = Vector2(460, 100)
+plot_id = 4
 
 [node name="EcoTree1" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
 position = Vector2(210, -145)

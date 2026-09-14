@@ -192,7 +192,10 @@ func _trigger_breakdown() -> void:
 	fire_particles.emitting = false
 	steam_particles.emitting = false
 	_update_ui()
-	GameManager.damage_server_integrity(25.0)
+	var racks = get_tree().get_nodes_in_group("server_racks")
+	var count = max(1, racks.size())
+	var dmg: float = 100.0 / float(count)
+	GameManager.damage_server_integrity(dmg)
 
 
 

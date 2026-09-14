@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://py7wwiyn2xn4" path="res://assets/environment/ground_shadow.png" id="3_shadow_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_foot"]
-size = Vector2(36, 16)
+size = Vector2(316, 14)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_zone"]
-radius = 46.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(330, 54)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.1, 0.12, 0.15, 0.85)
@@ -34,10 +34,39 @@ script = ExtResource("1_plot_script")
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
 position = Vector2(0, 10)
-scale = Vector2(1.1, 0.7)
+scale = Vector2(8.5, 0.7)
 texture = ExtResource("3_shadow_tex")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Crop1" type="Sprite2D" parent="."]
+position = Vector2(-140, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop2" type="Sprite2D" parent="."]
+position = Vector2(-100, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop3" type="Sprite2D" parent="."]
+position = Vector2(-60, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop4" type="Sprite2D" parent="."]
+position = Vector2(-20, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop5" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop6" type="Sprite2D" parent="."]
+position = Vector2(60, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop7" type="Sprite2D" parent="."]
+position = Vector2(100, 0)
+texture = ExtResource("2_crop_mature")
+
+[node name="Crop8" type="Sprite2D" parent="."]
+position = Vector2(140, 0)
 texture = ExtResource("2_crop_mature")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -50,13 +79,15 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_zone")
+shape = SubResource("RectangleShape2D_zone")
 
 [node name="SplashParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, 4)
 emitting = false
-amount = 18
+amount = 32
 lifetime = 0.4
+emission_shape = 3
+emission_rect_extents = Vector2(145, 8)
 direction = Vector2(0, -1)
 spread = 35.0
 gravity = Vector2(0, 40)
@@ -67,18 +98,18 @@ scale_amount_max = 3.0
 color = Color(0.2, 0.7, 1, 0.85)
 
 [node name="MoistureBar" type="ProgressBar" parent="."]
-offset_left = -20.0
+offset_left = -40.0
 offset_top = -24.0
-offset_right = 20.0
-offset_bottom = -17.0
+offset_right = 40.0
+offset_bottom = -18.0
 theme_override_styles/background = SubResource("StyleBoxFlat_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
 show_percentage = false
 
 [node name="LabelStatus" type="Label" parent="."]
-offset_left = -30.0
+offset_left = -50.0
 offset_top = -39.0
-offset_right = 30.0
+offset_right = 50.0
 offset_bottom = -23.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
 theme_override_constants/shadow_offset_x = 1

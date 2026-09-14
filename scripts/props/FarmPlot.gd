@@ -6,7 +6,6 @@ class_name FarmPlot
 @export var irrigate_rate: float = 80.0
 @export var water_cost_per_sec: float = 10.0
 
-@onready var sprite: Sprite2D = $Sprite2D
 @onready var splash_particles: CPUParticles2D = $SplashParticles
 @onready var moisture_bar: ProgressBar = $MoistureBar
 @onready var label_status: Label = $LabelStatus
@@ -24,8 +23,16 @@ var was_interacted_this_frame: bool = false
 var zero_moisture_timer: float = 0.0
 const MAX_ZERO_TIME: float = 12.0
 
+var crop_sprites: Array[Sprite2D] = []
+
 func _ready() -> void:
 	add_to_group("farm_plots")
+	
+	# Detect all crop sprites in this row
+	for child in get_children():
+		if child is Sprite2D and child.name != "GroundShadow":
+			crop_sprites.append(child)
+	
 	splash_particles.emitting = false
 	_update_visuals()
 
@@ -34,7 +41,6 @@ func _process(delta: float) -> void:
 		splash_particles.emitting = false
 		return
 	
-	# Stop splash if not actively irrigated this frame
 	if not was_interacted_this_frame:
 		splash_particles.emitting = false
 	was_interacted_this_frame = false
@@ -58,40 +64,53 @@ func _update_visuals() -> void:
 	if prompt_label:
 		prompt_label.visible = is_targeted and not is_dead
 	
-	moisture_bar.value = moisture
+	if moisture_bar:
+		moisture_bar.value = moisture
+	
+	var target_tex: Texture2D = TEX_MATURE
+	var target_mod: Color = Color.WHITE
 	
 	if is_dead:
-		sprite.texture = TEX_DEAD
-		sprite.modulate = Color(0.5, 0.45, 0.4)
-		moisture_bar.modulate = Color(0.3, 0.3, 0.3)
+		target_tex = TEX_DEAD
+		target_mod = Color(0.5, 0.45, 0.4)
+		if moisture_bar:
+			moisture_bar.modulate = Color(0.3, 0.3, 0.3)
 		if label_status:
-			label_status.text = "MATI"
+			label_status.text = "ROW #%d: MATI" % plot_id
 			label_status.modulate = Color(0.8, 0.2, 0.2)
 	elif moisture >= 60.0:
-		sprite.texture = TEX_MATURE
-		sprite.modulate = Color(1.25, 1.25, 1.25) if is_targeted else Color.WHITE
-		moisture_bar.modulate = Color(0.2, 0.9, 0.3)
+		target_tex = TEX_MATURE
+		target_mod = Color(1.25, 1.25, 1.25) if is_targeted else Color.WHITE
+		if moisture_bar:
+			moisture_bar.modulate = Color(0.2, 0.9, 0.3)
 		if label_status:
-			label_status.text = "%d%%" % int(moisture)
+			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color.WHITE
 	elif moisture >= 25.0:
-		sprite.texture = TEX_SPROUT
-		sprite.modulate = Color(1.25, 1.2, 1.1) if is_targeted else Color(0.95, 0.9, 0.8)
-		moisture_bar.modulate = Color(0.9, 0.8, 0.2)
+		target_tex = TEX_SPROUT
+		target_mod = Color(1.25, 1.2, 1.1) if is_targeted else Color(0.95, 0.9, 0.8)
+		if moisture_bar:
+			moisture_bar.modulate = Color(0.9, 0.8, 0.2)
 		if label_status:
-			label_status.text = "%d%%" % int(moisture)
+			label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color(1.0, 0.9, 0.4)
 	else:
-		sprite.texture = TEX_WILTED
-		sprite.modulate = Color(1.2, 1.0, 0.8) if is_targeted else Color(0.85, 0.7, 0.5)
-		moisture_bar.modulate = Color(1.0, 0.3, 0.1)
+		target_tex = TEX_WILTED
+		target_mod = Color(1.2, 1.0, 0.8) if is_targeted else Color(0.85, 0.7, 0.5)
+		if moisture_bar:
+			moisture_bar.modulate = Color(1.0, 0.3, 0.1)
 		if label_status:
 			var countdown: int = int(ceil(MAX_ZERO_TIME - zero_moisture_timer))
 			if moisture <= 0.0:
-				label_status.text = "LAYU! %ds" % countdown
+				label_status.text = "ROW #%d LAYU! %ds" % [plot_id, countdown]
 			else:
-				label_status.text = "%d%%" % int(moisture)
+				label_status.text = "ROW #%d: %d%%" % [plot_id, int(moisture)]
 			label_status.modulate = Color(1.0, 0.2, 0.2)
+
+	for s in crop_sprites:
+		if is_instance_valid(s):
+			s.texture = target_tex
+			s.modulate = target_mod
 
 func set_target_highlight(active: bool) -> void:
 	is_targeted = active
@@ -128,5 +147,7 @@ func _trigger_crop_death() -> void:
 	moisture = 0.0
 	splash_particles.emitting = false
 	_update_visuals()
-	GameManager.damage_food_security(25.0)
-
+	var plots = get_tree().get_nodes_in_group("farm_plots")
+	var count = max(1, plots.size())
+	var dmg: float = 100.0 / float(count)
+	GameManager.damage_food_security(dmg)
