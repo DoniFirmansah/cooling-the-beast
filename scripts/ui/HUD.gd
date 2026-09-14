@@ -91,6 +91,9 @@ const SFX_FAIL = preload("res://assets/audio/sfx/error_001.ogg")
 @onready var btn_pause_menu: Button = %BtnPauseMenu
 
 # Dev Cheat Controls
+# HIDDEN di build release: cheat hanya aktif pada build debug/editor (OS.is_debug_build()).
+# Di build itch.io/web, panel ini disembunyikan dan tombol F1-F7 nonaktif.
+var _dev_cheats_enabled: bool = OS.is_debug_build()
 @onready var btn_cheat_god_mode: Button = %BtnCheatGodMode
 @onready var btn_cheat_speed: Button = %BtnCheatSpeed
 @onready var btn_cheat_finish_shift: Button = %BtnCheatFinishShift
@@ -310,7 +313,12 @@ func _ready() -> void:
 		ending_synopsis_screen.visible = false
 	if tutorial_banner:
 		tutorial_banner.visible = false
-	
+	# HIDDEN: sembunyikan panel Dev Cheat di build release (itch.io/web)
+	if not _dev_cheats_enabled:
+		var dev_box: Control = pause_screen.get_node_or_null("CenterContainer/PanelContainer/VBoxContainer/DevCheatBox") as Control
+		if dev_box:
+			dev_box.visible = false
+
 	# Cegah glitch visual: Frame 0 langsung tutup layar dengan hitam jika baru mulai Shift 1
 	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
 		if top_bar:
@@ -358,19 +366,20 @@ func _ready() -> void:
 	if btn_next_shift:
 		btn_next_shift.pressed.connect(_on_next_shift_pressed)
 	
-	# Connect Dev Cheat Controls
-	if btn_cheat_god_mode:
-		btn_cheat_god_mode.pressed.connect(_on_cheat_god_mode_pressed)
-	if btn_cheat_speed:
-		btn_cheat_speed.pressed.connect(_on_cheat_speed_pressed)
-	if btn_cheat_finish_shift:
-		btn_cheat_finish_shift.pressed.connect(_on_cheat_finish_shift_pressed)
-	if btn_jump_shift1:
-		btn_jump_shift1.pressed.connect(func(): _on_jump_shift_pressed(1))
-	if btn_jump_shift2:
-		btn_jump_shift2.pressed.connect(func(): _on_jump_shift_pressed(2))
-	if btn_jump_shift3:
-		btn_jump_shift3.pressed.connect(func(): _on_jump_shift_pressed(3))
+	# Connect Dev Cheat Controls (hanya di build debug/editor)
+	if _dev_cheats_enabled:
+		if btn_cheat_god_mode:
+			btn_cheat_god_mode.pressed.connect(_on_cheat_god_mode_pressed)
+		if btn_cheat_speed:
+			btn_cheat_speed.pressed.connect(_on_cheat_speed_pressed)
+		if btn_cheat_finish_shift:
+			btn_cheat_finish_shift.pressed.connect(_on_cheat_finish_shift_pressed)
+		if btn_jump_shift1:
+			btn_jump_shift1.pressed.connect(func(): _on_jump_shift_pressed(1))
+		if btn_jump_shift2:
+			btn_jump_shift2.pressed.connect(func(): _on_jump_shift_pressed(2))
+		if btn_jump_shift3:
+			btn_jump_shift3.pressed.connect(func(): _on_jump_shift_pressed(3))
 	
 	_on_water_changed(GameManager.current_water, GameManager.MAX_BACKPACK_WATER)
 	_on_reservoir_changed(GameManager.reservoir_water, GameManager.max_reservoir_shift)
@@ -443,7 +452,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact"):
 		if intermission_screen and intermission_screen.visible:
 			_on_next_shift_pressed()
-	elif event is InputEventKey and event.pressed and not event.echo:
+	elif event is InputEventKey and event.pressed and not event.echo and _dev_cheats_enabled:
 		var key_ev: InputEventKey = event as InputEventKey
 		match key_ev.keycode:
 			KEY_F1:

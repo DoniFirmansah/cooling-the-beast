@@ -664,7 +664,7 @@ text = "• [b][WASD] / [Panah][/b]: Navigasi gerak robot
   - Ambil air bersih di danau
   - Semprot pendingin rak server AI
   - Siram tanaman sawah pangan warga
-• [b][ESC][/b]: Menu jeda (Pause) & Dev Cheats"
+• [b][ESC][/b]: Menu jeda (Pause)"
 
 [node name="PanelLore" type="PanelContainer" parent="GuideModal/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContentGrid"]
 layout_mode = 2
