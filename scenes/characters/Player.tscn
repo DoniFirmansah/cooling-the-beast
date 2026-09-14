@@ -124,7 +124,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 limit_left = -600
-limit_top = -280
+limit_top = -340
 limit_right = 600
 limit_bottom = 240
 limit_smoothed = true

@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://dj1i3o5ek121x" path="res://assets/environment/farmland/farm_sign.png" id="29_farm_sign"]
 [ext_resource type="Texture2D" uid="uid://j72bi62rtqlw" path="res://assets/environment/server_room/terminal_desk.png" id="30_terminal_desk"]
 [ext_resource type="Texture2D" uid="uid://87tabsg220gl" path="res://assets/environment/farmland/leaf_particle.png" id="31_leaf_tex"]
-[ext_resource type="Texture2D" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="32_skyline_tex"]
+[ext_resource type="Texture2D" uid="uid://vxupqra3v77x" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="32_skyline_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1240, 24)
@@ -99,7 +99,7 @@ color = Color(0.42, 0.85, 0.35, 0.85)
 [node name="BackgroundSkyline" type="Sprite2D" parent="."]
 z_index = -20
 z_as_relative = false
-position = Vector2(0, -330)
+position = Vector2(0, -320)
 texture = ExtResource("32_skyline_tex")
 
 [node name="Floors" type="Node2D" parent="."]
