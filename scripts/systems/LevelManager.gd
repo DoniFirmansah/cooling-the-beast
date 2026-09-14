@@ -3,6 +3,7 @@ class_name LevelManager
 
 @onready var hud: CanvasLayer = $HUD
 @onready var bgm_player: AudioStreamPlayer = $BGMPlayer
+@onready var bgm_player_b: AudioStreamPlayer = $BGMPlayerB
 @onready var env_modulate: CanvasModulate = $EnvModulate
 @onready var background_skyline: Sprite2D = $BackgroundSkyline
 @onready var grass_floor: TextureRect = $Floors/GrassFloorAgriDome
@@ -12,16 +13,31 @@ class_name LevelManager
 @onready var warning_light_bar: Sprite2D = $YSortEntities/WarningLightBar
 @onready var player: CharacterBody2D = $YSortEntities/Player
 
+# BGM tracks per konteks
+const BGM_CUTSCENE_PROLOG: AudioStream = preload("res://assets/audio/bgm/forested.ogg")
+const BGM_SHIFT_1: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
+const BGM_SHIFT_2: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
+# BGM_SHIFT_3: null (silence / kosong disengaja untuk dramatisasi Shift 3)
+const BGM_ENDING_HARMONY: AudioStream = preload("res://assets/audio/bgm/verdant-zen.ogg")
+const BGM_ENDING_ORGANIC: AudioStream = preload("res://assets/audio/bgm/forested.ogg")
+# BGM_ENDING_COLLAPSE / SILICON / SERVER_MELTDOWN / CROP_FAMINE: null (silence)
+
+const BGM_FADE_DURATION: float = 1.5
+
 var strobe_warning_bar: bool = false
 var strobe_color: Color = Color.WHITE
 var strobe_speed: float = 4.0
 var strobe_timer: float = 0.0
 var camera_tween: Tween = null
 
+# Track player aktif saat ini (A/B crossfade)
+var _active_bgm_is_a: bool = true
+
 func _ready() -> void:
 	GameManager.reset_state()
 	_setup_audio()
 	GameManager.shift_started.connect(_on_shift_started)
+	GameManager.game_finished.connect(_on_game_finished_bgm)
 	_apply_shift_environment(GameManager.current_shift, false)
 	
 	if hud:
@@ -39,14 +55,85 @@ func _ready() -> void:
 	
 	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
 		GameManager.is_game_active = false
+		# BGM cutscene prolog
+		_play_bgm(BGM_CUTSCENE_PROLOG)
 		if hud and hud.has_method("start_prologue_cutscene"):
 			hud.start_prologue_cutscene()
 	else:
 		GameManager.is_game_active = true
+		_play_shift_bgm(GameManager.current_shift)
 
 func _setup_audio() -> void:
-	if bgm_player and bgm_player.stream:
-		bgm_player.play()
+	# Inisialisasi kedua BGM player dengan volume awal -80 (silent)
+	bgm_player.volume_db = -80.0
+	bgm_player.bus = &"Master"
+	bgm_player_b.volume_db = -80.0
+	bgm_player_b.bus = &"Master"
+
+## Putar BGM dengan crossfade A/B
+func _play_bgm(stream: AudioStream, target_volume_db: float = -16.0) -> void:
+	if stream == null:
+		# Silence: fade out semua player
+		_fade_out_player(bgm_player)
+		_fade_out_player(bgm_player_b)
+		return
+
+	var incoming: AudioStreamPlayer
+	var outgoing: AudioStreamPlayer
+	if _active_bgm_is_a:
+		incoming = bgm_player_b
+		outgoing = bgm_player
+	else:
+		incoming = bgm_player
+		outgoing = bgm_player_b
+	_active_bgm_is_a = not _active_bgm_is_a
+
+	# Jika track sama & sudah main — jangan restart
+	if incoming.stream == stream and incoming.playing:
+		return
+
+	incoming.stream = stream
+	incoming.volume_db = -80.0
+	incoming.play()
+
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(incoming, "volume_db", target_volume_db, BGM_FADE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(outgoing, "volume_db", -80.0, BGM_FADE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await tween.finished
+	if is_instance_valid(outgoing) and outgoing.volume_db <= -79.0:
+		outgoing.stop()
+
+func _fade_out_player(p: AudioStreamPlayer) -> void:
+	if not p.playing:
+		return
+	var tween: Tween = create_tween()
+	tween.tween_property(p, "volume_db", -80.0, BGM_FADE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await tween.finished
+	if is_instance_valid(p):
+		p.stop()
+
+## Pilih track berdasarkan nomor shift
+func _play_shift_bgm(shift_num: int) -> void:
+	match shift_num:
+		1:
+			_play_bgm(BGM_SHIFT_1)
+		2:
+			_play_bgm(BGM_SHIFT_2)
+		3:
+			_play_bgm(null) # Shift 3 = silence yang menegangkan
+		_:
+			_play_bgm(null)
+
+## Handler BGM saat ending terpicu
+func _on_game_finished_bgm(ending_code: String, _title: String, _narrative: String, _stats: Dictionary) -> void:
+	match ending_code:
+		"HARMONY":
+			_play_bgm(BGM_ENDING_HARMONY, -18.0)
+		"ORGANIC":
+			_play_bgm(BGM_ENDING_ORGANIC, -18.0)
+		_:
+			# SILICON, TOTAL_COLLAPSE, SERVER_MELTDOWN, CROP_FAMINE = silence
+			_play_bgm(null)
 
 func _process(delta: float) -> void:
 	if strobe_warning_bar and warning_light_bar:
@@ -67,6 +154,7 @@ func _process(delta: float) -> void:
 func _on_shift_started(shift_num: int, _title: String) -> void:
 	_apply_shift_environment(shift_num, true)
 	_trigger_shift_transition_effects(shift_num)
+	_play_shift_bgm(shift_num)
 
 func _apply_shift_environment(shift_num: int, animate: bool) -> void:
 	var target_sky_color: Color = Color.WHITE
@@ -362,6 +450,12 @@ func _on_cutscene_ended() -> void:
 	# Kembalikan kamera secara mulus ke posisi player terlebih dahulu, baru aktifkan kontrol gerak
 	await return_camera_to_player(0.4)
 	GameManager.is_game_active = true
+	# Crossfade BGM dari prolog (forested) ke BGM shift gameplay (verdant-zen)
+	_play_shift_bgm(GameManager.current_shift)
+
+	if GameManager.current_shift == 1 and not GameManager.tutorial_completed:
+		if hud and hud.has_method("start_interactive_tutorial"):
+			hud.start_interactive_tutorial()
 
 var player_walk_tween: Tween = null
 var footstep_audio: AudioStreamPlayer = null

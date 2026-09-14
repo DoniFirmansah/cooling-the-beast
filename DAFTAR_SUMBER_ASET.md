@@ -132,10 +132,28 @@ Seluruh efek suara bersumber dari **Kenney Interface Audio Pack**:
    - Node Native: `CanvasModulate` (Pencahayaan dinamis perubahan fajar ke malam hari).
    - Lisensi: MIT License.
 
----
+### F. Musik Latar (Background Music / BGM)
+| Berkas di Proyek (`res://...`) | Nama Track | Pencipta / Sumber | Lisensi | Status AI |
+|---|---|---|---|---|
+| `assets/audio/bgm/the-sun-awoke.ogg` | *The Sun Awoke* | © 2025 Retro Indie Josh ([retroindiejosh.itch.io](https://retroindiejosh.itch.io)) | **CC BY 4.0 International** | **Non-AI (Original Composition)** |
+| `assets/audio/bgm/forested.ogg` | *Forested* | © 2025 Retro Indie Josh ([retroindiejosh.itch.io](https://retroindiejosh.itch.io)) | **CC BY 4.0 International** | **Non-AI (Original Composition)** |
+| `assets/audio/bgm/verdant-zen.ogg` | *Verdant Zen* | © 2025 Retro Indie Josh ([retroindiejosh.itch.io](https://retroindiejosh.itch.io)) | **CC BY 4.0 International** | **Non-AI (Original Composition)** |
 
-## ⚖️ 4. KESIMPULAN AUDIT KEPATUHAN
-- **Total Aset Aktif Terpakai:** 66 berkas.
+> ⚠️ **KREDIT WAJIB (CC BY 4.0):** Sesuai lisensi, kredit berikut WAJIB dicantumkan dalam game (di layar Credits/About atau dokumentasi):
+> *"Contains music © 2025 Retro Indie Josh (https://retroindiejosh.itch.io) — Licensed under Creative Commons Attribution 4.0 International"*
+
+**Penempatan BGM per Konteks:**
+- 🏠 **Main Menu:** `the-sun-awoke.ogg` — Nuansa fajar hopeful sebelum krisis dimulai
+- 🎬 **Cutscene Prolog:** `forested.ogg` — Alam organik, dunia sebelum krisis air
+- ⚙️ **Shift 1 & 2 Gameplay:** `verdant-zen.ogg` — Zen tenang dengan urgensi tersembunyi
+- 🔥 **Shift 3 Gameplay:** *(silence)* — Kesunyian dramatis zero-sum crisis
+- ✅ **Ending HARMONY:** `verdant-zen.ogg` — Resolusi damai
+- 🌿 **Ending ORGANIC:** `forested.ogg` — Alam menang atas teknologi
+- 💀 **Ending COLLAPSE/SILICON:** *(silence)* — Kehancuran tanpa musik
+
+---
+- **Total Aset Aktif Terpakai:** 69 berkas (66 aset visual/sfx + 3 track BGM).
 - **Pelanggaran Generator AI:** 0 berkas (0%).
 - **Pelanggaran Hak Cipta:** 0 berkas (0%).
+- **Catatan Lisensi BGM:** 3 track BGM menggunakan lisensi **CC BY 4.0** (bukan CC0) — kredit wajib Retro Indie Josh telah dicantumkan di `DAFTAR_SUMBER_ASET.md` dan wajib masuk layar Credits dalam game.
 - **Status Audit:** **100% LEGAL, TERTELUSUR DENGAN MENTAHANNYA, DAN SESUAI DENGAN ATURAN KOMPETISI.**

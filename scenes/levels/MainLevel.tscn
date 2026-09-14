@@ -748,3 +748,5 @@ position = Vector2(0, 160)
 [node name="HUD" parent="." instance=ExtResource("11_hud")]
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="BGMPlayerB" type="AudioStreamPlayer" parent="."]

@@ -187,6 +187,29 @@ shadow_color = Color(0, 0, 0, 0.3)
 shadow_size = 4
 shadow_offset = Vector2(0, 1)
 
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tutorial_banner"]
+bg_color = Color(0.06, 0.08, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.65, 0.78, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tutorial_fill"]
+bg_color = Color(0.28, 0.78, 0.90, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
 
@@ -464,6 +487,82 @@ text = "◄ SEKTOR SERVER AI   •   [WASD] Gerak   •   Tahan [SHIFT] Lari Cep
 horizontal_alignment = 1
 vertical_alignment = 1
 
+
+[node name="TutorialBanner" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 85
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -140.0
+offset_right = 340.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tutorial_banner")
+
+[node name="Margin" type="MarginContainer" parent="TutorialBanner"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="TutorialBanner/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TutorialIcon" type="Label" parent="TutorialBanner/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "⚡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="TutorialBanner/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TutorialStageBadge" type="Label" parent="TutorialBanner/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1.0, 1.0)
+theme_override_font_sizes/font_size = 11
+text = "TAHAP 1/4: MOTORIK DASAR"
+
+[node name="TutorialInstruction" type="Label" parent="TutorialBanner/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.98, 1.0, 1.0)
+theme_override_font_sizes/font_size = 13
+text = "Tekan tombol [W][A][S][D] atau Panah untuk bergerak"
+
+[node name="TutorialProgressBar" type="ProgressBar" parent="TutorialBanner/Margin/HBox/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_tutorial_fill")
+max_value = 100.0
+show_percentage = false
+
+[node name="BtnSkipTutorial" type="Button" parent="TutorialBanner/Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.75, 0.80, 0.88, 0.9)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "LEWATI [ESC]"
+
 [node name="IntermissionScreen" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -550,6 +649,7 @@ text = "MULAI SHIFT 2 [SPASI]"
 [node name="EndScreen" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
+z_index = 100
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -564,7 +664,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.7)
+color = Color(0.02, 0.03, 0.05, 1.0)
 
 [node name="CenterContainer" type="CenterContainer" parent="EndScreen"]
 layout_mode = 1
@@ -880,7 +980,7 @@ fit_content = true
 scroll_active = false
 text = "[center]Di sebuah lembah pedalaman, terdapat sebuah [b]cekungan mata air alami[/b] yang jernih dan dingin.
 Selama beberapa generasi, air tanah alami ini menjadi urat nadi kehidupan:
-mengairi hamparan sawah hijau di kawasan [color=#81c995][b]AGRI-DOME[/b][/color] tumpuan hidup warga petani.
+mengairi hamparan petak pangan hijau di kawasan [color=#81c995][b]AGRI-DOME[/b][/color] tumpuan hidup warga petani.
 
 Namun kemajuan pesat teknologi membawa perubahan besar.
 Fasilitas superkomputer [color=#8ab4f8][b]DEEPBEAST 2.0T[/b][/color] didirikan di sektor barat, memanfaatkan
@@ -888,13 +988,14 @@ air dingin alami lembah untuk mendinginkan ribuan inti prosesor kecerdasan buata
 
 Kini, musim kemarau panjang tiba bersamaan dengan lonjakan beban komputasi AI global.
 Laju pendinginan mesin yang masif dan terik cuaca membuat cekungan mata air
-menyusut drastis — hanya tersisa [b]280 Liter[/b] di penampungan utama.
+menyusut drastis — hanya tersisa [b]200 Liter[/b] di penampungan utama.
 
 Untuk menjaga keseimbangan rapuh ini, robot otomasi hidrologis diaktifkan:
 [color=#e2e8f0][b]UNIT AQUA-7[/b][/color]
 
 Air alami yang tersisa tak lagi mampu mencukupi kedua belah pihak.
 Setiap tetes yang kau putuskan... akan menentukan siapa yang bertahan hidup.[/center]"
+
 
 [node name="PromptBox" type="VBoxContainer" parent="PrologueSynopsisScreen/CenterContainer/VBox"]
 layout_mode = 2
@@ -916,6 +1017,97 @@ theme_override_colors/font_color = Color(0.50, 0.55, 0.62, 0.75)
 theme_override_font_sizes/font_size = 10
 text = "[ESC] Lewati Sinopsis"
 horizontal_alignment = 1
+
+[node name="EndingSynopsisScreen" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 95
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackFill" type="ColorRect" parent="EndingSynopsisScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.05, 1.0)
+
+[node name="CenterContainer" type="CenterContainer" parent="EndingSynopsisScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="EndingSynopsisScreen/CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(820, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="HeaderBox" type="VBoxContainer" parent="EndingSynopsisScreen/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EndingTag" type="Label" parent="EndingSynopsisScreen/CenterContainer/VBox/HeaderBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.60, 0.68, 0.85)
+theme_override_font_sizes/font_size = 11
+text = "KRONIK AKHIR // HARI KE-30 // LEMBAH SUNGAI MATA AIR"
+horizontal_alignment = 1
+
+[node name="EndingSynopsisTitle" type="Label" parent="EndingSynopsisScreen/CenterContainer/VBox/HeaderBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.96, 0.98, 1)
+theme_override_font_sizes/font_size = 22
+text = "KESEIMBANGAN RAPUH"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="EndingSynopsisScreen/CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="EndingSynopsisText" type="RichTextLabel" parent="EndingSynopsisScreen/CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.85, 0.88, 0.94, 0.95)
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+text = "[center]Teks epilog sinopsis...[/center]"
+
+[node name="PromptBox" type="VBoxContainer" parent="EndingSynopsisScreen/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="EndingSynopsisPrompt" type="Label" parent="EndingSynopsisScreen/CenterContainer/VBox/PromptBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.94, 0.95)
+theme_override_font_sizes/font_size = 13
+text = "Klik Layar atau Tekan [SPASI] untuk Melihat Statistik ▸"
+horizontal_alignment = 1
+
+[node name="EndingSynopsisSkipHint" type="Label" parent="EndingSynopsisScreen/CenterContainer/VBox/PromptBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.50, 0.55, 0.62, 0.75)
+theme_override_font_sizes/font_size = 10
+text = "[ESC] Lanjut ke Statistik"
+horizontal_alignment = 1
+
 
 [node name="ShiftTransitionScreen" type="Control" parent="."]
 unique_name_in_owner = true

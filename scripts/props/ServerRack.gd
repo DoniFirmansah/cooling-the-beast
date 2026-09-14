@@ -185,8 +185,13 @@ func set_target_highlight(active: bool) -> void:
 	is_targeted = active
 	_update_ui()
 
+func set_tutorial_warmth(warm_temp: float = 65.0) -> void:
+	temperature = warm_temp
+	_update_ui()
+
 func interact_tick(delta: float, _player: Node) -> bool:
-	if is_broken or temperature <= 30.0:
+	var min_temp: float = 24.0 if GameManager.tutorial_active else 30.0
+	if is_broken or temperature <= min_temp:
 		steam_particles.emitting = false
 		return false
 	
@@ -196,7 +201,7 @@ func interact_tick(delta: float, _player: Node) -> bool:
 		return false
 	
 	was_interacted_this_frame = true
-	temperature = max(28.0, temperature - cool_rate * delta)
+	temperature = max(min_temp, temperature - cool_rate * delta)
 	steam_particles.emitting = true
 	_update_ui()
 	return true

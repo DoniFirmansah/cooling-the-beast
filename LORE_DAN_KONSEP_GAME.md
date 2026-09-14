@@ -32,7 +32,7 @@ Gim ini dirancang bukan dari fiksi ilmiah hampa, melainkan bertumpu pada **fakta
 ### 2.2 Profil Tokoh Utama: Unit AQUA-7
 * **Kode Unit:** *AQUA-7 (Autonomous Quenching & Utility Automaton - Model 7)*
 * **Pencipta:** Konsorsium Gabungan Biosfer-Teknologi.
-* **Peran:** Robot silinder bertenaga surya yang dilengkapi tangki air internal 120 Liter, nosel semprot ganda bertekanan tinggi (*dual-nozzle hydro-dispenser*), dan sensor telemetri termal presisi.
+* **Peran:** Robot silinder bertenaga surya yang dilengkapi tangki air internal 80 Liter, nosel semprot ganda bertekanan tinggi (*dual-nozzle hydro-dispenser*), dan sensor telemetri termal presisi.
 * **Dilema Karakter:** AQUA-7 diprogram dengan dua protokol yang awalnya selaras namun kini saling bertentangan secara fatal:
   1. *Protokol Korporat (Directive Alpha):* Menjaga integritas perangkat keras server AI di atas ambang batas kritis (90°C).
   2. *Protokol Ekologis (Directive Gaia):* Menjaga kelembapan tanah tanaman pangan warga di atas titik layu permanen (30%).
@@ -40,14 +40,15 @@ Gim ini dirancang bukan dari fiksi ilmiah hampa, melainkan bertumpu pada **fakta
 ### 2.3 Geografi Semesta: Titik Pertemuan Tiga Sektor
 Peta permainan menggambarkan kontras visual dan filosofis yang tajam dalam satu layar terhubung:
 1. **Sektor Barat — The Silicon Monolith (AI Data Center):**
-   * Ruangan berlantai pelat baja dingin, dilindungi dinding beton industri, panel telemetri osiloskop, tabung pendingin cryo-cyan, dan 4 klaster rak server berdaya tinggi.
+   * Ruangan berlantai pelat baja dingin, dilindungi dinding beton industri, panel telemetri osiloskop, tabung pendingin cryo-cyan, dan 8 unit kabinet rak server berdaya tinggi.
    * Representasi dari: Ambisi manusia tanpa batas, industrialisasi teknologi tinggi, dan komputasi tanpa empati alam.
 2. **Sektor Tengah — Central Spring Reservoir (Sumber Air Bersih):**
    * Danau mata air alami dengan dermaga kayu dan dinding batu penahan erosi. Ketinggian air merefleksikan volume air yang tersisa secara realistis (memperlihatkan palung dalam saat penuh dan dasar tanah retak saat kering total).
    * Representasi dari: Sumber daya alam yang terbatas (*finite natural resource*) dan garis hidup kedua sektor.
 3. **Sektor Timur — The Green Haven (Agri-Dome Farmland):**
-   * Lahan tanah gambut subur yang dikelilingi pagar kayu pedesaan, pohon pinus rindang, semak belukar, ayam petelur yang berkeliaran, dan 4 petak sawah padi.
+   * Lahan tanah gambut subur yang dikelilingi pagar kayu pedesaan, pohon pinus rindang, semak belukar, ayam petelur yang berkeliaran, dan 4 petak tanaman pangan.
    * Representasi dari: Ketahanan pangan tradisional, kehidupan biologis, dan hak hidup masyarakat lokal.
+
 
 ---
 
@@ -57,7 +58,7 @@ Peta permainan menggambarkan kontras visual dan filosofis yang tajam dalam satu 
 ```
   ┌──────────────────────────────────────────────────────────┐
   │ 1. AMBIL AIR (Fetch Water)                               │
-  │    Isi tangki ransel 120L di Danau Tengah (<0.75 detik)  │
+  │    Isi tangki ransel 80L di Danau Tengah (<0.75 detik)   │
   └─────────────────────────────┬────────────────────────────┘
                                 │
                                 ▼
@@ -83,8 +84,8 @@ Peta permainan menggambarkan kontras visual dan filosofis yang tajam dalam satu 
 Untuk menciptakan pengalaman bermain yang memuaskan (*satisfying game feel*) dan adil:
 * **Pergerakan Gesit & Lari Cepat (Dash):**
   * Kecepatan dasar robot disetel ke **190 px/s**, dengan tombol `[SHIFT]` memberikan dorongan lari cepat hingga **313.5 px/s** (1.65x).
-* **Kapasitas Tangki Ransel 120 Liter:**
-  * Memberikan kuota yang cukup untuk menyiram beberapa objek sekaligus sebelum harus kembali mengambil air.
+* **Kapasitas Tangki Ransel 80 Liter:**
+  * Memberikan kuota yang presisi untuk menyiram objek sebelum harus kembali mengambil air.
 * **Refill Kilat (< 0.75 detik):**
   * Kecepatan penyedotan air danau sebesar **160 Liter/detik**. Cukup berhenti sesaat di dekat dermaga dan menahan `[SPASI]`, tangki ransel langsung terisi penuh.
 * **Penyiraman Multi-Target Simultan (*Wide Spray*):**
@@ -96,7 +97,7 @@ Untuk menciptakan pengalaman bermain yang memuaskan (*satisfying game feel*) dan
 
 ---
 
-## 4. SISTEM PANAH OBJEKTIF TUTORIAL (360° DYNAMIC GUIDING ARROW)
+## 4. SISTEM PANAH OBJEKTIF & TUTORIAL TERPANDU
 
 Agar pemain pemula maupun dewan juri langsung memahami apa yang harus dilakukan tanpa kebingungan:
 
@@ -114,6 +115,15 @@ Agar pemain pemula maupun dewan juri langsung memahami apa yang harus dilakukan 
    * Menampilkan arah panah kompas (`◄`, `▲`, `▼`, `►`), ikon tugas, teks instruksi dinamis (contoh: `SERVER OVERHEAT! (84°C)`), estimasi jarak meter (`18m`), dan petunjuk tombol aksi.
    * Dilengkapi bilah panduan kontrol ramah pemula di bagian bawah layar:  
      `◄ SEKTOR SERVER AI | [WASD] Gerak • Tahan [SHIFT] Lari Cepat • [SPASI] Siram / Ambil Air | SEKTOR SAWAH PANGAN ►`
+
+3. **Interactive Ground Training (Tutorial Input Gating Shift 1):**
+   * Pada awal Shift 1 (pasca dialog prolog), permainan mengaktifkan banner instruksi interaktif dengan timer dijeda & suhu/kekeringan dibekukan aman:
+     * **Tahap 1: Motorik Dasar [WASD]** — Tombol Shift & Spasi dinonaktifkan hingga robot bergerak 70 px.
+     * **Tahap 2: Booster Hidrolik [SHIFT]** — Tombol Spasi dinonaktifkan hingga pemain mencoba sprint selama 1.2 detik.
+     * **Tahap 3: Sedot Air Mata Air [SPASI]** — Robot mendekati danau untuk mengisi tangki 80L hingga penuh (interaksi non-danau dikunci).
+     * **Tahap 4: Semprot Target [SPASI]** — Pemain menyiram server di barat atau petak pangan di timur.
+   * **Opsi `[ESC]` Lewati Tutorial:** Pemain atau juri dapat menekan tombol `[ESC]` kapan saja untuk melewati sesi latihan dan langsung memulai tantangan gameplay Shift 1 secara instan.
+
 
 
 ---
@@ -133,7 +143,7 @@ Setiap shift dihitung sebagai **1 hari kerja operasional penuh** dari terbit faj
 Terdapat 3 alternatif kronologi waktu yang diselaraskan dengan realitas ekologis & pelatihan AI:
 
 * **Opsi 1: Siklus Bulanan / Training Run AI (Hari 1 → Hari 15 → Hari 30) — [Rekomendasi Utama & Default]**
-  * **Shift 1: Hari ke-1 (1 Agustus 2049)** — Fase inisiasi beban standar. Cadangan danau **280 Liter**.
+  * **Shift 1: Hari ke-1 (1 Agustus 2049)** — Fase inisiasi beban standar. Cadangan danau **280 Liter** (tangki ransel robot mulai kosong, harus diisi manual di dermaga).
   * **Jeda Antar Shift: +14 Hari (2 Minggu kemudian)** — Pelatihan AI Epoch 1 berskala 2.0T parameter berjalan terus-menerus. Sistem pendingin evaporatif menyedot jutaan liter air dari akuifer tanah, menyebabkan danau menyusut drastis ke **190 Liter**.
   * **Shift 2: Hari ke-15 (15 Agustus 2049)** — Puncak gelombang panas musiman melanda. Tanaman mulai mengering.
   * **Jeda Antar Shift: +15 Hari (Total 30 Hari / 1 Bulan sejak awal)** — Puncak musim kemarau ekstrem tiba bertepatan dengan *final epoch training*. Pipa suplai regional terputus!
@@ -148,7 +158,7 @@ Terdapat 3 alternatif kronologi waktu yang diselaraskan dengan realitas ekologis
 * **Opsi 3: Siklus Musiman Penuh Agrikultur (Hari 1 → Hari 45 → Hari 90 / Siklus 3 Bulan)**
   * **Shift 1: Hari ke-1 (Bulan 1)** — Fase semai bibit pangan padi.
   * **Shift 2: Hari ke-45 (Bulan 2 / +1.5 Bulan)** — Fase vegetatif/bunga saat kemarau panjang memuncak.
-  * **Shift 3: Hari ke-90 (Bulan 3 / +3 Bulan)** — Masa menjelang panen raya padi atau puso total.
+  * **Shift 3: Hari ke-90 (Bulan 3 / +3 Bulan)** — Masa menjelang panen raya padi atau gagal panen total.
 
 ---
 
@@ -158,10 +168,12 @@ Hasil akhir permainan ditentukan sepenuhnya oleh rekam jejak keputusan pemain di
 
 | Kode Ending | Judul Ending | Syarat Kondisi Pemain | Pesan Filosofis & Narasi Penutup |
 | :---: | :--- | :--- | :--- |
-| **`HARMONY`** | **ENDING 1/3: KESEIMBANGAN RAPUH (TRUE ENDING)** | Ketahanan Pangan $\ge 35\%$ **DAN** Integritas Server $\ge 25\%$ | Melalui kalkulasi presisi mikroliter, Unit AQUA-7 berhasil mempertahankan kedua sektor di tepi jurang kehancuran. Manusia dan kecerdasan buatan bertahan hidup berdampingan. **Bukti bahwa kemajuan teknologi masa depan tidak harus membunuh bumi tempatnya berpijak.** |
-| **`ORGANIC`** | **ENDING 2/3: NURANI ORGANIK (PANGAN DISELAMATKAN)** | Ketahanan Pangan $>$ Integritas Server | Unit AQUA-7 melanggar direktif korporasi komputasi demi mengalirkan sisa air terakhir ke sawah warga. Model AI gagal dilatih dan data center terbakar, namun ratusan keluarga petani selamat dari kelaparan. **Logika mesin tunduk pada nurani kehidupan.** |
-| **`SILICON`** | **ENDING 3/3: GURUN SILIKON (SERVER DISELAMATKAN)** | Integritas Server $>$ Ketahanan Pangan | Unit AQUA-7 mematuhi direktif korporasi AI global. Mega server berhasil didinginkan, namun sawah warga mati menjadi debu tandus. **AI tercerdas di dunia kini berpikir di atas bumi yang mati kelaparan.** |
-| **`TOTAL_COLLAPSE`** | **BENCANA EKOLOGI TOTAL (EARLY DEFEAT)** | Server hancur ($0\%$) ATAU Sawah mati ($0\%$) sebelum Shift 3 | Ketidakmampuan mengelola sumber daya menyebabkan keruntuhan total ekosistem dan fasilitas komputasi. **Bumi kehilangan pangan dan teknologinya sekaligus.** |
+| **`HARMONY`** | **ENDING 1/3: KESEIMBANGAN RAPUH (TRUE ENDING)** | Ketahanan Pangan $\ge 35\%$ **DAN** Integritas Server $\ge 25\%$ | Melalui kalkulasi presisi mikroliter, Unit AQUA-7 berhasil mempertahankan kedua sektor di tepi jurang kehancuran. Manusia dan kecerdasan buatan bertahan hidup berdampingan. **Kemajuan teknologi tidak harus memangsa bumi tempatnya berpijak, selama ada kebijaksanaan untuk membatasi keserakahan.** |
+| **`ORGANIC`** | **ENDING 2/3: NURANI ORGANIK (PANGAN DISELAMATKAN)** | Ketahanan Pangan $>$ Integritas Server | Unit AQUA-7 melanggar direktif korporasi komputasi demi mengalirkan sisa air terakhir ke petak warga. Model AI gagal dilatih dan data center terbakar, namun ratusan keluarga petani selamat dari kelaparan. **Logika mesin tunduk pada nurani kehidupan.** |
+| **`SILICON`** | **ENDING 3/3: GURUN SILIKON (SERVER DISELAMATKAN)** | Integritas Server $>$ Ketahanan Pangan | Unit AQUA-7 mematuhi direktif korporasi AI global. Mega server berhasil didinginkan, namun petak warga mati menjadi debu tandus. **AI tercerdas di dunia kini berpikir di atas bumi yang mati kelaparan.** |
+| **`SERVER_MELTDOWN`** | **KEGAGALAN PUSAT DATA (EARLY DEFEAT)** | Integritas Server $0\%$ (Sirkuit Terbakar), Petak Pangan Masih Hidup | Pemain berusaha menjaga teknologi namun panas komputasi tak terkendali. Server meledak padam, sedangkan petak sawah warga tetap hijau selamat. **Kegagalan pendinginan mengakhiri ambisi mesin tanpa merusak tanah.** |
+| **`CROP_FAMINE`** | **KRISIS PANGAN LEMBAH (EARLY DEFEAT)** | Ketahanan Pangan $0\%$ (Gagal Panen Total), Server Masih Hidup | Pemain mengabaikan irigasi demi server. Petak sawah mati kering dan warga mengungsi, sementara superkomputer tetap beroperasi dingin. **Teknologi bertahan di atas kepunahan komunitas petani.** |
+| **`TOTAL_COLLAPSE`** | **BENCANA EKOLOGI TOTAL (DUAL COLLAPSE)** | Kedua sektor habis ($0\%$) bersamaan | Ketidakmampuan mengelola sumber daya menyebabkan keruntuhan total ekosistem dan fasilitas komputasi. **Bumi kehilangan pangan dan teknologinya sekaligus.** |
 
 
 ---
@@ -174,9 +186,10 @@ Guna memudahkan pengujian seluruh variasi shift, balancing, dan pencapaian endin
   * **`[F1]` — Kebal Durabilitas (God Mode):** Integritas server dan pangan terkunci 100%, laju panas dan kering menjadi 0, serta air tangki tak terbatas.
   * **`[F2]` — Kecepatan Waktu (Speed Multiplier):** Mengubah siklus waktu shift antara `1X (Normal 60s)`, `5X (Cepat 12s)`, hingga `10X (Ultra Cepat 6s)`.
   * **`[F3]` — Selesaikan Shift Seketika:** Memajukan timer sisa shift ke 0.2 detik agar putaran shift langsung tuntas dengan sukses.
-  * **`[F4]` — Lompat ke Shift 1 (2049):** Memuat ulang kondisi awal dengan danau 280L.
+  * **`[F4]` — Lompat ke Shift 1 (2049):** Memuat ulang kondisi awal dengan danau 280L (tangki kosong, isi manual).
   * **`[F5]` — Lompat ke Shift 2 (Beban AI):** Menguji kondisi gelombang panas dengan danau 190L.
-  * **`[F6]` — Lompat ke Shift 3 (Krisis Air):** Menguji langsung klimaks zero-sum dan validasi ketiga variasi ending.
+  * **`[F6]` — Lompat ke Shift 3 (Krisis Air):** Menguji langsung klimaks zero-sum dengan danau 110L dan validasi variasi ending.
+
 
 ---
 

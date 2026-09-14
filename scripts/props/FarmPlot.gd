@@ -149,12 +149,17 @@ func set_target_highlight(active: bool) -> void:
 	is_targeted = active
 	_update_visuals()
 
+func set_tutorial_dryness(dry_moist: float = 50.0) -> void:
+	moisture = dry_moist
+	_update_visuals()
+
 func interact_tick(delta: float, _player: Node) -> bool:
 	if is_dead:
 		splash_particles.emitting = false
 		return false
 	
-	if moisture >= 98.0:
+	var max_moist: float = 100.0 if GameManager.tutorial_active else 98.0
+	if moisture >= max_moist:
 		splash_particles.emitting = false
 		return false
 	

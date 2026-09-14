@@ -39,23 +39,23 @@ const TIMELINES: Dictionary = {
 const SHIFT_CONFIG: Dictionary = {
 	1: {
 		"title": "HARI 1: PROTOKOL STANDAR (2049)",
-		"reservoir": 200.0,
+		"reservoir": 280.0,
 		"heat_mult": 0.95,
 		"dry_mult": 0.90,
 		"next_title": "LAPORAN AKHIR HARI KE-1 [AQUA-7]",
-		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 140L!"
+		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 190L!"
 	},
 	2: {
 		"title": "HARI 15: BEBAN KOMPUTASI MASIF",
-		"reservoir": 140.0,
+		"reservoir": 190.0,
 		"heat_mult": 1.25,
 		"dry_mult": 1.20,
 		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
-		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 100L untuk kedua sektor."
+		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 110L untuk kedua sektor."
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 100.0,
+		"reservoir": 110.0,
 		"heat_mult": 1.45,
 		"dry_mult": 1.35,
 		"next_title": "",
@@ -70,7 +70,7 @@ const SAVE_PATH: String = "user://aqua7_save.json"
 var current_shift: int = 1
 var saved_shift: int = 1
 var unlocked_endings: Dictionary = {}
-var current_water: float = 120.0
+var current_water: float = 0.0
 var reservoir_water: float = 280.0
 var max_reservoir_shift: float = 280.0
 var food_security: float = 100.0
@@ -78,6 +78,9 @@ var server_integrity: float = 100.0
 var time_left: float = SHIFT_DURATION
 var is_game_active: bool = true
 var prologue_seen: bool = false
+
+var tutorial_active: bool = false
+var tutorial_completed: bool = false
 var total_water_used_servers: float = 0.0
 var total_water_used_crops: float = 0.0
 
@@ -144,6 +147,8 @@ func start_new_game() -> void:
 	current_shift = 1
 	food_security = 100.0
 	server_integrity = 100.0
+	tutorial_active = false
+	tutorial_completed = false
 	total_water_used_servers = 0.0
 	total_water_used_crops = 0.0
 	get_tree().paused = false
@@ -158,7 +163,7 @@ func _setup_shift(shift_num: int) -> void:
 	var cfg: Dictionary = SHIFT_CONFIG.get(shift_num, SHIFT_CONFIG[1])
 	max_reservoir_shift = cfg["reservoir"]
 	reservoir_water = max_reservoir_shift
-	current_water = MAX_BACKPACK_WATER
+	current_water = 0.0
 	time_left = SHIFT_DURATION
 	food_security = 100.0
 	server_integrity = 100.0
@@ -236,6 +241,8 @@ func report_crop_death(plot_id: int) -> void:
 func _process(delta: float) -> void:
 	if not is_game_active or get_tree().paused:
 		return
+	if tutorial_active:
+		return
 	time_left = max(0.0, time_left - delta * dev_time_multiplier)
 	time_tick.emit(int(ceil(time_left)))
 	if time_left <= 0.0:
@@ -251,7 +258,34 @@ func _on_shift_timer_expired() -> void:
 
 func advance_to_next_shift() -> void:
 	if current_shift < 3:
-		_setup_shift(current_shift + 1)
+		prepare_shift_environment_and_state(current_shift + 1)
+		start_active_shift_gameplay()
+
+func prepare_shift_environment_and_state(next_shift_num: int) -> void:
+	current_shift = next_shift_num
+	is_game_active = false
+	var cfg: Dictionary = SHIFT_CONFIG.get(next_shift_num, SHIFT_CONFIG[1])
+	max_reservoir_shift = cfg["reservoir"]
+	reservoir_water = max_reservoir_shift
+	current_water = 0.0
+	time_left = SHIFT_DURATION
+	food_security = 100.0
+	server_integrity = 100.0
+	
+	reset_shift_entities()
+	
+	water_changed.emit(current_water, MAX_BACKPACK_WATER)
+	reservoir_changed.emit(reservoir_water, TOTAL_BASIN_CAPACITY)
+	food_security_changed.emit(food_security)
+	server_integrity_changed.emit(server_integrity)
+	shift_started.emit(current_shift, cfg["title"])
+
+func start_active_shift_gameplay() -> void:
+	is_game_active = true
+	time_left = SHIFT_DURATION
+	var tree: SceneTree = get_tree()
+	if tree:
+		tree.paused = false
 
 # Developer Cheat & Test Controls
 func toggle_cheat_god_mode() -> bool:
@@ -344,6 +378,8 @@ func jump_to_shift(shift_num: int) -> void:
 	current_shift = shift_num
 	food_security = 100.0
 	server_integrity = 100.0
+	tutorial_active = false
+	tutorial_completed = true
 	_setup_shift(shift_num)
 	var tree: SceneTree = get_tree()
 	if tree:
@@ -394,12 +430,12 @@ func refill_water(amount: float) -> bool:
 	return true
 
 func get_heat_multiplier() -> float:
-	if cheat_god_mode:
+	if cheat_god_mode or tutorial_active:
 		return 0.0
 	return SHIFT_CONFIG.get(current_shift, {}).get("heat_mult", 1.0)
 
 func get_dry_multiplier() -> float:
-	if cheat_god_mode:
+	if cheat_god_mode or tutorial_active:
 		return 0.0
 	return SHIFT_CONFIG.get(current_shift, {}).get("dry_mult", 1.0)
 
@@ -422,7 +458,7 @@ func _check_early_failure() -> void:
 		if server_integrity <= 0.0:
 			_trigger_early_defeat("SERVER_MELTDOWN", "AI BLACKOUT (KEGAGALAN PUSAT DATA)", "Sistem AI Blackout! Seluruh server mengalami meltdown termal sebelum giliran kerja usai.")
 		elif food_security <= 0.0:
-			_trigger_early_defeat("CROP_FAMINE", "KRISIS PANGAN (SAWAH PUSO)", "Krisis Pangan! Seluruh petak sawah warga puso kekeringan sebelum giliran kerja usai.")
+			_trigger_early_defeat("CROP_FAMINE", "KRISIS PANGAN (GAGAL PANEN TOTAL)", "Krisis Pangan! Seluruh petak tanaman pangan warga gagal panen akibat kekeringan sebelum giliran kerja usai.")
 	else:
 		if server_integrity <= 0.0 and food_security <= 0.0:
 			_trigger_early_defeat("TOTAL_COLLAPSE", "BENCANA EKOLOGI TOTAL", "Runtuhnya Ekosistem! Seluruh Server dan Tanaman Hancur Total.")

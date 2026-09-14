@@ -3,6 +3,7 @@ class_name MainMenu
 
 const SFX_CLICK = preload("res://assets/audio/sfx/click_001.ogg")
 const SFX_SELECT = preload("res://assets/audio/sfx/select_001.ogg")
+const BGM_MAIN_MENU = preload("res://assets/audio/bgm/the-sun-awoke.ogg")
 
 @onready var btn_start: Button = %BtnStart
 @onready var btn_load: Button = %BtnLoad
@@ -24,14 +25,26 @@ const SFX_SELECT = preload("res://assets/audio/sfx/select_001.ogg")
 @onready var card_collapse: PanelContainer = %CardCollapse
 
 var audio_player: AudioStreamPlayer
+var bgm_player: AudioStreamPlayer
+var _bgm_started: bool = false
 
 func _ready() -> void:
 	collection_modal.visible = false
 	guide_modal.visible = false
+
+	# SFX player (one-shot)
 	audio_player = AudioStreamPlayer.new()
 	audio_player.bus = &"Master"
 	add_child(audio_player)
-	
+
+	# BGM player — volume mulai 0 untuk fade-in
+	bgm_player = AudioStreamPlayer.new()
+	bgm_player.stream = BGM_MAIN_MENU
+	bgm_player.bus = &"Master"
+	bgm_player.volume_db = -80.0
+	bgm_player.autoplay = false
+	add_child(bgm_player)
+
 	btn_start.pressed.connect(_on_start_pressed)
 	btn_load.pressed.connect(_on_load_pressed)
 	btn_collection.pressed.connect(_on_collection_pressed)
@@ -39,12 +52,34 @@ func _ready() -> void:
 	btn_exit.pressed.connect(_on_exit_pressed)
 	btn_close_collection.pressed.connect(_on_close_collection_pressed)
 	btn_close_guide.pressed.connect(_on_close_guide_pressed)
-	
+
 	for btn in [btn_start, btn_load, btn_collection, btn_guide, btn_exit, btn_close_collection, btn_close_guide]:
 		if btn:
 			btn.mouse_entered.connect(func(): _play_sfx(SFX_SELECT))
-	
+
 	_update_load_button()
+
+	# Web: BGM harus dipicu lewat interaksi user pertama (klik tombol)
+	# Desktop: langsung putar
+	if not OS.has_feature("web"):
+		_start_bgm()
+
+# Dipanggil saat user pertama kali klik tombol apapun (web-safe audio init)
+func _start_bgm() -> void:
+	if _bgm_started:
+		return
+	_bgm_started = true
+	bgm_player.play()
+	var tween: Tween = create_tween()
+	tween.tween_property(bgm_player, "volume_db", -14.0, 2.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+func _fade_out_bgm(duration: float = 1.0) -> void:
+	if not bgm_player.playing:
+		return
+	var tween: Tween = create_tween()
+	tween.tween_property(bgm_player, "volume_db", -80.0, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	await tween.finished
+	bgm_player.stop()
 
 
 
@@ -77,13 +112,19 @@ func _play_sfx(stream: AudioStream) -> void:
 	if audio_player and stream:
 		audio_player.stream = stream
 		audio_player.play()
+	# Trigger BGM on first user interaction (web-safe)
+	_start_bgm()
 
 func _on_start_pressed() -> void:
 	_play_sfx(SFX_CLICK)
+	_start_bgm()
+	await _fade_out_bgm(0.8)
 	GameManager.start_new_game_from_menu()
 
 func _on_load_pressed() -> void:
 	_play_sfx(SFX_CLICK)
+	_start_bgm()
+	await _fade_out_bgm(0.8)
 	GameManager.start_loaded_game()
 
 func _on_collection_pressed() -> void:
