@@ -2,9 +2,10 @@ extends StaticBody2D
 class_name FarmPlot
 
 @export var plot_id: int = 1
-@export var base_dry_rate: float = 1.5
-@export var irrigate_rate: float = 90.0
-@export var water_cost_per_sec: float = 10.0
+@export var base_dry_rate: float = 1.8
+@export var irrigate_rate: float = 95.0
+@export var water_cost_per_sec: float = 6.5
+
 
 @onready var splash_particles: CPUParticles2D = $SplashParticles
 @onready var moisture_bar: ProgressBar = $MoistureBar

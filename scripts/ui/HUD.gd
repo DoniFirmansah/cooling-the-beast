@@ -3,6 +3,9 @@ extends CanvasLayer
 signal cutscene_camera_pan(target_pos: Vector2, duration: float)
 signal cutscene_camera_return(duration: float)
 signal cutscene_ended()
+signal cutscene_walk_player(target_pos: Vector2, duration: float)
+signal cutscene_snap_player(target_pos: Vector2)
+
 
 const SFX_CLICK = preload("res://assets/audio/sfx/click_001.ogg")
 const SFX_WIN = preload("res://assets/audio/sfx/confirmation_001.ogg")
@@ -551,7 +554,12 @@ func _play_shift_transition_then_cutscene(
 	if shift_transition_screen:
 		shift_transition_screen.visible = false
 	
+	# Cutscene: Robot berjalan secara diegetik ke tepi dermaga danau sebelum dialog diputar
+	cutscene_walk_player.emit(Vector2(0, 25), 1.8)
+	await get_tree().create_timer(1.85).timeout
+	
 	play_cutscene(beats, on_done, "LEWATI INTRO [ESC]")
+
 
 func _on_water_changed(current: float, max_amount: float) -> void:
 	if water_bar:
@@ -849,6 +857,10 @@ func _on_synopsis_advance_pressed() -> void:
 		if is_instance_valid(prologue_synopsis_screen):
 			prologue_synopsis_screen.visible = false
 	
+	# Cutscene: Robot berjalan ke tepi dermaga danau sebelum dialog prolog diputar
+	cutscene_walk_player.emit(Vector2(0, 25), 1.8)
+	await get_tree().create_timer(1.85).timeout
+	
 	# Putar cutscene dialog prolog
 	play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
 
@@ -866,6 +878,7 @@ func _on_synopsis_skip_pressed() -> void:
 	
 	# Lewati sinopsis dan cutscene langsung ke gameplay
 	GameManager.prologue_seen = true
+	cutscene_snap_player.emit(Vector2(0, 25))
 	if top_bar:
 		top_bar.visible = true
 	if objective_tracker:
@@ -874,6 +887,7 @@ func _on_synopsis_skip_pressed() -> void:
 		bottom_guide.visible = true
 	cutscene_camera_return.emit(0.0)
 	cutscene_ended.emit()
+
 
 func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
 	if beats.is_empty():
@@ -968,6 +982,8 @@ func skip_current_cutscene() -> void:
 
 func _finish_active_cutscene(was_skipped: bool = false) -> void:
 	is_cutscene_running = false
+	if was_skipped:
+		cutscene_snap_player.emit(Vector2(0, 25))
 	if cinematic_overlay:
 		cinematic_overlay.visible = false
 	if top_bar:
@@ -979,6 +995,7 @@ func _finish_active_cutscene(was_skipped: bool = false) -> void:
 	
 	var return_dur: float = 0.0 if was_skipped else 0.4
 	cutscene_camera_return.emit(return_dur)
+
 	cutscene_ended.emit()
 	
 	var cb: Callable = on_cutscene_complete_callable

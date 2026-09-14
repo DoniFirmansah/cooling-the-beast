@@ -31,6 +31,11 @@ func _ready() -> void:
 			hud.connect("cutscene_camera_return", Callable(self, "return_camera_to_player"))
 		if hud.has_signal("cutscene_ended"):
 			hud.connect("cutscene_ended", Callable(self, "_on_cutscene_ended"))
+		if hud.has_signal("cutscene_walk_player"):
+			hud.connect("cutscene_walk_player", Callable(self, "walk_player_to"))
+		if hud.has_signal("cutscene_snap_player"):
+			hud.connect("cutscene_snap_player", Callable(self, "snap_player_to"))
+
 	
 	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
 		GameManager.is_game_active = false
@@ -357,6 +362,70 @@ func _on_cutscene_ended() -> void:
 	# Kembalikan kamera secara mulus ke posisi player terlebih dahulu, baru aktifkan kontrol gerak
 	await return_camera_to_player(0.4)
 	GameManager.is_game_active = true
+
+var player_walk_tween: Tween = null
+var footstep_audio: AudioStreamPlayer = null
+
+func walk_player_to(target_pos: Vector2, duration: float = 1.8) -> void:
+	if not player or not is_instance_valid(player):
+		return
+	
+	if player_walk_tween and player_walk_tween.is_valid():
+		player_walk_tween.kill()
+	
+	# Reset ke posisi awal gerbang markas
+	player.global_position = Vector2(0, 85)
+	
+	var spr: Sprite2D = player.get_node_or_null("Sprite2D") as Sprite2D
+	if spr:
+		spr.frame = 1 # Menghadap utara / ke arah danau
+		spr.position.y = -24.0
+	
+	# Kamera lembut mengikuti langkah robot
+	pan_camera_to(Vector2(0, 35), duration * 0.9)
+	
+	player_walk_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	player_walk_tween.tween_property(player, "global_position", target_pos, duration)
+	
+	var elapsed: float = 0.0
+	var step_timer: float = 0.0
+	while player_walk_tween and player_walk_tween.is_valid() and elapsed < duration:
+		var dt: float = get_process_delta_time()
+		elapsed += dt
+		step_timer += dt
+		if spr:
+			spr.position.y = -24.0 + sin(elapsed * 16.0) * 2.5
+		if step_timer >= 0.28:
+			step_timer = 0.0
+			_play_cutscene_footstep()
+		await get_tree().process_frame
+	
+	if is_instance_valid(player):
+		player.global_position = target_pos
+		if spr:
+			spr.position.y = -24.0
+			spr.frame = 1
+
+func snap_player_to(target_pos: Vector2) -> void:
+	if player_walk_tween and player_walk_tween.is_valid():
+		player_walk_tween.kill()
+	if player and is_instance_valid(player):
+		player.global_position = target_pos
+		var spr: Sprite2D = player.get_node_or_null("Sprite2D") as Sprite2D
+		if spr:
+			spr.position.y = -24.0
+			spr.frame = 1
+
+func _play_cutscene_footstep() -> void:
+	if not footstep_audio:
+		footstep_audio = AudioStreamPlayer.new()
+		footstep_audio.stream = preload("res://assets/audio/sfx/click_002.ogg")
+		footstep_audio.bus = &"Master"
+		footstep_audio.volume_db = -12.0
+		add_child(footstep_audio)
+	footstep_audio.pitch_scale = randf_range(0.92, 1.08)
+	footstep_audio.play()
+
 
 
 

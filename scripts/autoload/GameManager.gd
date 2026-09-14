@@ -12,7 +12,7 @@ signal game_finished(ending_code: String, title: String, narrative: String, stat
 signal hazard_alert(title: String, message: String)
 
 const SHIFT_DURATION: float = 60.0
-const MAX_BACKPACK_WATER: float = 120.0
+const MAX_BACKPACK_WATER: float = 80.0
 const MAX_WATER: float = MAX_BACKPACK_WATER
 const TOTAL_BASIN_CAPACITY: float = 280.0
 
@@ -39,29 +39,30 @@ const TIMELINES: Dictionary = {
 const SHIFT_CONFIG: Dictionary = {
 	1: {
 		"title": "HARI 1: PROTOKOL STANDAR (2049)",
-		"reservoir": 260.0,
-		"heat_mult": 0.85,
-		"dry_mult": 0.85,
+		"reservoir": 200.0,
+		"heat_mult": 0.95,
+		"dry_mult": 0.90,
 		"next_title": "LAPORAN AKHIR HARI KE-1 [AQUA-7]",
-		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 180L!"
+		"next_desc": "[STATUS: +14 HARI BERLALU // MEMASUKI HARI KE-15]\nOperasi awal terkendali. Laporan Satelit: Pelatihan model AI 2.0T parameter telah berjalan penuh selama 2 pekan terakhir dan menyedot cadangan air tanah secara masif. Gelombang panas melanda, cadangan danau dipangkas ke 140L!"
 	},
 	2: {
 		"title": "HARI 15: BEBAN KOMPUTASI MASIF",
-		"reservoir": 180.0,
-		"heat_mult": 1.15,
-		"dry_mult": 1.10,
+		"reservoir": 140.0,
+		"heat_mult": 1.25,
+		"dry_mult": 1.20,
 		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
-		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 135L untuk kedua sektor."
+		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 120L untuk kedua sektor."
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 135.0,
-		"heat_mult": 1.35,
-		"dry_mult": 1.25,
+		"reservoir": 120.0,
+		"heat_mult": 1.45,
+		"dry_mult": 1.35,
 		"next_title": "",
 		"next_desc": ""
 	}
 }
+
 
 const SAVE_PATH: String = "user://aqua7_save.json"
 
