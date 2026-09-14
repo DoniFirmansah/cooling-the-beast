@@ -96,8 +96,8 @@ func _evaluate_objective() -> void:
 	elif GameManager.current_water >= 8.0 and driest_crop != null and min_moisture <= 30.0:
 		current_target = driest_crop
 		current_icon = "🥀"
-		current_title = "SAWAH KERING! (" + str(int(min_moisture)) + "%)"
-		current_subtext = "Sektor Timur: Siram Tanaman #%d [SPASI]" % driest_crop.plot_id
+		current_title = "PETAK KERING! (" + str(int(min_moisture)) + "%)"
+		current_subtext = "Sektor Timur: Siram Petak " + str(driest_crop.plot_id) + " [SPASI]"
 		current_color = Color(1.0, 0.75, 0.15)
 		urgency_level = 3
 	
@@ -120,10 +120,11 @@ func _evaluate_objective() -> void:
 		elif driest_crop != null and min_moisture < 85.0:
 			current_target = driest_crop
 			current_icon = "🌱"
-			current_title = "SIRAM SAWAH #" + str(driest_crop.plot_id) + " (" + str(int(min_moisture)) + "%)"
+			current_title = "SIRAM PETAK " + str(driest_crop.plot_id) + " (" + str(int(min_moisture)) + "%)"
 			current_subtext = "Sektor Timur: Jaga kelembapan pangan warga"
 			current_color = Color(0.35, 0.95, 0.35)
 			urgency_level = 1
+
 
 		else:
 			current_target = hottest_server if hottest_server != null else water_source

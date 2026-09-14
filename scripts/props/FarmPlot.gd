@@ -95,7 +95,7 @@ func _update_visuals() -> void:
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.3, 0.3, 0.3)
 		if label_status:
-			label_status.text = "ROW #%d: MATI" % plot_id
+			label_status.text = "PETAK " + str(plot_id) + ": MATI"
 			label_status.modulate = Color(0.8, 0.2, 0.2)
 		if soil_bed:
 			soil_bed.texture = TEX_BED_DRY
@@ -106,7 +106,7 @@ func _update_visuals() -> void:
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.2, 0.9, 0.3)
 		if label_status:
-			label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
+			label_status.text = "PETAK " + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color.WHITE
 		if soil_bed:
 			soil_bed.texture = TEX_BED_WET
@@ -117,7 +117,7 @@ func _update_visuals() -> void:
 		if moisture_bar:
 			moisture_bar.modulate = Color(0.9, 0.8, 0.2)
 		if label_status:
-			label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
+			label_status.text = "PETAK " + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color(1.0, 0.9, 0.4)
 		if soil_bed:
 			soil_bed.texture = TEX_BED_DRY
@@ -130,10 +130,11 @@ func _update_visuals() -> void:
 		if label_status:
 			var countdown: int = int(ceil(MAX_ZERO_TIME - zero_moisture_timer))
 			if moisture <= 0.0:
-				label_status.text = "ROW #" + str(plot_id) + " LAYU! " + str(countdown) + "s"
+				label_status.text = "PETAK " + str(plot_id) + " LAYU! " + str(countdown) + "s"
 			else:
-				label_status.text = "ROW #" + str(plot_id) + ": " + str(int(moisture)) + "%"
+				label_status.text = "PETAK " + str(plot_id) + ": " + str(int(moisture)) + "%"
 			label_status.modulate = Color(1.0, 0.2, 0.2)
+
 
 		if soil_bed:
 			soil_bed.texture = TEX_BED_DRY

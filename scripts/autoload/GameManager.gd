@@ -227,8 +227,9 @@ func report_crop_death(plot_id: int) -> void:
 	var extra_pct: int = int(dead_count * 15.0)
 	hazard_alert.emit(
 		"ANOMALI MIKROKLIMAT",
-		"Sawah Row #" + str(plot_id) + " mati! Penguapan tanah meningkat (+" + str(extra_pct) + "% laju kekeringan)"
+		"Petak " + str(plot_id) + " mati! Penguapan tanah meningkat (+" + str(extra_pct) + "% laju kekeringan)"
 	)
+
 
 
 
