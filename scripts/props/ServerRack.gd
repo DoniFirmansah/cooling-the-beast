@@ -7,7 +7,7 @@ const TEX_CLUSTER_B = preload("res://assets/environment/server_room/server_clust
 const TEX_LEDS_A = preload("res://assets/environment/server_room/server_cluster_a_leds.png")
 const TEX_LEDS_B = preload("res://assets/environment/server_room/server_cluster_b_leds.png")
 
-@export_enum("cluster_a", "cluster_b") var rack_variant: String = "cluster_a"
+@export_enum("cluster_a", "cluster_b") var rack_variant: String = "cluster_b"
 @export var rack_id: int = 1
 @export var base_heat_rate: float = 2.2
 @export var cool_rate: float = 75.0
