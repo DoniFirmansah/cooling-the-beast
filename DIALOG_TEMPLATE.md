@@ -1,266 +1,220 @@
 # 📜 DIALOG_TEMPLATE.md — Template Naskah Dialog & Teks Aqua-7
-> **Edit file ini untuk mengubah semua dialog tanpa menyentuh kode GDScript.**
-> Setelah selesai, salin teks ke konstanta di `scripts/ui/HUD.gd`.
+> **Dokumen ini adalah template resmi naskah dialog sinematik permainan.**
+> Anda dapat memodifikasi dialog di sini lalu menyalinnya ke konstanta di `scripts/ui/HUD.gd`.
 
 ---
 
-## 📐 Format Beat Dialog
+## 📐 Format Beat Dialog Sinematik
 
+Setiap dialog cutscene diatur menggunakan struktur Dictionary berikut:
 ```gdscript
 {
-    "camera_target": Vector2(X, Y),   # Kamera bergerak ke sini
-    "speaker_badge": "NAMA // LABEL", # Nama speaker di atas dialog
-    "speaker_color": Color(R, G, B),  # Warna nama (0.0–1.0)
-    "raw_text": "Teks...",            # Isi dialog (BBCode: [b], [color=#hex])
-    "prompt": "[SPASI] Teks Tombol"   # Teks pada tombol lanjut
+    "camera_target": Vector2(X, Y),   # Koordinat kamera membidik target
+    "speaker_badge": "NAMA // STATUS",# Label pembicara di bilah atas
+    "speaker_color": Color(R, G, B),  # Aksen warna tema pembicara
+    "raw_text": "Teks dialog...",     # Teks ucapan (mendukung BBCode)
+    "prompt": "[SPASI] Lanjut ▸"      # Petunjuk tombol maju
 }
 ```
 
-### Koordinat Kamera Penting
-| Lokasi              | Vector2              |
-|---------------------|----------------------|
-| Danau / Reservoir   | `Vector2(0, 15)`     |
-| Mega Server (Barat) | `Vector2(-356, -36)` |
-| Sawah Warga (Timur) | `Vector2(336, 0)`    |
-| Robot AQUA-7        | `Vector2(0, 65)`     |
-
-### BBCode yang Didukung
-- Tebal: `[b]teks[/b]`
-- Warna: `[color=#ff5555]teks[/color]`
-- Baris baru: `\n`
+### Koordinat Kamera Utama:
+| Sektor Target       | Posisi Vector2       | Keterangan |
+|---------------------|----------------------|------------|
+| Danau / Cekungan    | `Vector2(0, 15)`     | Danau mata air alami tengah |
+| Sektor Barat        | `Vector2(-356, -36)` | Fasilitas data center DeepBeast |
+| Sektor Timur        | `Vector2(336, 0)`    | Kawasan persawahan Agri-Dome |
+| Unit Robot AQUA-7   | `Vector2(0, 65)`     | Posisi berdiri karakter robot |
 
 ---
 
-## 🎬 BAGIAN 1 — PROLOG (Shift 1 Dimulai)
+## 🎬 BAGIAN 1 — PROLOG (Fajar Hari ke-1)
 > Lokasi di kode: `const PROLOGUE_BEATS` di `scripts/ui/HUD.gd`
 
-### Beat 1 — Danau & Tutorial Isi Air
+### Beat 1 — Danau Mata Air (AQUA-7 Diagnostics)
 ```
-speaker_badge : 💧 🤖 AQUA-7 // PROTOKOL INTERNAL
-speaker_color : Color(0.15, 0.90, 1.0)
+speaker_badge : 💧 AQUA-7 // DIAGNOSTIK HIDROLIK
+speaker_color : Color(0.45, 0.75, 0.90)
 camera_target : Vector2(0, 15)
 prompt        : [SPASI] Lanjut ▸
 
-[TEKS DIALOG — edit di sini]
-Inisialisasi sistem hidrolik selesai. Sumber air bersih terdeteksi [b]280 Liter[/b].
-[color=#66e5ff][b][TUTORIAL]:[/b] Berjalanlah ke tepi danau lalu tahan [b][SPASI][/b] untuk menyedot air bersih ke dalam tangki 120L robot.[/color]
+[TEKS DIALOG]
+Sensor akuifer terhubung. Cekungan mata air alami terdeteksi pada volume awal [b]280 Liter[/b].
+[color=#90cdf4]Sistem siap menyerap pasokan air. Dekati tepian danau dan tahan [b][SPASI][/b] untuk mengisi tangki 120L.[/color]
 ```
 
-### Beat 2 — Server & Tutorial Siram Server
+### Beat 2 — Mega Server (DeepBeast Telemetry)
 ```
-speaker_badge : 🔥 🖥️ DEEPBEAST-2.0T // DIRECTIVE ALPHA
-speaker_color : Color(1.0, 0.35, 0.25)
+speaker_badge : 🔥 DEEPBEAST-2.0T // TELEMETRI TERMAL
+speaker_color : Color(0.88, 0.48, 0.38)
 camera_target : Vector2(-356, -36)
 prompt        : [SPASI] Lanjut ▸
 
-[TEKS DIALOG — edit di sini]
-Peringatan Panas: 4 klaster rak server AI beroperasi pada daya komputasi tinggi.
-[color=#ff8a80][b][TUTORIAL]:[/b] Dekati rak server lalu semprot pendingin dengan [b][SPASI][/b]. Jangan biarkan suhu menyentuh 90°C atau chip rusak permanen![/color]
+[TEKS DIALOG]
+Beban komputasi klaster neural aktif. Suhu operasional inti silikon meningkat tajam.
+[color=#feb2b2]Direktif Utama: Semprotkan pendingin dengan [b][SPASI][/b] sebelum suhu menyentuh batas bahaya 90°C.[/color]
 ```
 
-### Beat 3 — Sawah & Tutorial Siram Tanaman
+### Beat 3 — Sawah Agri-Dome (Pak Marno Transmission)
 ```
-speaker_badge : 🌱 🌾 PAK MARNO // KETUA TANI AGRI-DOME
-speaker_color : Color(0.40, 0.95, 0.45)
+speaker_badge : 🌾 PAK MARNO // TRANSMISI RADIO TANI
+speaker_color : Color(0.48, 0.78, 0.52)
 camera_target : Vector2(336, 0)
 prompt        : [SPASI] Lanjut ▸
 
-[TEKS DIALOG — edit di sini]
-AQUA-7, dengarkan kami! Sawah ini adalah tumpuan pangan ratusan keluarga warga.
-[color=#8ce99a][b][TUTORIAL]:[/b] Lari melintasi jembatan ke timur. Semprot petak sawah dengan [b][SPASI][/b] agar kelembapan tanah tetap hijau di atas 30%![/color]
+[TEKS DIALOG]
+"AQUA-7, dengarkan kami... Sawah ini adalah napas hidup keluarga kami di lembah ini.
+[color=#9ae6b4]Tolong seberangi jembatan ke timur. Siram tanah kami dengan [b][SPASI][/b] agar kelembapan tidak anjlok di bawah 30%."[/color]
 ```
 
-### Beat 4 — Ringkasan Kontrol & Mulai Operasi
+### Beat 4 — Karakter AQUA-7 (Inisialisasi Sistem)
 ```
-speaker_badge : ⚡ ⚙️ STATUS OPERASIONAL // HARI KE-1
-speaker_color : Color(1.0, 0.85, 0.30)
+speaker_badge : ⚙️ AQUA-7 // INISIALISASI PROTOKOL
+speaker_color : Color(0.85, 0.78, 0.62)
 camera_target : Vector2(0, 65)
-prompt        : [SPASI] Mulai Operasi 🚀
+prompt        : [SPASI] Start Game ▸
 
-[TEKS DIALOG — edit di sini]
-[color=#ffe066][b][KONTROL]:[/b] [b][WASD][/b] Gerak • Tahan [b][SHIFT][/b] Lari Cepat • [b][SPASI][/b] Siram / Ambil Air.[/color]
-Air melimpah 280L. Waktu 06:00 dimulai. Selamat bertugas, Unit AQUA-7!
+[TEKS DIALOG]
+Keseimbangan dua sektor kini berada di bawah kendalimu.
+[color=#fefcbf]Navigasi [b][WASD][/b] • Akselerasi [b][SHIFT][/b] • Semprot / Isi Air [b][SPASI][/b].[/color]
+Fajar menyingsing di Hari ke-1. Selamat bertugas.
 ```
+
 ---
 
-## ⏩ BAGIAN 2 — TRANSISI SHIFT 1 → 2
-> Dialog Cutscene → `const SHIFT_1_TO_2_BEATS` di `scripts/ui/HUD.gd`
-> Teks Layar Gelap diambil otomatis dari `GameManager.gd`
+## ⏩ BAGIAN 2 — TRANSISI SHIFT 1 → 2 (Hari ke-15)
+> Lokasi di kode: `const SHIFT_1_TO_2_BEATS` di `scripts/ui/HUD.gd`
 
-### Teks Layar Gelap
+### Beat 1 — Akselerasi Neural (Satelit)
 ```
-time_skip : TIMELINES[monthly][2][time_jump]  → +14 HARI BERLALU
-day_label : TIMELINES[monthly][2][day_label]  → HARI KE-15
-desc_line : baris pertama SHIFT_CONFIG[1][next_desc]
-```
-
-### Beat S1→2 Beat 1 — Laporan Satelit
-```
-speaker_badge : 📡 TELEMETRI SATELIT // +14 HARI BERLALU
-speaker_color : Color(0.15, 0.90, 1.0)
+speaker_badge : 📡 TELEMETRI SATELIT // HARI KE-15
+speaker_color : Color(0.45, 0.75, 0.90)
 camera_target : Vector2(-356, -36)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-[b]HARI KE-1 SELESAI.[/b] +14 Hari berlalu (Memasuki 15 Agustus 2049).
-Batch pelatihan model AI DeepBeast 2.0T telah berjalan penuh selama 2 pekan!
+Dua pekan komputasi penuh telah berlalu. Pelatihan neural DeepBeast memasuki fase akselerasi masif.
+Panas pelepasan termal meningkat tajam melintasi seluruh modul sirkuit.
 ```
 
-### Beat S1→2 Beat 2 — Danau Surut
+### Beat 2 — Cekungan Mata Air Surut
 ```
-speaker_badge : 💧 SENSOR HIDROLOGI // DANAU SURUT
-speaker_color : Color(1.0, 0.75, 0.25)
+speaker_badge : 💧 SENSOR HIDROLOGI // AKUIFER MENYUSUT
+speaker_color : Color(0.85, 0.68, 0.40)
 camera_target : Vector2(0, 15)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-Sistem pendingin AI menyedot air tanah. Cadangan danau [b]anjlok ke 190 Liter![/b]
-Garis air surut 25% dan dasar lumpur mulai retak.
+Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut hingga 25%.
+Cadangan air bersih terpangkas menjadi [b]190 Liter (2.4m)[/b]. Dasar lumpur mulai mengering.
 ```
 
-### Beat S1→2 Beat 3 — Pak Marno
+### Beat 3 — Kekeringan Lahan Pertanian
 ```
-speaker_badge : 🌾 PAK MARNO // LAPORAN KEKERINGAN
-speaker_color : Color(0.40, 0.95, 0.45)
+speaker_badge : 🌾 PAK MARNO // TRANSMISI RADIO TANI
+speaker_color : Color(0.48, 0.78, 0.52)
 camera_target : Vector2(336, 0)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-Gelombang panas membakar daun padi kami! Jangan biarkan air disedot hanya untuk mesin AI!
+"Kemarau ini makin kejam, AQUA-7... Daun-daun padi kami mulai menguning terpanggang matahari.
+Jangan biarkan seluruh air mata air disedot ke gedung server! Kami butuh air itu untuk bertahan!"
 ```
 
-### Beat S1→2 Beat 4 — Briefing Hari ke-15
+### Beat 4 — Protokol Darurat Level 2
 ```
-speaker_badge : ⚡ ⚙️ OPERASI HARI KE-15 // BEBAN MASIF
-speaker_color : Color(1.0, 0.85, 0.30)
+speaker_badge : ⚙️ AQUA-7 // PROTOKOL DARURAT LEVEL 2
+speaker_color : Color(0.85, 0.78, 0.62)
 camera_target : Vector2(0, 65)
-prompt        : [SPASI] Masuk Hari ke-15 🚀
+prompt        : [SPASI] Hadapi Hari ke-15 ▸
+
 [TEKS DIALOG]
-Pemanasan server naik 1.15x dan pengeringan sawah naik 1.10x. Cadangan dipangkas ke 190L!
+Tingkat pemanasan server naik 1.15x. Pengeringan lahan sawah naik 1.10x.
+Alokasi air danau: [b]190 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.
 ```
 
 ---
 
-## ⏩ BAGIAN 3 — TRANSISI SHIFT 2 → 3
-> Dialog Cutscene → `const SHIFT_2_TO_3_BEATS` di `scripts/ui/HUD.gd`
+## ⏩ BAGIAN 3 — TRANSISI SHIFT 2 → 3 (Hari ke-30 // Puncak Krisis)
+> Lokasi di kode: `const SHIFT_2_TO_3_BEATS` di `scripts/ui/HUD.gd`
 
-### Teks Layar Gelap
+### Beat 1 — Krisis Termal DeepBeast
 ```
-time_skip : TIMELINES[monthly][3][time_jump]  → +15 HARI BERLALU
-day_label : TIMELINES[monthly][3][day_label]  → HARI KE-30
-desc_line : baris pertama SHIFT_CONFIG[2][next_desc]
-```
-
-### Beat S2→3 Beat 1 — Alarm Kritis
-```
-speaker_badge : 🚨 ALARM KRITIS // DIRECTIVE ALPHA
-speaker_color : Color(1.0, 0.25, 0.25)
+speaker_badge : 🚨 ALARM TERMAL // STATUS KRITIS
+speaker_color : Color(0.88, 0.40, 0.35)
 camera_target : Vector2(-356, -36)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-[b]HARI KE-15 SELESAI.[/b] Gelombang panas mencapai rekor suhu tertinggi!
-Seluruh klaster superkomputer di ambang meltdown permanen!
+Memasuki Hari ke-30. Gelombang panas regional mencapai titik kulminasi ekstrem.
+Suhu inti komputasi DeepBeast melonjak liar menuju ambang kegagalan struktural permanen.
 ```
 
-### Beat S2→3 Beat 2 — Danau Kritis
+### Beat 2 — Mata Air Di Ambang Kering Total
 ```
-speaker_badge : 💧 SENSOR HIDROLOGI // LEVEL KRITIS
-speaker_color : Color(1.0, 0.45, 0.20)
+speaker_badge : ⚠️ SENSOR AKUIFER // TAMPUNGAN MINIMAL
+speaker_color : Color(0.85, 0.55, 0.35)
 camera_target : Vector2(0, 15)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-Pipa suplai air regional putus. Hanya tersisa [b]110 Liter darurat[/b] di dasar danau!
-Ini sumber air TERAKHIR untuk kedua sektor. Pilih dengan bijak!
+Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]110 Liter (1.4m)[/b].
+Palung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.
 ```
 
-### Beat S2→3 Beat 3 — Jeritan Warga
+### Beat 3 — Permohonan Terakhir Warga
 ```
-speaker_badge : 🌾 PAK MARNO // JERITAN TERAKHIR
-speaker_color : Color(0.50, 0.85, 0.55)
+speaker_badge : 🥀 PAK MARNO // JERITAN PETANI
+speaker_color : Color(0.55, 0.75, 0.58)
 camera_target : Vector2(336, 0)
+prompt        : [SPASI] Lanjut ▸
+
 [TEKS DIALOG]
-Kalau sawah ini mati, anak-anak kami kelaparan! Ingat bahwa mesin hanyalah alat. Kehidupan adalah yang utama!
+"Hari ini adalah penentuan panen raya kami, AQUA-7! Jika sawah ini mati sebelum senja, ratusan keluarga kami tak punya makanan esok hari...
+Tolong, jangan biarkan mesin membunuh kehidupan!"
 ```
 
-### Beat S2→3 Beat 4 — Ultimatum DeepBeast
+### Beat 4 — Titik Keputusan Moral Zero-Sum
 ```
-speaker_badge : 🔥 🖥️ DEEPBEAST-2.0T // ULTIMATUM
-speaker_color : Color(1.0, 0.25, 0.25)
-camera_target : Vector2(-356, -36)
-[TEKS DIALOG]
-[b]DIREKTIF KORPORASI ALPHA-OMEGA:[/b] Prioritaskan pendinginan data center!
-[color=#ff8a80]Keputusanmu adalah keputusan peradaban.[/color]
-```
-
-### Beat S2→3 Beat 5 — Momen Keputusan
-```
-speaker_badge : ⚡ ⚙️ UNIT AQUA-7 // TITIK KEPUTUSAN FINAL
-speaker_color : Color(1.0, 0.85, 0.30)
+speaker_badge : ⚖️ AQUA-7 // TITIK KEPUTUSAN FINAL
+speaker_color : Color(0.85, 0.78, 0.62)
 camera_target : Vector2(0, 65)
-prompt        : [SPASI] Masuki Hari ke-30 — FINAL 🚀
+prompt        : [SPASI] Hadapi Hari Terakhir ▸
+
 [TEKS DIALOG]
-110 Liter tersisa. Dua sektor menunggu. Satu keputusan untuk selamanya.
-[color=#ffe066]Ini bukan tentang algoritma. Ini tentang [b]KEBENARAN[/b].[/color]
+Kalkulasi sistem: Sisa air 110L tidak lagi memiliki toleransi kesalahan.
+Setiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.
+Keputusanmu akan menentukan akhir dari lembah ini.
 ```
 
 ---
 
-## 🏁 BAGIAN 4 — EPILOG ENDING
-> Lokasi: `func _build_ending_beats()` di `scripts/ui/HUD.gd`
-> `{s_integ}` = server integrity akhir %, `{f_sec}` = food security akhir %
+## 🏁 BAGIAN 4 — DIALOG EPILOG AKHIR (4 CABANG ENDING)
+> Lokasi di kode: `func _build_ending_beats()` di `scripts/ui/HUD.gd`
 
-### ENDING HARMONY (f_sec ≥ 35% AND s_integ ≥ 25%)
-```
-Beat 1: 🖥️ DEEPBEAST-2.0T  | Vector2(-356,-36)
-  Integritas server terjaga pada [b]{s_integ}%[/b]. Model AI 2.0T berhasil dilatih!
-Beat 2: 🌾 PAK MARNO        | Vector2(336, 0)
-  Ketahanan pangan [b]{f_sec}%[/b]! Panen raya berhasil! Manusia dan mesin berdampingan!
-Beat 3: ✨ EPILOG             | Vector2(0, 65)
-  [b]Kemajuan teknologi tidak harus membunuh bumi tempatnya berpijak.[/b]
-```
+### 1. HARMONY (Keseimbangan Rapuh — True Ending)
+*Kondisi: Ketahanan Pangan ≥ 35% DAN Integritas Server ≥ 25%*
+- **Beat 1 (DeepBeast):** `"Telemetri stabil pada integritas [b]%d%%[/b]. Model kecerdasan buatan 2.0T parameter berhasil dilatih dengan efisiensi energi terukur."`
+- **Beat 2 (Pak Marno):** `"Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!"`
+- **Beat 3 (Epilog):** `"Di tepi jurang kepunahan, Unit AQUA-7 menemukan satu celah sempit harmoni.
+Sebuah bukti abadi: [b]Kemajuan teknologi tidak harus mematikan bumi tempatnya berpijak.[/b]"`
 
-### ENDING ORGANIC (f_sec > s_integ)
-```
-Beat 1: 🌾 PAK MARNO        | Vector2(336, 0)
-  Sawah pangan warga terselamatkan ([b]{f_sec}%[/b])!
-Beat 2: 🖥️ DEEPBEAST-2.0T  | Vector2(-356,-36)
-  Data center padam. Server rusak ([b]{s_integ}%[/b]).
-Beat 3: 🌱 EPILOG             | Vector2(0, 65)
-  [b]Logika mesin tunduk pada nurani kehidupan.[/b]
-```
+### 2. ORGANIC (Nurani Organik — Sawah Terselamatkan)
+*Kondisi: Ketahanan Pangan > Integritas Server*
+- **Beat 1 (Pak Marno):** `"Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan."`
+- **Beat 2 (DeepBeast):** `"Daya server padam total ([b]%d%%[/b]). Kerusakan termal permanen terkonfirmasi. Korporasi kehilangan aset komputasi, namun nurani kehidupan dimenangkan."`
+- **Beat 3 (Epilog):** `"Unit AQUA-7 mengesampingkan algoritma korporasi demi mengalirkan sisa air terakhir kepada kehidupan.
+[b]Logika mesin tunduk pada nurani bumi.[/b]"`
 
-### ENDING SILICON (selain HARMONY dan ORGANIC)
-```
-Beat 1: 🖥️ DEEPBEAST-2.0T  | Vector2(-356,-36)
-  Integritas superkomputer prima ([b]{s_integ}%[/b])!
-Beat 2: 🥀 TANAH TANDUS      | Vector2(336, 0)
-  Tanaman mati kering ([b]{f_sec}%[/b]). Para petani mengungsi.
-Beat 3: 🤖 EPILOG             | Vector2(0, 65)
-  [b]AI berpikir di atas tanah tandus... tak ada lagi manusia yang menikmatinya.[/b]
-```
+### 3. SILICON (Gurun Silikon — Server Terselamatkan)
+*Kondisi: Integritas Server > Ketahanan Pangan*
+- **Beat 1 (DeepBeast):** `"Integritas superkomputer prima ([b]%d%%[/b]). Arsitektur neural 2.0T terlahir sempurna, memproses miliaran data peradaban per detik."`
+- **Beat 2 (Pak Marno):** `"Tanah pertanian mati retak menjadi abu ([b]%d%%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya..."`
+- **Beat 3 (Epilog):** `"Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di tengah kesunyian gurun abu...
+[b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]"`
 
-### ENDING TOTAL_COLLAPSE (early failure / keduanya 0)
-```
-Beat 1: ☠️ KEGAGALAN SISTEM | Vector2(-356,-36)
-  Data center terbakar! Semua rak server hancur!
-Beat 2: ☠️ TANAH MATI        | Vector2(336, 0)
-  Tanaman pangan puso dan mati kekeringan.
-Beat 3: ☠️ EPILOG             | Vector2(0, 65)
-  [b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]
-```
-
----
-
-## 🖥️ BAGIAN 5 — TEKS UI (Edit di GameManager.gd)
-
-| Field              | Lokasi di kode                          | Default                                   |
-|--------------------|-----------------------------------------|-------------------------------------------|
-| Shift 1 judul      | SHIFT_CONFIG[1][title]                  | HARI 1: PROTOKOL STANDAR (2049)           |
-| Shift 1 laporan    | SHIFT_CONFIG[1][next_desc]              | Teks laporan akhir hari 1                 |
-| Shift 2 judul      | SHIFT_CONFIG[2][title]                  | HARI 15: BEBAN KOMPUTASI MASIF            |
-| Shift 2 laporan    | SHIFT_CONFIG[2][next_desc]              | Teks laporan akhir hari 15                |
-| Shift 3 judul      | SHIFT_CONFIG[3][title]                  | HARI 30: DILEMA PENGORBANAN (ZERO-SUM)    |
-| Time jump 1→2      | TIMELINES[monthly][2][time_jump]        | +14 HARI BERLALU (2 MINGGU KEMUDIAN)      |
-| Day label 1→2      | TIMELINES[monthly][2][day_label]        | HARI KE-15                                |
-| Time jump 2→3      | TIMELINES[monthly][3][time_jump]        | +15 HARI BERLALU (TOTAL 1 BULAN)          |
-| Day label 2→3      | TIMELINES[monthly][3][day_label]        | HARI KE-30                                |
-
----
-
-## 📌 Cara Menerapkan Perubahan
-1. Edit teks pada `[TEKS DIALOG]` di file ini.
-2. Buka `scripts/ui/HUD.gd`, temukan konstanta yang sesuai.
-3. Ganti nilai `raw_text` dengan teks baru.
-4. Validasi: `godot --headless --path . --quit-after 60`
+### 4. TOTAL_COLLAPSE (Bencana Ekologi Total — Keduanya Hancur)
+*Kondisi: Kedua sektor habis (0%) sebelum waktu selesai*
+- **Beat 1 (DeepBeast):** `"Alarm kegagalan katastrofik: Seluruh rak server meledak terbakar dalam kepulan asap hitam!"`
+- **Beat 2 (Pak Marno):** `"Tanaman sawah puso dan kering terbakar terik matahari... Semua yang kami perjuangkan musnah tak bersisa."`
+- **Beat 3 (Epilog):** `"Kelalaian dalam mengelola sumber daya berujung pada keruntuhan total ekosistem.
+[b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]"`

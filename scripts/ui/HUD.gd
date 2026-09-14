@@ -98,93 +98,93 @@ var on_cutscene_complete_callable: Callable = Callable()
 const PROLOGUE_BEATS: Array[Dictionary] = [
 	{
 		"camera_target": Vector2(0, 15), # Danau Tengah
-		"speaker_badge": "💧 🤖 AQUA-7 // PROTOKOL INTERNAL",
+		"speaker_badge": "💧 AQUA-7 // DIAGNOSTIK HIDROLIK",
 		"speaker_color": Color(0.45, 0.75, 0.90),
-		"raw_text": "Inisialisasi sistem hidrolik selesai. Sumber air bersih terdeteksi [b]280 Liter[/b].\n[color=#66e5ff][b][TUTORIAL]:[/b] Berjalanlah ke tepi danau lalu tahan [b][SPASI][/b] untuk menyedot air bersih ke dalam tangki 120L robot.[/color]",
+		"raw_text": "Sensor akuifer terhubung. Cekungan mata air alami terdeteksi pada volume awal [b]280 Liter[/b].\n[color=#90cdf4]Sistem siap menyerap pasokan air. Dekati tepian danau dan tahan [b][SPASI][/b] untuk mengisi tangki 120L.[/color]",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(-356, -36), # Mega Server Data Center
-		"speaker_badge": "🔥 🖥️ DEEPBEAST-2.0T // DIRECTIVE ALPHA",
+		"speaker_badge": "🔥 DEEPBEAST-2.0T // TELEMETRI TERMAL",
 		"speaker_color": Color(0.88, 0.48, 0.38),
-		"raw_text": "Peringatan Panas: 4 klaster rak server AI beroperasi pada daya komputasi tinggi.\n[color=#ff8a80][b][TUTORIAL]:[/b] Dekati rak server lalu semprot pendingin dengan [b][SPASI][/b]. Jangan biarkan suhu menyentuh 90°C atau chip rusak permanen![/color]",
+		"raw_text": "Beban komputasi klaster neural aktif. Suhu operasional inti silikon meningkat tajam.\n[color=#feb2b2]Direktif Utama: Semprotkan pendingin dengan [b][SPASI][/b] sebelum suhu menyentuh batas bahaya 90°C.[/color]",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
-		"speaker_badge": "🌱 🌾 PAK MARNO // KETUA TANI AGRI-DOME",
+		"speaker_badge": "🌾 PAK MARNO // TRANSMISI RADIO TANI",
 		"speaker_color": Color(0.48, 0.78, 0.52),
-		"raw_text": "AQUA-7, dengarkan kami! Sawah ini adalah tumpuan pangan ratusan keluarga warga.\n[color=#8ce99a][b][TUTORIAL]:[/b] Lari melintasi jembatan ke timur. Semprot petak sawah dengan [b][SPASI][/b] agar kelembapan tanah tetap hijau di atas 30%![/color]",
+		"raw_text": "\"AQUA-7, dengarkan kami... Sawah ini adalah napas hidup keluarga kami di lembah ini.\n[color=#9ae6b4]Tolong seberangi jembatan ke timur. Siram tanah kami dengan [b][SPASI][/b] agar kelembapan tidak anjlok di bawah 30%.\"",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(0, 65), # Karakter AQUA-7
-		"speaker_badge": "⚡ ⚙️ SISTEM AKTIF // HARI KE-1",
+		"speaker_badge": "⚙️ AQUA-7 // INISIALISASI PROTOKOL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "[color=#ffe066][b][KONTROL]:[/b] [b][WASD][/b] Gerak • Tahan [b][SHIFT][/b] Lari Cepat • [b][SPASI][/b] Siram / Ambil Air.[/color]\nAir melimpah 280L. Waktu 06:00 dimulai. Selamat bertugas, Unit AQUA-7!",
-		"prompt": "[SPASI] Start Game 🚀"
+		"raw_text": "Keseimbangan dua sektor kini berada di bawah kendalimu.\n[color=#fefcbf]Navigasi [b][WASD][/b] • Akselerasi [b][SHIFT][/b] • Semprot / Isi Air [b][SPASI][/b].[/color]\nFajar menyingsing di Hari ke-1. Selamat bertugas.",
+		"prompt": "[SPASI] Start Game ▸"
 	}
 ]
 
 const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 	{
 		"camera_target": Vector2(-356, -36), # Mega Server Data Center
-		"speaker_badge": "📡 TELEMETRI SATELIT // +14 HARI BERLALU",
+		"speaker_badge": "📡 TELEMETRI SATELIT // HARI KE-15",
 		"speaker_color": Color(0.45, 0.75, 0.90),
-		"raw_text": "[b]HARI KE-1 SELESAI.[/b] +14 Hari telah berlalu (Memasuki 15 Agustus 2049).\nBatch pelatihan model AI DeepBeast 2.0T parameter telah berjalan penuh selama 2 pekan non-stop!",
+		"raw_text": "Dua pekan komputasi penuh telah berlalu. Pelatihan neural DeepBeast memasuki fase akselerasi masif.\nPanas pelepasan termal meningkat tajam melintasi seluruh modul sirkuit.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(0, 15), # Danau Tengah
-		"speaker_badge": "💧 SENSOR HIDROLOGI // DANAU SURUT",
+		"speaker_badge": "💧 SENSOR HIDROLOGI // AKUIFER MENYUSUT",
 		"speaker_color": Color(0.85, 0.68, 0.40),
-		"raw_text": "Sistem pendingin evaporatif AI menyedot air tanah secara masif. Cadangan danau kini [b]anjlok ke 190 Liter (2.4m)[/b]!\nGaris air surut ~25% dan dasar lumpur mulai retak.",
+		"raw_text": "Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut hingga 25%.\nCadangan air bersih terpangkas menjadi [b]190 Liter (2.4m)[/b]. Dasar lumpur mulai mengering.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
-		"speaker_badge": "🌾 PAK MARNO // LAPORAN KEKERINGAN",
+		"speaker_badge": "🌾 PAK MARNO // TRANSMISI RADIO TANI",
 		"speaker_color": Color(0.48, 0.78, 0.52),
-		"raw_text": "Gelombang panas musiman mulai membakar daun-daun padi kami! AQUA-7, jangan biarkan seluruh air bersih disedot hanya untuk mesin AI!",
+		"raw_text": "\"Kemarau ini makin kejam, AQUA-7... Daun-daun padi kami mulai menguning terpanggang matahari.\nJangan biarkan seluruh air mata air disedot ke gedung server! Kami butuh air itu untuk bertahan!\"",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(0, 65), # Robot AQUA-7
-		"speaker_badge": "⚡ ⚙️ HARI KE-15 // BEBAN MASIF",
+		"speaker_badge": "⚙️ AQUA-7 // PROTOKOL DARURAT LEVEL 2",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Pemanasan server naik 1.15x dan pengeringan sawah naik 1.10x. Cadangan danau dipangkas ke 190L. Persiapkan nosel pendingin dan pompa sirammu!",
-		"prompt": "[SPASI] Masuk Hari ke-15 🚀"
+		"raw_text": "Tingkat pemanasan server naik 1.15x. Pengeringan lahan sawah naik 1.10x.\nAlokasi air danau: [b]190 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.",
+		"prompt": "[SPASI] Hadapi Hari ke-15 ▸"
 	}
 ]
 
 const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 	{
 		"camera_target": Vector2(-356, -36), # Mega Server Data Center
-		"speaker_badge": "🚨 ALARM KRITIS // DIRECTIVE ALPHA",
+		"speaker_badge": "🚨 ALARM TERMAL // STATUS KRITIS",
 		"speaker_color": Color(0.88, 0.40, 0.35),
-		"raw_text": "[b]HARI KE-15 SELESAI.[/b] +15 Hari berlalu (Memasuki 30 Agustus 2049 // Hari ke-30).\nGelombang panas mencapai rekor suhu ekstrem tertinggi! Seluruh klaster superkomputer di ambang meltdown permanen!",
+		"raw_text": "Memasuki Hari ke-30. Gelombang panas regional mencapai titik kulminasi ekstrem.\nSuhu inti komputasi DeepBeast melonjak liar menuju ambang kegagalan struktural permanen.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(0, 15), # Danau Tengah
-		"speaker_badge": "⚠️ SENSOR AKUIFER // DARURAT AIR",
+		"speaker_badge": "⚠️ SENSOR AKUIFER // TAMPUNGAN MINIMAL",
 		"speaker_color": Color(0.85, 0.55, 0.35),
-		"raw_text": "Pipa suplai regional terputus total! Cadangan danau kini [b]KRITIS HANYA 110 LITER (1.4m)[/b]!\nPalung dalam mengering total dan tanah retak-retak menganga di seluruh dasar danau.",
+		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]110 Liter (1.4m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(336, 0), # Agri-Dome Sawah Warga
 		"speaker_badge": "🥀 PAK MARNO // JERITAN PETANI",
 		"speaker_color": Color(0.55, 0.75, 0.58),
-		"raw_text": "Hari ke-30 adalah hari penentuan panen raya! Jika tanaman mati hari ini, ratusan keluarga kami akan kelaparan! Tolong prioritaskan kehidupan bumi!",
+		"raw_text": "\"Hari ini adalah penentuan panen raya kami, AQUA-7! Jika sawah ini mati sebelum senja, ratusan keluarga kami tak punya makanan esok hari...\nTolong, jangan biarkan mesin membunuh kehidupan!\"",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
 		"camera_target": Vector2(0, 65), # Robot AQUA-7
-		"speaker_badge": "⚖️ DILEMA ZERO-SUM // HARI KE-30",
+		"speaker_badge": "⚖️ AQUA-7 // TITIK KEPUTUSAN FINAL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Air 110L tidak lagi cukup untuk mempertahankan kedua sektor secara sempurna. Anda dipaksa berhitung presisi atau memilih sektor mana yang harus dikorbankan!\nKeputusan Anda menentukan masa depan bumi.",
-		"prompt": "[SPASI] Hadapi Hari Terakhir ⚖️"
+		"raw_text": "Kalkulasi sistem: Sisa air 110L tidak lagi memiliki toleransi kesalahan.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
+		"prompt": "[SPASI] Hadapi Hari Terakhir ▸"
 	}
 ]
 
@@ -639,21 +639,21 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // TELEMETRI STABIL",
 				"speaker_color": Color(0.42, 0.72, 0.88),
-				"raw_text": "Integritas server terjaga pada [b]%d%%[/b]. Model AI 2.0T parameter berhasil dilatih dengan efisiensi energi hijau!" % s_integ,
+				"raw_text": "Telemetri stabil pada integritas [b]%d%%[/b]. Model kecerdasan buatan 2.0T parameter berhasil dilatih dengan efisiensi energi terukur." % s_integ,
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🌾 PAK MARNO // AIR MATA HARU",
 				"speaker_color": Color(0.45, 0.80, 0.55),
-				"raw_text": "Ketahanan pangan warga bertahan pada [b]%d%%[/b]! Panen raya berhasil dipetik. Terima kasih AQUA-7, kamu membuktikan manusia dan mesin bisa hidup berdampingan!" % f_sec,
+				"raw_text": "Air mata kami menetes melihat bulir padi ini, AQUA-7... [b]%d%%[/b] tanaman berhasil dipanen. Kamu membuktikan teknologi dan manusia bisa saling menjaga!" % f_sec,
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(0, 65),
 				"speaker_badge": "✨ EPILOG: KESEIMBANGAN RAPUH (TRUE ENDING)",
-				"speaker_color": Color(1.0, 0.85, 0.30),
-				"raw_text": "Melalui kalkulasi presisi mikroliter, Unit AQUA-7 menyelamatkan bumi dan masa depan peradaban sekaligus.\nSebuah bukti abadi: [b]Kemajuan teknologi tidak harus membunuh bumi tempatnya berpijak.[/b]",
+				"speaker_color": Color(0.85, 0.78, 0.62),
+				"raw_text": "Di tepi jurang kepunahan, Unit AQUA-7 menemukan satu celah sempit harmoni.\nSebuah bukti abadi: [b]Kemajuan teknologi tidak harus mematikan bumi tempatnya berpijak.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
 		"ORGANIC":
@@ -661,21 +661,21 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🌾 PAK MARNO // SUJUD SYUKUR",
 				"speaker_color": Color(0.48, 0.75, 0.52),
-				"raw_text": "Sawah pangan warga terselamatkan ([b]%d%%[/b])! Ratusan keluarga petani tersenyum menyambut masa depan tanpa ancaman kelaparan.",
+				"raw_text": "Sawah pangan warga terselamatkan pada [b]%d%%[/b]! Ratusan keluarga petani menyambut masa depan tanpa ancaman kelaparan.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DAYA MATI",
 				"speaker_color": Color(0.85, 0.45, 0.42),
-				"raw_text": "Data center padam dan server mengalami kerusakan chip ([b]%d%%[/b]). Korporasi merugi, namun nurani kehidupan telah dimenangkan.",
+				"raw_text": "Daya server padam total ([b]%d%%[/b]). Kerusakan termal permanen terkonfirmasi. Korporasi kehilangan aset komputasi, namun nurani kehidupan dimenangkan.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(0, 65),
 				"speaker_badge": "🌱 EPILOG: NURANI ORGANIK",
 				"speaker_color": Color(0.45, 0.78, 0.52),
-				"raw_text": "Unit AQUA-7 melanggar algoritma korporasi demi mengalirkan sisa air terakhir ke kehidupan.\n[b]Logika mesin tunduk pada nurani kehidupan.[/b]",
+				"raw_text": "Unit AQUA-7 mengesampingkan algoritma korporasi demi mengalirkan sisa air terakhir kepada kehidupan.\n[b]Logika mesin tunduk pada nurani bumi.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
 		"SILICON":
@@ -683,21 +683,21 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "🖥️ DEEPBEAST-2.0T // DOMINASI MUTLAK",
 				"speaker_color": Color(0.42, 0.68, 0.85),
-				"raw_text": "Integritas superkomputer prima ([b]%d%%[/b])! Model AI 2.0T parameter lahir dengan sempurna, memproses miliaran token per detik.",
+				"raw_text": "Integritas superkomputer prima ([b]%d%%[/b]). Arsitektur neural 2.0T terlahir sempurna, memproses miliaran data peradaban per detik.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "🥀 TANAH TANDUS // GURUN SILIKON",
 				"speaker_color": Color(0.82, 0.62, 0.42),
-				"raw_text": "Seluruh tanaman pangan mati kering ([b]%d%%[/b]). Tanah pertanian retak menjadi gurun abu dan para petani terpaksa mengungsi.",
+				"raw_text": "Tanah pertanian mati retak menjadi abu ([b]%d%%[/b]). Tak ada lagi padi yang tersisa. Kami terpaksa meninggalkan lembah ini selamanya...",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(0, 65),
 				"speaker_badge": "🤖 EPILOG: GURUN SILIKON",
 				"speaker_color": Color(0.42, 0.68, 0.85),
-				"raw_text": "Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di atas tanah tandus...\n[b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]",
+				"raw_text": "Kecerdasan buatan paling mutakhir di dunia kini berpikir tanpa henti di tengah kesunyian gurun abu...\n[b]di mana tak ada lagi manusia yang tersisa untuk menikmatinya.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
 		_: # TOTAL_COLLAPSE
@@ -705,21 +705,21 @@ func _build_ending_beats(ending_code: String, _title: String, _narrative: String
 				"camera_target": Vector2(-356, -36),
 				"speaker_badge": "☠️ KONTROL ALARM // KEGAGALAN SISTEM",
 				"speaker_color": Color(0.85, 0.38, 0.35),
-				"raw_text": "Data center terbakar dan seluruh rak server hancur berkeping-keping karena panas berlebih!",
+				"raw_text": "Alarm kegagalan katastrofik: Seluruh rak server meledak terbakar dalam kepulan asap hitam!",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(336, 0),
 				"speaker_badge": "☠️ TANAH MATI // GAGAL TOTAL",
 				"speaker_color": Color(0.85, 0.38, 0.35),
-				"raw_text": "Tanaman pangan puso dan mati kekeringan sebelum waktu panen tiba.",
+				"raw_text": "Tanaman sawah puso dan kering terbakar terik matahari... Semua yang kami perjuangkan musnah tak bersisa.",
 				"prompt": "[SPASI] Lanjut ▸"
 			})
 			beats.append({
 				"camera_target": Vector2(0, 65),
 				"speaker_badge": "☠️ EPILOG: BENCANA EKOLOGI TOTAL",
 				"speaker_color": Color(0.85, 0.38, 0.35),
-				"raw_text": "Ketidakmampuan mengelola air mengakibatkan keruntuhan total ekosistem.\n[b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]",
+				"raw_text": "Kelalaian dalam mengelola sumber daya berujung pada keruntuhan total ekosistem.\n[b]Peradaban kehilangan teknologi dan pangannya sekaligus.[/b]",
 				"prompt": "[SPASI] Lihat Statistik 📊"
 			})
 	
