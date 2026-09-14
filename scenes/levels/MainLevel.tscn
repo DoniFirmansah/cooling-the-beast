@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=39 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -27,12 +27,13 @@
 [ext_resource type="Texture2D" uid="uid://j72bi62rtqlw" path="res://assets/environment/server_room/terminal_desk.png" id="30_terminal_desk"]
 [ext_resource type="Texture2D" uid="uid://87tabsg220gl" path="res://assets/environment/farmland/leaf_particle.png" id="31_leaf_tex"]
 [ext_resource type="Texture2D" uid="uid://vxupqra3v77x" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="32_skyline_tex"]
+[ext_resource type="PackedScene" uid="uid://c5q0grasstuft01" path="res://scenes/props/GrassTuft.tscn" id="33_grass_tuft"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
-size = Vector2(1240, 24)
+size = Vector2(1460, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
-size = Vector2(24, 520)
+size = Vector2(24, 580)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top_wall"]
 size = Vector2(436, 48)
@@ -102,7 +103,8 @@ color = Color(0.42, 0.85, 0.35, 0.85)
 [node name="BackgroundSkyline" type="Sprite2D" parent="."]
 z_index = -20
 z_as_relative = false
-position = Vector2(2, -306)
+position = Vector2(110, -320)
+scale = Vector2(1.28, 1.0)
 texture = ExtResource("32_skyline_tex")
 
 [node name="Floors" type="Node2D" parent="."]
@@ -194,9 +196,9 @@ stretch_mode = 1
 modulate = Color(0.92, 0.9, 0.88, 1)
 texture_repeat = 2
 offset_left = -126.0
-offset_top = -240.0
+offset_top = -275.0
 offset_right = 150.0
-offset_bottom = 240.0
+offset_bottom = 265.0
 texture = ExtResource("22_stone_ground")
 stretch_mode = 1
 
@@ -204,9 +206,9 @@ stretch_mode = 1
 modulate = Color(0.75, 0.85, 0.72, 1)
 texture_repeat = 2
 offset_left = 150.0
-offset_top = -240.0
-offset_right = 600.0
-offset_bottom = 240.0
+offset_top = -275.0
+offset_right = 820.0
+offset_bottom = 265.0
 texture = ExtResource("3_floor_grass")
 stretch_mode = 1
 
@@ -218,11 +220,11 @@ z_as_relative = false
 collision_mask = 0
 
 [node name="TopWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, -245)
+position = Vector2(110, -270)
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="BottomWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 245)
+position = Vector2(110, 265)
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="LeftWall" type="CollisionShape2D" parent="Borders"]
@@ -230,7 +232,7 @@ position = Vector2(-605, 0)
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="RightWall" type="CollisionShape2D" parent="Borders"]
-position = Vector2(605, 0)
+position = Vector2(825, 0)
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="YSortEntities" type="Node2D" parent="."]
@@ -526,19 +528,182 @@ position = Vector2(370, 22)
 position = Vector2(210, -145)
 
 [node name="EcoTree2" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
-position = Vector2(465, -145)
+position = Vector2(640, -185)
 tree_type = "pine"
 
 [node name="EcoTree3" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
-position = Vector2(535, -30)
+position = Vector2(765, -45)
 tree_type = "bushy"
 
 [node name="EcoTree4" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
-position = Vector2(535, 95)
+position = Vector2(770, 95)
+tree_type = "oak"
 
 [node name="EcoTree5" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
-position = Vector2(450, 165)
+position = Vector2(640, 185)
 tree_type = "pine"
+
+[node name="EcoTree9" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
+position = Vector2(775, -165)
+tree_type = "pine"
+
+[node name="EcoTree10" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
+position = Vector2(780, 25)
+tree_type = "bushy"
+
+[node name="EcoTree11" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
+position = Vector2(775, 175)
+tree_type = "pine"
+
+[node name="EcoTree12" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
+position = Vector2(515, -205)
+tree_type = "pine"
+
+[node name="EcoTree13" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
+position = Vector2(515, 205)
+tree_type = "bushy"
+
+[node name="FarmChicken4" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
+position = Vector2(585, -35)
+
+[node name="FarmChicken5" parent="YSortEntities" instance=ExtResource("27_farm_chicken")]
+position = Vector2(650, 50)
+
+# Rumput & Bunga Sekitar Petak Sawah (Crop Plots)
+[node name="GrassTuft1" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(255, -42)
+tuft_type = "grass_1"
+
+[node name="GrassTuft2" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(325, -44)
+tuft_type = "flower_white"
+
+[node name="GrassTuft3" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(395, -42)
+tuft_type = "grass_2"
+
+[node name="GrassTuft4" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(425, -24)
+tuft_type = "flower_yellow"
+
+[node name="GrassTuft5" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(255, 38)
+tuft_type = "grass_3"
+
+[node name="GrassTuft6" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(325, 40)
+tuft_type = "flower_red"
+
+[node name="GrassTuft7" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(395, 42)
+tuft_type = "grass_4"
+
+[node name="GrassTuft8" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(425, 32)
+tuft_type = "grass_1"
+
+# Rumput & Bunga Sepanjang Pagar & Bangunan Barn
+[node name="GrassTuft9" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(225, -6)
+tuft_type = "grass_2"
+
+[node name="GrassTuft10" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(225, 36)
+tuft_type = "flower_yellow"
+
+[node name="GrassTuft11" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(360, -90)
+tuft_type = "bush_small"
+
+[node name="GrassTuft12" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(462, -95)
+tuft_type = "grass_3"
+
+[node name="GrassTuft13" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(475, -58)
+tuft_type = "flower_white"
+
+# Rumput & Bunga Kawasan Padang Rumput Timur (Eastern Meadow)
+[node name="GrassTuft14" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(510, -95)
+tuft_type = "grass_1"
+
+[node name="GrassTuft15" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(535, -115)
+tuft_type = "flower_yellow"
+
+[node name="GrassTuft16" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(565, -85)
+tuft_type = "grass_3"
+
+[node name="GrassTuft17" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(590, -110)
+tuft_type = "flower_white"
+
+[node name="GrassTuft18" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(615, -80)
+tuft_type = "grass_2"
+
+[node name="GrassTuft19" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(575, -15)
+tuft_type = "flower_red"
+
+[node name="GrassTuft20" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(605, 18)
+tuft_type = "grass_4"
+
+[node name="GrassTuft21" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(635, -22)
+tuft_type = "flower_yellow"
+
+[node name="GrassTuft22" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(660, 28)
+tuft_type = "grass_1"
+
+[node name="GrassTuft23" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(685, -8)
+tuft_type = "flower_white"
+
+[node name="GrassTuft24" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(705, 25)
+tuft_type = "bush_small"
+
+[node name="GrassTuft25" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(520, 110)
+tuft_type = "grass_2"
+
+[node name="GrassTuft26" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(550, 138)
+tuft_type = "flower_yellow"
+
+[node name="GrassTuft27" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(585, 105)
+tuft_type = "grass_3"
+
+[node name="GrassTuft28" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(625, 142)
+tuft_type = "flower_red"
+
+[node name="GrassTuft29" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(665, 112)
+tuft_type = "grass_1"
+
+[node name="GrassTuft30" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(710, 135)
+tuft_type = "flower_white"
+
+# Rumput di bawah pepohonan rindang
+[node name="GrassTuft31" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(200, -135)
+tuft_type = "grass_1"
+
+[node name="GrassTuft32" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(200, 165)
+tuft_type = "grass_2"
+
+[node name="GrassTuft33" parent="YSortEntities" instance=ExtResource("33_grass_tuft")]
+position = Vector2(345, 178)
+tuft_type = "flower_red"
 
 [node name="EcoTree6" parent="YSortEntities" instance=ExtResource("9_eco_tree")]
 position = Vector2(210, 155)
