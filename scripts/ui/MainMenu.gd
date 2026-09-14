@@ -23,7 +23,12 @@ const SFX_SELECT = preload("res://assets/audio/sfx/select_001.ogg")
 @onready var card_silicon: PanelContainer = %CardSilicon
 @onready var card_collapse: PanelContainer = %CardCollapse
 
+@onready var server_a_leds: Sprite2D = %ServerClusterALeds if has_node("%ServerClusterALeds") else null
+@onready var server_b_leds: Sprite2D = %ServerClusterBLeds if has_node("%ServerClusterBLeds") else null
+@onready var water_surface: Sprite2D = %WaterSurface if has_node("%WaterSurface") else null
+
 var audio_player: AudioStreamPlayer
+var ambient_time: float = 0.0
 
 func _ready() -> void:
 	collection_modal.visible = false
@@ -45,6 +50,16 @@ func _ready() -> void:
 			btn.mouse_entered.connect(func(): _play_sfx(SFX_SELECT))
 	
 	_update_load_button()
+
+func _process(delta: float) -> void:
+	ambient_time += delta
+	if server_a_leds and is_instance_valid(server_a_leds):
+		server_a_leds.modulate.a = 0.65 + 0.35 * sin(ambient_time * 3.2)
+	if server_b_leds and is_instance_valid(server_b_leds):
+		server_b_leds.modulate.a = 0.65 + 0.35 * cos(ambient_time * 2.6)
+	if water_surface and is_instance_valid(water_surface):
+		water_surface.position.y = sin(ambient_time * 2.0) * 1.5
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
