@@ -51,16 +51,17 @@ const SHIFT_CONFIG: Dictionary = {
 		"heat_mult": 1.25,
 		"dry_mult": 1.20,
 		"next_title": "LAPORAN AKHIR HARI KE-15 [AQUA-7]",
-		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 120L untuk kedua sektor."
+		"next_desc": "[STATUS: +15 HARI BERLALU // MEMASUKI HARI KE-30 (PUNCAK KRISIS)]\nKrisis Ekstrem: Di akhir bulan, gelombang panas mencapai rekor suhu tertinggi. Pipa suplai regional terputus! Kuota sumber air danau darurat HANYA tersisa 100L untuk kedua sektor."
 	},
 	3: {
 		"title": "HARI 30: DILEMA PENGORBANAN (ZERO-SUM)",
-		"reservoir": 120.0,
+		"reservoir": 100.0,
 		"heat_mult": 1.45,
 		"dry_mult": 1.35,
 		"next_title": "",
 		"next_desc": ""
 	}
+
 }
 
 

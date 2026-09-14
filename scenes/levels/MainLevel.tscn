@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://curbdowe38tua"]
+[gd_scene load_steps=50 format=3 uid="uid://curbdowe38tua"]
 
 [ext_resource type="Script" uid="uid://brmnpjeqxcx7u" path="res://scripts/systems/LevelManager.gd" id="1_level_script"]
 [ext_resource type="Texture2D" uid="uid://cyr6eke2y6im3" path="res://assets/environment/server_room/metal_floor_32.png" id="2_floor_metal"]
@@ -29,6 +29,12 @@
 [ext_resource type="Texture2D" uid="uid://vxupqra3v77x" path="res://assets/environment/skyline/city_skyline_silhouette.png" id="32_skyline_tex"]
 [ext_resource type="PackedScene" uid="uid://bx53fwsorbvrs" path="res://scenes/props/GrassTuft.tscn" id="33_grass_tuft"]
 [ext_resource type="Texture2D" uid="uid://cqe7qf3tbfoih" path="res://assets/environment/farmland/furrow_bed_dry.png" id="34_furrow_bed_dry"]
+[ext_resource type="Texture2D" uid="uid://7r30us7khiro" path="res://assets/environment/server_room/barrel_coolant_blue.png" id="35_barrel_blue"]
+[ext_resource type="Texture2D" uid="uid://by4nvq2cmy07w" path="res://assets/environment/server_room/barrel_hazard_red.png" id="36_barrel_red"]
+[ext_resource type="Texture2D" uid="uid://csyl2gr3hbcot" path="res://assets/environment/server_room/crate_metal_supply.png" id="37_crate_metal"]
+[ext_resource type="Texture2D" path="res://assets/environment/pipes/pipe_horizontal_32.png" id="38_pipe_h32"]
+[ext_resource type="Texture2D" path="res://assets/environment/pipes/water_station_32.png" id="39_water_station_pipe"]
+[ext_resource type="Texture2D" path="res://assets/environment/server_room/hazard_stripe_32.png" id="40_hazard_stripe_32"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1460, 24)
@@ -60,9 +66,22 @@ size = Vector2(198, 61)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bot_right"]
 size = Vector2(188.5, 60)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrel"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
+size = Vector2(20, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pipe_h"]
+size = Vector2(44, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bollard"]
+size = Vector2(6, 6)
+
 [node name="MainLevel" type="Node2D"]
 position = Vector2(-4, 2)
 script = ExtResource("1_level_script")
+
 
 [node name="EnvModulate" type="CanvasModulate" parent="."]
 
@@ -193,6 +212,17 @@ offset_right = -126.0
 offset_bottom = 265.0
 texture = ExtResource("2_floor_metal")
 stretch_mode = 1
+
+[node name="HazardStripeStagingBay" type="Sprite2D" parent="Floors"]
+position = Vector2(-460, 205)
+scale = Vector2(3, 1)
+texture = ExtResource("40_hazard_stripe_32")
+
+[node name="HazardStripeSecurityBay" type="Sprite2D" parent="Floors"]
+position = Vector2(-260, 205)
+scale = Vector2(2.5, 1)
+texture = ExtResource("40_hazard_stripe_32")
+
 
 [node name="CentralPlaza" type="TextureRect" parent="Floors"]
 modulate = Color(0.92, 0.9, 0.88, 1)
@@ -501,8 +531,146 @@ region_rect = Rect2(0, 0, 8, 65)
 position = Vector2(-0.75, 2)
 shape = SubResource("RectangleShape2D_bot_right")
 
+[node name="ExtCoolantTank" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-485, 175)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtCoolantTank"]
+position = Vector2(0, -6)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(392, 237, 46, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtCoolantTank"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_coolant_tank")
+
+[node name="ExtCrateSupply" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-520, 185)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtCrateSupply"]
+position = Vector2(0, -6)
+texture = ExtResource("37_crate_metal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtCrateSupply"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_crate")
+
+[node name="ExtCoolantBarrel1" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-445, 180)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtCoolantBarrel1"]
+position = Vector2(0, -6)
+texture = ExtResource("35_barrel_blue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtCoolantBarrel1"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_barrel")
+
+[node name="ExtCoolantBarrel2" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-425, 185)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtCoolantBarrel2"]
+position = Vector2(0, -6)
+texture = ExtResource("35_barrel_blue")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtCoolantBarrel2"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_barrel")
+
+[node name="ExtSecurityTerminal" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-295, 170)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtSecurityTerminal"]
+position = Vector2(0, -6)
+texture = ExtResource("30_terminal_desk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtSecurityTerminal"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_console")
+
+[node name="ExtHazardBarrel1" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-235, 180)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtHazardBarrel1"]
+position = Vector2(0, -6)
+texture = ExtResource("36_barrel_red")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtHazardBarrel1"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_barrel")
+
+[node name="ExtHazardBarrel2" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-215, 185)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtHazardBarrel2"]
+position = Vector2(0, -6)
+texture = ExtResource("36_barrel_red")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtHazardBarrel2"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_barrel")
+
+[node name="ExtCoolingPipe" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-175, 165)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtCoolingPipe"]
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1)
+texture = ExtResource("38_pipe_h32")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtCoolingPipe"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_pipe_h")
+
+[node name="ExtWaterHydrant" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-255, 195)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtWaterHydrant"]
+position = Vector2(0, -8)
+texture = ExtResource("39_water_station_pipe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtWaterHydrant"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_barrel")
+
+[node name="ExtDoorBollardLeft" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-390, 142)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtDoorBollardLeft"]
+position = Vector2(0, -3)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(620, 266, 8, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtDoorBollardLeft"]
+shape = SubResource("RectangleShape2D_bollard")
+
+[node name="ExtDoorBollardRight" type="StaticBody2D" parent="YSortEntities"]
+position = Vector2(-322, 142)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortEntities/ExtDoorBollardRight"]
+position = Vector2(0, -3)
+texture = ExtResource("14_cyberpunk_tex")
+region_enabled = true
+region_rect = Rect2(620, 266, 8, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/ExtDoorBollardRight"]
+shape = SubResource("RectangleShape2D_bollard")
+
 [node name="ReservoirLake" parent="YSortEntities" instance=ExtResource("6_reservoir_lake")]
 position = Vector2(0, 15)
+
 
 [node name="FenceNorth" parent="YSortEntities" instance=ExtResource("24_fence_h")]
 position = Vector2(460, -145)

@@ -172,7 +172,7 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "⚠️ SENSOR AKUIFER // TAMPUNGAN MINIMAL",
 		"speaker_color": Color(0.85, 0.55, 0.35),
-		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]120 Liter (1.5m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
+		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]100 Liter (1.3m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -186,9 +186,10 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 58), # Robot AQUA-7 di Dermaga
 		"speaker_badge": "⚖️ AQUA-7 // TITIK KEPUTUSAN FINAL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Kalkulasi sistem: Sisa air 120L danau berada pada batas kritis dengan toleransi tipis.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
+		"raw_text": "Kalkulasi sistem: Sisa air 100L danau berada pada batas kritis dengan toleransi tipis.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
 		"prompt": "[SPASI] Hadapi Hari Terakhir ▸"
 	}
+
 ]
 
 
