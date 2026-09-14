@@ -743,7 +743,7 @@ position = Vector2(260, -125)
 collision_layer = 1
 
 [node name="Player" parent="YSortEntities" instance=ExtResource("8_player")]
-position = Vector2(0, 65)
+position = Vector2(0, 160)
 
 [node name="HUD" parent="." instance=ExtResource("11_hud")]
 

@@ -103,7 +103,7 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "💧 AQUA-7 // DIAGNOSTIK HIDROLIK",
 		"speaker_color": Color(0.45, 0.75, 0.90),
-		"raw_text": "Sensor akuifer terhubung. Cekungan mata air alami terdeteksi pada volume awal [b]280 Liter[/b].\n[color=#90cdf4]Sistem siap menyerap pasokan air. Dekati tepian danau dan tahan [b][SPASI][/b] untuk mengisi tangki 120L.[/color]",
+		"raw_text": "Sensor akuifer terhubung. Cekungan mata air alami terdeteksi pada volume awal [b]200 Liter[/b].\n[color=#90cdf4]Sistem siap menyerap pasokan air. Dekati tepian danau dan tahan [b][SPASI][/b] untuk mengisi tangki 80L.[/color]",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -121,7 +121,7 @@ const PROLOGUE_BEATS: Array[Dictionary] = [
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
-		"camera_target": Vector2(0, 65), # Karakter AQUA-7
+		"camera_target": Vector2(0, 58), # Karakter AQUA-7 di Dermaga
 		"speaker_badge": "⚙️ AQUA-7 // INISIALISASI PROTOKOL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
 		"raw_text": "Keseimbangan dua sektor kini berada di bawah kendalimu.\n[color=#fefcbf]Navigasi [b][WASD][/b] • Akselerasi [b][SHIFT][/b] • Semprot / Isi Air [b][SPASI][/b].[/color]\nFajar menyingsing di Hari ke-1. Selamat bertugas.",
@@ -141,7 +141,7 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "💧 SENSOR HIDROLOGI // AKUIFER MENYUSUT",
 		"speaker_color": Color(0.85, 0.68, 0.40),
-		"raw_text": "Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut hingga 25%.\nCadangan air bersih terpangkas menjadi [b]180 Liter (2.3m)[/b]. Dasar lumpur mulai mengering.",
+		"raw_text": "Peringatan Cekungan: Laju serapan air melampaui infiltrasi alami. Muka air danau surut drastis.\nCadangan air bersih terpangkas menjadi [b]140 Liter (1.8m)[/b]. Dasar lumpur mulai mengering.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -152,10 +152,10 @@ const SHIFT_1_TO_2_BEATS: Array[Dictionary] = [
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
-		"camera_target": Vector2(0, 65), # Robot AQUA-7
+		"camera_target": Vector2(0, 58), # Robot AQUA-7 di Dermaga
 		"speaker_badge": "⚙️ AQUA-7 // PROTOKOL DARURAT LEVEL 2",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Tingkat pemanasan server naik 1.15x. Pengeringan lahan sawah naik 1.10x.\nAlokasi air danau: [b]180 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.",
+		"raw_text": "Tingkat pemanasan server naik 1.25x. Pengeringan lahan sawah naik 1.20x.\nAlokasi air danau: [b]140 Liter[/b]. Siapkan nosel hidrolik untuk ritme kerja yang lebih cepat.",
 		"prompt": "[SPASI] Hadapi Hari ke-15 ▸"
 	}
 ]
@@ -172,7 +172,7 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"camera_target": Vector2(0, 15), # Danau Tengah
 		"speaker_badge": "⚠️ SENSOR AKUIFER // TAMPUNGAN MINIMAL",
 		"speaker_color": Color(0.85, 0.55, 0.35),
-		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]135 Liter (1.7m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
+		"raw_text": "Suplai pipa hulu terputus akibat kekeringan regional. Cadangan danau berada pada level kritis: [b]120 Liter (1.5m)[/b].\nPalung utama telah mengering, menyingkap rekahan tanah tandus di dasar cekungan.",
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
@@ -183,13 +183,14 @@ const SHIFT_2_TO_3_BEATS: Array[Dictionary] = [
 		"prompt": "[SPASI] Lanjut ▸"
 	},
 	{
-		"camera_target": Vector2(0, 65), # Robot AQUA-7
+		"camera_target": Vector2(0, 58), # Robot AQUA-7 di Dermaga
 		"speaker_badge": "⚖️ AQUA-7 // TITIK KEPUTUSAN FINAL",
 		"speaker_color": Color(0.85, 0.78, 0.62),
-		"raw_text": "Kalkulasi sistem: Sisa air 135L danau berada pada batas kritis dengan toleransi tipis.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
+		"raw_text": "Kalkulasi sistem: Sisa air 120L danau berada pada batas kritis dengan toleransi tipis.\nSetiap liter air yang dialirkan adalah pilihan mutlak antara kecerdasan silikon atau kelangsungan pangan biologis.\nKeputusanmu akan menentukan akhir dari lembah ini.",
 		"prompt": "[SPASI] Hadapi Hari Terakhir ▸"
 	}
 ]
+
 
 
 var hazard_alert_timer: float = 0.0
@@ -554,11 +555,12 @@ func _play_shift_transition_then_cutscene(
 	if shift_transition_screen:
 		shift_transition_screen.visible = false
 	
-	# Cutscene: Robot berjalan secara diegetik ke tepi dermaga danau sebelum dialog diputar
-	cutscene_walk_player.emit(Vector2(0, 25), 1.8)
-	await get_tree().create_timer(1.85).timeout
+	# Cutscene: Robot berjalan secara diegetik dari plaza selatan ke tepi dermaga danau sebelum dialog diputar
+	cutscene_walk_player.emit(Vector2(0, 58), 2.0)
+	await get_tree().create_timer(2.05).timeout
 	
 	play_cutscene(beats, on_done, "LEWATI INTRO [ESC]")
+
 
 
 func _on_water_changed(current: float, max_amount: float) -> void:
@@ -857,9 +859,9 @@ func _on_synopsis_advance_pressed() -> void:
 		if is_instance_valid(prologue_synopsis_screen):
 			prologue_synopsis_screen.visible = false
 	
-	# Cutscene: Robot berjalan ke tepi dermaga danau sebelum dialog prolog diputar
-	cutscene_walk_player.emit(Vector2(0, 25), 1.8)
-	await get_tree().create_timer(1.85).timeout
+	# Cutscene: Robot berjalan dari plaza selatan ke tepi dermaga danau sebelum dialog prolog diputar
+	cutscene_walk_player.emit(Vector2(0, 58), 2.0)
+	await get_tree().create_timer(2.05).timeout
 	
 	# Putar cutscene dialog prolog
 	play_cutscene(PROLOGUE_BEATS, Callable(), "LEWATI PROLOG [ESC]")
@@ -878,7 +880,7 @@ func _on_synopsis_skip_pressed() -> void:
 	
 	# Lewati sinopsis dan cutscene langsung ke gameplay
 	GameManager.prologue_seen = true
-	cutscene_snap_player.emit(Vector2(0, 25))
+	cutscene_snap_player.emit(Vector2(0, 58))
 	if top_bar:
 		top_bar.visible = true
 	if objective_tracker:
@@ -887,6 +889,7 @@ func _on_synopsis_skip_pressed() -> void:
 		bottom_guide.visible = true
 	cutscene_camera_return.emit(0.0)
 	cutscene_ended.emit()
+
 
 
 func play_cutscene(beats: Array[Dictionary], on_complete: Callable = Callable(), skip_text: String = "LEWATI [ESC]") -> void:
@@ -983,9 +986,10 @@ func skip_current_cutscene() -> void:
 func _finish_active_cutscene(was_skipped: bool = false) -> void:
 	is_cutscene_running = false
 	if was_skipped:
-		cutscene_snap_player.emit(Vector2(0, 25))
+		cutscene_snap_player.emit(Vector2(0, 58))
 	if cinematic_overlay:
 		cinematic_overlay.visible = false
+
 	if top_bar:
 		top_bar.visible = true
 	if objective_tracker:

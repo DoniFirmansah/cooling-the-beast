@@ -366,23 +366,23 @@ func _on_cutscene_ended() -> void:
 var player_walk_tween: Tween = null
 var footstep_audio: AudioStreamPlayer = null
 
-func walk_player_to(target_pos: Vector2, duration: float = 1.8) -> void:
+func walk_player_to(target_pos: Vector2, duration: float = 2.0) -> void:
 	if not player or not is_instance_valid(player):
 		return
 	
 	if player_walk_tween and player_walk_tween.is_valid():
 		player_walk_tween.kill()
 	
-	# Reset ke posisi awal gerbang markas
-	player.global_position = Vector2(0, 85)
+	# Mulai dari plaza selatan lebih jauh dari bawah
+	player.global_position = Vector2(0, 160)
 	
 	var spr: Sprite2D = player.get_node_or_null("Sprite2D") as Sprite2D
 	if spr:
 		spr.frame = 1 # Menghadap utara / ke arah danau
 		spr.position.y = -24.0
 	
-	# Kamera lembut mengikuti langkah robot
-	pan_camera_to(Vector2(0, 35), duration * 0.9)
+	# Kamera lembut bergerak mengiringi langkah robot menuju dermaga danau
+	pan_camera_to(Vector2(0, 50), duration * 0.9)
 	
 	player_walk_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	player_walk_tween.tween_property(player, "global_position", target_pos, duration)
@@ -405,6 +405,7 @@ func walk_player_to(target_pos: Vector2, duration: float = 1.8) -> void:
 		if spr:
 			spr.position.y = -24.0
 			spr.frame = 1
+
 
 func snap_player_to(target_pos: Vector2) -> void:
 	if player_walk_tween and player_walk_tween.is_valid():
