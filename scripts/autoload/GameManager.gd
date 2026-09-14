@@ -74,6 +74,7 @@ var food_security: float = 100.0
 var server_integrity: float = 100.0
 var time_left: float = SHIFT_DURATION
 var is_game_active: bool = true
+var prologue_seen: bool = false
 var total_water_used_servers: float = 0.0
 var total_water_used_crops: float = 0.0
 
@@ -121,6 +122,7 @@ func start_new_game_from_menu() -> void:
 	saved_shift = 1
 	food_security = 100.0
 	server_integrity = 100.0
+	prologue_seen = false
 	total_water_used_servers = 0.0
 	total_water_used_crops = 0.0
 	save_game_data()

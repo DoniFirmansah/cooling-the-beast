@@ -83,6 +83,33 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialogue"]
+bg_color = Color(0.04, 0.07, 0.12, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.65, 0.95, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skip_btn"]
+bg_color = Color(0.12, 0.18, 0.28, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.7, 0.9, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud_script")
 
@@ -680,5 +707,112 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
 theme_override_font_sizes/font_size = 11
 text = "▶ Shift 3 (Krisis Air)"
+
+[node name="CinematicOverlay" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopLetterbox" type="ColorRect" parent="CinematicOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 54.0
+grow_horizontal = 2
+color = Color(0.01, 0.02, 0.04, 0.96)
+
+[node name="BottomLetterbox" type="ColorRect" parent="CinematicOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.01, 0.02, 0.04, 0.96)
+
+[node name="BtnSkipCutscene" type="Button" parent="CinematicOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -195.0
+offset_top = 12.0
+offset_right = -25.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 0.9)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_skip_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "LEWATI PROLOG [ESC]"
+
+[node name="DialoguePanel" type="PanelContainer" parent="CinematicOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -175.0
+offset_right = 440.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialogue")
+
+[node name="Margin" type="MarginContainer" parent="CinematicOverlay/DialoguePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 14
+
+[node name="VBox" type="VBoxContainer" parent="CinematicOverlay/DialoguePanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxHeader" type="HBoxContainer" parent="CinematicOverlay/DialoguePanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="SpeakerBadge" type="Label" parent="CinematicOverlay/DialoguePanel/Margin/VBox/HBoxHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "🤖 AQUA-7 // PROTOKOL INTERNAL"
+
+[node name="AdvancePrompt" type="Label" parent="CinematicOverlay/DialoguePanel/Margin/VBox/HBoxHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_font_sizes/font_size = 11
+text = "[SPASI] Lanjut ▸"
+
+[node name="HSeparator" type="HSeparator" parent="CinematicOverlay/DialoguePanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="DialogueText" type="RichTextLabel" parent="CinematicOverlay/DialoguePanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+text = "Teks transmisi..."
+scroll_active = false
 
 

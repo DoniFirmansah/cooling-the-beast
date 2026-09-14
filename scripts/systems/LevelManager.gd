@@ -22,6 +22,23 @@ func _ready() -> void:
 	_setup_audio()
 	GameManager.shift_started.connect(_on_shift_started)
 	_apply_shift_environment(GameManager.current_shift, false)
+	
+	if hud:
+		if hud.has_signal("cutscene_camera_pan"):
+			hud.connect("cutscene_camera_pan", Callable(self, "pan_camera_to"))
+		if hud.has_signal("cutscene_camera_return"):
+			hud.connect("cutscene_camera_return", Callable(self, "return_camera_to_player"))
+		if hud.has_signal("cutscene_ended"):
+			hud.connect("cutscene_ended", Callable(self, "_on_cutscene_ended"))
+	
+	if GameManager.current_shift == 1 and not GameManager.prologue_seen:
+		GameManager.is_game_active = false
+		if hud and hud.has_method("start_prologue_cutscene"):
+			get_tree().create_timer(0.2).timeout.connect(func():
+				hud.call("start_prologue_cutscene")
+			)
+	else:
+		GameManager.is_game_active = true
 
 func _setup_audio() -> void:
 	if bgm_player and bgm_player.stream:
@@ -271,6 +288,39 @@ func _trigger_shift_transition_effects(shift_num: int) -> void:
 			var shake_offset: Vector2 = Vector2(randf_range(-5.0, 5.0), randf_range(-4.0, 4.0))
 			shake_tween.tween_property(cam, "offset", shake_offset, 0.07)
 		shake_tween.tween_property(cam, "offset", Vector2.ZERO, 0.15)
+
+
+# ==============================================================================
+# CINEMATIC CAMERA SYSTEM
+# ==============================================================================
+
+func pan_camera_to(target_pos: Vector2, duration: float = 1.4) -> void:
+	if not player:
+		return
+	var cam: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+	if not cam:
+		return
+	cam.top_level = true
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(cam, "global_position", target_pos, duration)
+
+func return_camera_to_player(duration: float = 1.0) -> void:
+	if not player:
+		return
+	var cam: Camera2D = player.get_node_or_null("Camera2D") as Camera2D
+	if not cam:
+		return
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(cam, "global_position", player.global_position, duration)
+	await tween.finished
+	if is_instance_valid(cam):
+		cam.top_level = false
+		cam.position = Vector2.ZERO
+
+func _on_cutscene_ended() -> void:
+	GameManager.prologue_seen = true
+	GameManager.is_game_active = true
+	return_camera_to_player(0.8)
 
 
 
