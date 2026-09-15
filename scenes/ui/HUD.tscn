@@ -247,7 +247,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
-text = "🖥️ SERVER AI"
+text = "[AI] SERVER TEKNOLOGI"
 
 [node name="ServerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ServerBox/HBox"]
 unique_name_in_owner = true
@@ -278,7 +278,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
-text = "💧 TANGKI AQUA-7"
+text = "[H2O] TANGKI AQUA-7"
 
 [node name="WaterLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/WaterBox/HBox"]
 unique_name_in_owner = true
@@ -314,7 +314,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.88, 0.80, 1)
 theme_override_font_sizes/font_size = 11
-text = "🕒 06:00 (PAGI)"
+text = "WAKTU: 06:00 (PAGI)"
 horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/TimeBox"]
@@ -338,7 +338,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
-text = "💧 SUMBER AIR BERSIH"
+text = "[DANAU] AIR BERSIH"
 
 [node name="ReservoirLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/ReservoirBox/HBox"]
 unique_name_in_owner = true
@@ -370,7 +370,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 11
-text = "🌾 KETAHANAN PANGAN"
+text = "[AGRO] KETAHANAN PANGAN"
 
 [node name="FoodLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainer/FoodBox/HBox"]
 unique_name_in_owner = true
@@ -424,7 +424,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "💧"
+text = "[AIR]"
 vertical_alignment = 1
 
 [node name="VBox" type="VBoxContainer" parent="ObjectiveTracker/Margin/HBox"]
@@ -520,7 +520,7 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "⚡"
+text = "[NAV]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -840,7 +840,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
 theme_override_font_sizes/font_size = 12
-text = "🛠️ DEV CHEAT & DEBUG CONSOLE"
+text = "DEV CHEAT & DEBUG CONSOLE"
 horizontal_alignment = 1
 
 [node name="BtnCheatGodMode" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
@@ -851,7 +851,7 @@ size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
 theme_override_font_sizes/font_size = 12
-text = "🛡️ KEBAL DURABILITAS (GOD MODE): NONAKTIF"
+text = "KEBAL DURABILITAS (GOD MODE): NONAKTIF"
 
 [node name="BtnCheatSpeed" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
 unique_name_in_owner = true
@@ -861,7 +861,7 @@ size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
 theme_override_font_sizes/font_size = 12
-text = "⚡ KECEPATAN WAKTU: 1X (NORMAL)"
+text = "KECEPATAN WAKTU: 1X (NORMAL)"
 
 [node name="BtnCheatFinishShift" type="Button" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
 unique_name_in_owner = true
@@ -871,7 +871,7 @@ size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_cheat_btn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_cheat_btn_hover")
 theme_override_font_sizes/font_size = 12
-text = "⏭️ SELESAIKAN SHIFT SEKARANG (Timer -> 0s)"
+text = "SELESAIKAN SHIFT SEKARANG (Timer -> 0s)"
 
 [node name="ShiftJumpLabel" type="Label" parent="PauseScreen/CenterContainer/PanelContainer/VBoxContainer/DevCheatBox"]
 layout_mode = 2
@@ -1275,7 +1275,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.88, 0.92, 0.96, 1)
 theme_override_font_sizes/font_size = 13
-text = "🤖 AQUA-7 // PROTOKOL INTERNAL"
+text = "AQUA-7 // PROTOKOL INTERNAL"
 
 [node name="AdvancePrompt" type="Label" parent="CinematicOverlay/DialoguePanel/Margin/VBox/HBoxHeader"]
 unique_name_in_owner = true

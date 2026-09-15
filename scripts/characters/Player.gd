@@ -286,7 +286,7 @@ func _on_water_changed(current: float, max_amount: float) -> void:
 		else:
 			water_bar.modulate = Color(0.2, 0.8, 1.0)
 	if water_label:
-		water_label.text = "💧%dL" % int(current)
+		water_label.text = "%dL" % int(current)
 
 func _on_interaction_area_entered(area: Area2D) -> void:
 	var parent_node: Node = area.get_parent()

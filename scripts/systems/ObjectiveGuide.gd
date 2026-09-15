@@ -8,7 +8,7 @@ signal objective_changed(data: Dictionary)
 var current_target: Node2D = null
 var current_title: String = "AMBIL AIR BERSIH"
 var current_subtext: String = "Isi tangki robot di Danau Tengah"
-var current_icon: String = "💧"
+var current_icon: String = "[AIR]"
 var current_color: Color = Color(0.2, 0.9, 1.0)
 var current_distance: float = 0.0
 var is_near_target: bool = false
@@ -77,7 +77,7 @@ func _evaluate_objective() -> void:
 	# Priority 1: Tangki air robot kosong / kritis (< 20L)
 	if GameManager.current_water < 20.0 and GameManager.reservoir_water > 0.0 and water_source != null:
 		current_target = water_source
-		current_icon = "💧"
+		current_icon = "[AIR]"
 		current_title = "AMBIL AIR BERSIH [SPASI]"
 		current_subtext = "Tangki robot hampir habis (%dL)! Ambil air di Danau" % int(GameManager.current_water)
 		current_color = Color(0.15, 0.9, 1.0)
@@ -86,7 +86,7 @@ func _evaluate_objective() -> void:
 	# Priority 2: Server Overheat Kritis (>= 75°C) & punya air
 	elif GameManager.current_water >= 8.0 and hottest_server != null and max_temp >= 75.0:
 		current_target = hottest_server
-		current_icon = "🔥"
+		current_icon = "[PANAS]"
 		current_title = "SERVER OVERHEAT! (%d°C)" % int(max_temp)
 		current_subtext = "Sektor Barat: Dinginkan Server #%d [SPASI]" % hottest_server.rack_id
 		current_color = Color(1.0, 0.25, 0.2)
@@ -95,7 +95,7 @@ func _evaluate_objective() -> void:
 	# Priority 3: Tanaman Sawah Kering Kritis (<= 30%) & punya air
 	elif GameManager.current_water >= 8.0 and driest_crop != null and min_moisture <= 30.0:
 		current_target = driest_crop
-		current_icon = "🥀"
+		current_icon = "[KERING]"
 		current_title = "PETAK KERING! (" + str(int(min_moisture)) + "%)"
 		current_subtext = "Sektor Timur: Siram Petak " + str(driest_crop.plot_id) + " [SPASI]"
 		current_color = Color(1.0, 0.75, 0.15)
@@ -104,7 +104,7 @@ func _evaluate_objective() -> void:
 	# Priority 4: Normal tutorial / perawatan rutin
 	elif GameManager.current_water < 60.0 and GameManager.reservoir_water > 0.0 and water_source != null:
 		current_target = water_source
-		current_icon = "💧"
+		current_icon = "[AIR]"
 		current_title = "CADANGAN AIR: ISI TANGKI"
 		current_subtext = "Isi air di Danau Tengah untuk putaran berikutnya"
 		current_color = Color(0.3, 0.85, 1.0)
@@ -112,14 +112,14 @@ func _evaluate_objective() -> void:
 	else:
 		if hottest_server != null and max_temp >= 52.0:
 			current_target = hottest_server
-			current_icon = "❄️"
+			current_icon = "[SEJUK]"
 			current_title = "DINGINKAN SERVER #%d (%d°C)" % [hottest_server.rack_id, int(max_temp)]
 			current_subtext = "Sektor Barat: Cegah akumulasi panas data center"
 			current_color = Color(0.35, 0.85, 1.0)
 			urgency_level = 1
 		elif driest_crop != null and min_moisture < 85.0:
 			current_target = driest_crop
-			current_icon = "🌱"
+			current_icon = "[SUBUR]"
 			current_title = "SIRAM PETAK " + str(driest_crop.plot_id) + " (" + str(int(min_moisture)) + "%)"
 			current_subtext = "Sektor Timur: Jaga kelembapan pangan warga"
 			current_color = Color(0.35, 0.95, 0.35)
@@ -128,7 +128,7 @@ func _evaluate_objective() -> void:
 
 		else:
 			current_target = hottest_server if hottest_server != null else water_source
-			current_icon = "✨"
+			current_icon = "[STABIL]"
 			current_title = "KONDISI STABIL"
 			current_subtext = "Kedua sektor dalam parameter normal."
 			current_color = Color(0.4, 0.9, 0.7)

@@ -188,7 +188,7 @@ func _update_prompt() -> void:
 		var water_val: int = int(GameManager.reservoir_water)
 		
 		if GameManager.reservoir_water <= 0.0:
-			prompt_label.text = "⚠️ SUMBER AIR KERING TOTAL!\n(0L / 280L | Kedalaman: 0.0m)"
+			prompt_label.text = "(!) SUMBER AIR KERING TOTAL!\n(0L / 280L | Kedalaman: 0.0m)"
 			prompt_label.modulate = Color(1.0, 0.25, 0.25)
 		elif GameManager.current_water >= GameManager.MAX_BACKPACK_WATER:
 			prompt_label.text = "TANGKI PENUH\n(Sumber Air: %dL / 280L | Kedalaman: %.1fm)" % [water_val, current_depth_meters]

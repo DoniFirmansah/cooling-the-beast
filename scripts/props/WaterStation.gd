@@ -34,7 +34,7 @@ func _process(_delta: float) -> void:
 	if prompt_label.visible or is_targeted:
 		prompt_label.visible = true
 		if GameManager.reservoir_water <= 0.0:
-			prompt_label.text = "⚠️ WADUK HABIS! (0L)"
+			prompt_label.text = "(!) WADUK HABIS! (0L)"
 			prompt_label.modulate = Color(1.0, 0.25, 0.25)
 		elif GameManager.current_water >= GameManager.MAX_BACKPACK_WATER:
 			prompt_label.text = "TANGKI PENUH (%dL SISA)" % int(GameManager.reservoir_water)
