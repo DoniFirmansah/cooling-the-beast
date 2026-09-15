@@ -43,7 +43,7 @@ size = Vector2(436, 48)
 size = Vector2(11, 338)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_right_wall"]
-size = Vector2(10, 341)
+size = Vector2(10, 367)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_breaker"]
 size = Vector2(58, 20)
@@ -294,7 +294,7 @@ position = Vector2(-142, -196)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortEntities/RightWallColl"]
-position = Vector2(5, 134.5)
+position = Vector2(5, 121.5)
 shape = SubResource("RectangleShape2D_right_wall")
 
 [node name="Sprite2D" type="Sprite2D" parent="YSortEntities/RightWallColl"]
@@ -403,8 +403,8 @@ z_index = 5
 position = Vector2(-356, -36)
 
 [node name="PipeTopLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(-75, -58)
-scale = Vector2(4.8, 1)
+position = Vector2(-73, -58)
+scale = Vector2(5, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
@@ -416,15 +416,15 @@ region_enabled = true
 region_rect = Rect2(393, 332, 46, 8)
 
 [node name="PipeTopRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(75, -58)
-scale = Vector2(4.8, 1)
+position = Vector2(73, -58)
+scale = Vector2(5, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
 
 [node name="PipeBottomLeft" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(-75, 52)
-scale = Vector2(4.8, 1)
+position = Vector2(-73, 52)
+scale = Vector2(5, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
@@ -436,17 +436,11 @@ region_enabled = true
 region_rect = Rect2(393, 301, 46, 7)
 
 [node name="PipeBottomRight" type="Sprite2D" parent="YSortEntities/OverheadPipes"]
-position = Vector2(75, 52)
-scale = Vector2(4.8, 1)
+position = Vector2(73, 52)
+scale = Vector2(5, 1)
 texture = ExtResource("14_cyberpunk_tex")
 region_enabled = true
 region_rect = Rect2(406, 302, 20, 4)
-
-[node name="WarningLightBar" type="Sprite2D" parent="YSortEntities"]
-position = Vector2(-356, 75)
-texture = ExtResource("14_cyberpunk_tex")
-region_enabled = true
-region_rect = Rect2(519, 238, 80, 8)
 
 [node name="FireExtinguisherLeft" type="Sprite2D" parent="YSortEntities"]
 position = Vector2(-395, 95)
